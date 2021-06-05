@@ -8,9 +8,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "prettier": "prettier --ignore-path .gitignore --write .",
-    "lint": "eslint --ext .ts,.tsx --ignore-path .gitignore",
-    "export": "next build && rm -r out extension.zip && next export && (cd out && zip -r ../extension.zip ./*)"
+    "prettier": "prettier --ignore-path .gitignore --write",
+    "lint": "eslint --ext .ts,.tsx -c .eslintrc --ignore-path .gitignore",
+    "export": "next build && rm -r out extension.zip && next export && (cd out && zip -r ../extension.zip ./*)",
+    "export-js": "npx esbuild src/mounts/panel.tsx  --bundle --outfile=output/panel.js && npx esbuild src/mounts/config.tsx  --bundle --outfile=output/config.js && rm -r extension.zip && (cd output && zip -r ../extension.zip ./*)"
   },
   "husky": {
     "hooks": {
@@ -18,9 +19,9 @@
     }
   },
   "lint-staged": {
-    "*.{json,md,mdx,css}": "yarn prettier",
-    "*.{js,jsx,tsx,ts}": [
-      "eslint --fix",
+    "*.{js,jsx,json,md,mdx,css}": "yarn prettier",
+    "*.{tsx,ts}": [
+      "yarn lint --fix",
       "yarn prettier"
     ]
   },
@@ -39,6 +40,7 @@
     "@types/react": "^17.0.9",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
     "@typescript-eslint/parser": "^4.26.0",
+    "esbuild": "^0.12.6",
     "eslint": "^7.28.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react": "^7.24.0",

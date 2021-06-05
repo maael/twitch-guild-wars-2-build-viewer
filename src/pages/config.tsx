@@ -1,4 +1,4 @@
-import { useContext, useCallback, useEffect, useState, useRef } from 'react'
+import React, { useContext, useCallback, useEffect, useState, useRef } from 'react'
 import { TwitchContext } from '../components/context/Twitch'
 
 export default function Index() {
@@ -55,7 +55,7 @@ export default function Index() {
           <select name="character">
             {characters.length === 0 ? <option disabled>Loading...</option> : null}
             {characters.map((c) => (
-              <option key={c.id} value={c.name} selected={config.broadcaster.character === c.name}>
+              <option key={c.name} value={c.name} selected={config.broadcaster.character === c.name}>
                 {c.name}
               </option>
             ))}

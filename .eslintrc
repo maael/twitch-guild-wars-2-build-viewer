@@ -14,7 +14,7 @@
       "version": "detect"
     }
   },
-  "ignorePatterns": "^!(src)",
+  "ignorePatterns": ["^!(src)", "output/**.js"],
   "rules": {
     // TypeScript
     "@typescript-eslint/explicit-module-boundary-types": "off",

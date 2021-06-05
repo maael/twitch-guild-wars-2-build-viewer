@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import ReactTooltip from 'react-tooltip'
 import { TwitchContext } from '../components/context/Twitch'
 

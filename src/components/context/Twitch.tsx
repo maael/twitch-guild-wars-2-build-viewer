@@ -1,4 +1,4 @@
-import { useEffect, useState, createContext } from 'react'
+import React, { useEffect, useState, createContext } from 'react'
 
 interface TwitchAuth {
   channelId: string
