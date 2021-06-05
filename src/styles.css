@@ -3,6 +3,7 @@
   --breakpoint-tablet: 768px;
   --breakpont-desktop: 992px;
   --desktop-only-display: none;
+  --color-background: #ffffff;
 }
 
 @media screen and (min-width: 576px) {
@@ -19,6 +20,11 @@
     --mobile-only-display: none;
     --desktop-only-display: block;
   }
+}
+
+body.dark {
+  --color-background: #18181b;
+  --color-text: #ffffff;
 }
 
 body {
