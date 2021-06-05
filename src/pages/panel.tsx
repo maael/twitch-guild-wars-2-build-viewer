@@ -30,73 +30,38 @@ export default function Index() {
   const gamemode = config.broadcaster.gamemode || 'pve'
   const getData = useCallback(
     async (apiKey) => {
-      if (!apiKey) return
-      const res = await fetch(
-        `https://api.guildwars2.com/v2/characters?access_token=${encodeURIComponent(apiKey)}&ids=all`
-      )
-      if (res.ok) {
-        const data = await res.json()
-        const characterData = data.filter((d) => d.name === config.broadcaster.character).pop()
-        const skins = characterData.equipment.map(({ skin }) => skin).filter(Boolean)
-        setCharacter(characterData)
-        const [equipmentData, skinData, skillData, traitData, specializationData, amuletData] = await Promise.all([
-          fetch(
-            `https://api.guildwars2.com/v2/items?access_token=${encodeURIComponent(apiKey)}&ids=${[
-              characterData.equipment_pvp.rune,
-            ].concat(characterData.equipment.map(({ id }) => id))}`
-          )
-            .then((r) => r.json())
-            .then((d) => new Map(d.map((i) => [i.id, i]))),
-          skins.length === 0
-            ? new Map()
-            : fetch(`https://api.guildwars2.com/v2/skins?access_token=${encodeURIComponent(apiKey)}&ids=${skins}`)
-                .then((r) => r.json())
-                .then((d) => new Map(d.map((i) => [i.id, i]))),
-          fetch(
-            `https://api.guildwars2.com/v2/skills?access_token=${encodeURIComponent(apiKey)}&ids=${Object.values(
-              characterData.skills
-            )
-              .flatMap(({ heal, elite, utilities }) => [heal, elite, utilities])
-              .filter(Boolean)}`
-          )
-            .then((r) => r.json())
-            .then((d) => new Map(d.map((i) => [i.id, i]))),
-          fetch(
-            `https://api.guildwars2.com/v2/traits?access_token=${encodeURIComponent(apiKey)}&ids=${Object.values(
-              characterData.specializations
-            ).flatMap((t: any) => t.flatMap(({ traits }) => traits))}`
-          )
-            .then((r) => r.json())
-            .then((d) => new Map(d.map((i) => [i.id, i]))),
-          fetch(
-            `https://api.guildwars2.com/v2/specializations?access_token=${encodeURIComponent(
-              apiKey
-            )}&ids=${Object.values(characterData.specializations).flatMap((t: any) => t.flatMap(({ id }) => id))}`
-          )
-            .then((r) => r.json())
-            .then((d) => new Map(d.map((i) => [i.id, i]))),
-          characterData.equipment_pvp.amulet === null
-            ? undefined
-            : fetch(
-                `https://api.guildwars2.com/v2/pvp/amulets?access_token=${encodeURIComponent(apiKey)}&id=${
-                  characterData.equipment_pvp.amulet
-                }`
-              ).then((r) => r.json()),
-        ])
-        const embellishedEquipment = new Map<string, any>(
-          characterData.equipment.map((e) => [
-            e.slot,
-            { ...e, item: equipmentData.get(e.id), skin: skinData.get(e.skin) },
-          ])
+      try {
+        if (!apiKey) return
+        const res = await fetch(
+          `https://cachedproxy.xyz/api/gw2-build/${encodeURIComponent(apiKey)}/${config.broadcaster.character}`
         )
-        embellishedEquipment.set('PvP_Amulet', { item: amuletData })
-        embellishedEquipment.set('PvP_Rune', { item: equipmentData.get(characterData.equipment_pvp.rune) })
-        setEquipment(embellishedEquipment)
-        setSkills(skillData as any)
-        setTraits(traitData as any)
-        setSpecializations(specializationData as any)
-      } else {
-        console.error('Not okay', res.status, res.ok, (await res.text()) || 'Empty')
+        if (res.ok) {
+          const data = await res.json()
+          const characterData = data.characterData
+          const equipmentData = new Map(data.equipmentData)
+          const skinData = new Map(data.skinData)
+          const skillData = new Map(data.skillData)
+          const traitData = new Map(data.traitData)
+          const specializationData = new Map(data.specializationData)
+          const amuletData = data.amuletData
+          setCharacter(characterData)
+          const embellishedEquipment = new Map<string, any>(
+            characterData.equipment.map((e) => [
+              e.slot,
+              { ...e, item: equipmentData.get(e.id), skin: skinData.get(e.skin) },
+            ])
+          )
+          embellishedEquipment.set('PvP_Amulet', { item: amuletData })
+          embellishedEquipment.set('PvP_Rune', { item: equipmentData.get(characterData.equipment_pvp.rune) })
+          setEquipment(embellishedEquipment)
+          setSkills(skillData as any)
+          setTraits(traitData as any)
+          setSpecializations(specializationData as any)
+        } else {
+          console.error('Not okay', res.status, res.ok, (await res.text()) || 'Empty')
+        }
+      } catch (e) {
+        console.error('Not okay', e)
       }
     },
     [config.broadcaster.character]
