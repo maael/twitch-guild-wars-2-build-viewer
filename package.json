@@ -11,7 +11,7 @@
     "prettier": "prettier --ignore-path .gitignore --write",
     "lint": "eslint --ext .ts,.tsx -c .eslintrc --ignore-path .gitignore",
     "export": "next build && rm -r out extension.zip && next export && (cd out && zip -r ../extension.zip ./*)",
-    "export-js": "npx esbuild src/mounts/panel.tsx  --bundle --outfile=output/panel.js && npx esbuild src/mounts/config.tsx  --bundle --outfile=output/config.js && rm -r extension.zip && (cd output && zip -r ../extension.zip ./*)"
+    "export-js": "npx esbuild src/mounts/panel.tsx  --bundle --outfile=output/panel.js && npx esbuild src/mounts/config.tsx  --bundle --outfile=output/config.js && rm -rf extension.zip && (cd output && zip -r ../extension.zip ./*)"
   },
   "husky": {
     "hooks": {
