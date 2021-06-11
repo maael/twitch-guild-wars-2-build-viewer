@@ -1,13 +1,14 @@
 <html>
   <head>
+    <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
     <title>Config</title>
     <style>
-              :root {
+        :root {
           --breakpoint-mobile: 576px;
           --breakpoint-tablet: 768px;
           --breakpont-desktop: 992px;
           --desktop-only-display: none;
-          --color-background: #ffffff;
+          --color-background: transparent;
         }
 
         @media screen and (min-width: 576px) {
@@ -24,6 +25,11 @@
             --mobile-only-display: none;
             --desktop-only-display: block;
           }
+        }
+
+        body.light {
+          --color-background: #ffffff;
+          --color-text: #000000;
         }
 
         body.dark {
@@ -128,6 +134,5 @@
   <body>
     <div id="app">Config</div>
     <script src="./config.js"></script>
-    <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
   </body>
 </html>
