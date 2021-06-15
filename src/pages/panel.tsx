@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import ReactTooltip from 'react-tooltip'
+import { Tooltip as Tippy } from 'react-tippy'
 import { TwitchContext } from '../components/context/Twitch'
 
 const modifierMap = {
@@ -21,7 +21,7 @@ const rarityColourMap = {
 }
 
 export default function Index() {
-  const { config, ctx } = useContext(TwitchContext)
+  const { config } = useContext(TwitchContext)
   const [character, setCharacter] = useState<any>()
   const [equipment, setEquipment] = useState<Map<string, any>>(new Map())
   const [skills, setSkills] = useState<Map<number, any>>(new Map())
@@ -70,9 +70,6 @@ export default function Index() {
     getData(config.broadcaster.apiKey)
   }, [config.broadcaster.apiKey, getData])
   const eliteSpec = [...specializations.values()].find(({ elite }) => elite)
-  useEffect(() => {
-    ReactTooltip.rebuild()
-  }, [equipment, skills, traits])
   return (
     <div style={{ padding: 5, marginTop: -6 }}>
       {character ? (
@@ -84,12 +81,12 @@ export default function Index() {
           <div style={{ display: 'flex', flexDirection: 'row', gap: 15, justifyContent: 'center' }}>
             {gamemode === 'pvp' ? null : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 5, alignItems: 'center' }}>
-                <Item equipment={equipment} slot="Helm" />
-                <Item equipment={equipment} slot="Shoulders" />
-                <Item equipment={equipment} slot="Coat" />
-                <Item equipment={equipment} slot="Gloves" />
-                <Item equipment={equipment} slot="Leggings" />
-                <Item equipment={equipment} slot="Boots" />
+                <Item2 equipment={equipment} slot="Helm" />
+                <Item2 equipment={equipment} slot="Shoulders" />
+                <Item2 equipment={equipment} slot="Coat" />
+                <Item2 equipment={equipment} slot="Gloves" />
+                <Item2 equipment={equipment} slot="Leggings" />
+                <Item2 equipment={equipment} slot="Boots" />
               </div>
             )}
             <div
@@ -103,27 +100,27 @@ export default function Index() {
               {gamemode === 'pvp' ? null : (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 5, alignItems: 'center' }}>
                   <div style={{ display: 'flex', flexDirection: 'row', gap: 5 }}>
-                    <Item equipment={equipment} slot="Backpack" />
-                    <Item equipment={equipment} slot="Accessory1" />
-                    <Item equipment={equipment} slot="Accessory2" />
+                    <Item2 equipment={equipment} slot="Backpack" />
+                    <Item2 equipment={equipment} slot="Accessory1" />
+                    <Item2 equipment={equipment} slot="Accessory2" />
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'row', gap: 5 }}>
-                    <Item equipment={equipment} slot="Ring1" />
-                    <Item equipment={equipment} slot="Ring2" />
-                    <Item equipment={equipment} slot="Amulet" />
+                    <Item2 equipment={equipment} slot="Ring1" />
+                    <Item2 equipment={equipment} slot="Ring2" />
+                    <Item2 equipment={equipment} slot="Amulet" />
                   </div>
                 </div>
               )}
               {gamemode === 'pvp' ? (
                 <div style={{ display: 'flex', flexDirection: 'row', gap: 5 }}>
-                  <Item equipment={equipment} slot="PvP_Amulet" />
-                  <Item equipment={equipment} slot="PvP_Rune" />
+                  <Item2 equipment={equipment} slot="PvP_Amulet" />
+                  <Item2 equipment={equipment} slot="PvP_Rune" />
                 </div>
               ) : null}
               <div style={{ display: 'flex', flexDirection: 'row', gap: 5 }}>
-                <Item equipment={equipment} slot="WeaponA1" />
-                <Item equipment={equipment} slot="WeaponA2" />
-                <Item equipment={equipment} slot="WeaponB1" />
+                <Item2 equipment={equipment} slot="WeaponA1" />
+                <Item2 equipment={equipment} slot="WeaponA2" />
+                <Item2 equipment={equipment} slot="WeaponB1" />
               </div>
             </div>
           </div>
@@ -152,99 +149,12 @@ export default function Index() {
       ) : (
         <div>{config.broadcaster.apiKey ? 'Loading' : 'Not configured'}</div>
       )}
-      {typeof window === 'object' ? (
-        <>
-          <ReactTooltip
-            id="skill"
-            effect="solid"
-            border={true}
-            type={ctx.theme}
-            getContent={(id) => {
-              const item = skills.get(Number(id))
-              return item ? (
-                <div style={{ maxWidth: 200 }}>
-                  <div style={{ fontWeight: 'bold', marginBottom: '0.5em' }}>{item.name}</div>
-                  <div style={{ maxWidth: 200 }}>{tidyDescriptions(item.description)}</div>
-                </div>
-              ) : null
-            }}
-          />
-          <ReactTooltip
-            id="item"
-            effect="solid"
-            border={true}
-            type={ctx.theme}
-            getContent={(slot) => {
-              const item = equipment.get(slot)
-              return item ? (
-                <div style={{ maxWidth: 200 }}>
-                  <div
-                    style={{
-                      fontWeight: 'bold',
-                      marginBottom: '0.5em',
-                      color: rarityColourMap[item.item?.rarity] || rarityColourMap.Basic,
-                      textShadow: ['Legendary', 'Basic', undefined].includes(item.item?.rarity)
-                        ? '0px 0px 10px #ffffff'
-                        : undefined,
-                    }}
-                  >
-                    {item.item?.name}
-                  </div>
-                  <div>
-                    {Object.entries(item.stats?.attributes || {}).map(([k, v]) => (
-                      <div key={k}>
-                        {v} {modifierMap[k] || k}
-                      </div>
-                    ))}
-                    {Object.entries(item.item?.attributes || {}).map(([k, v]) => (
-                      <div key={k}>
-                        {v} {modifierMap[k] || k}
-                      </div>
-                    ))}
-                    {(item.item?.details?.infix_upgrade?.attributes || []).map((i) => (
-                      <div key={i.attribute}>
-                        {i.modifier} {modifierMap[i.attribute] || i.attribute}
-                      </div>
-                    ))}
-                    {(item.item?.details?.bonuses || []).map((i, j) => (
-                      <div key={j}>{i}</div>
-                    ))}
-                  </div>
-                </div>
-              ) : null
-            }}
-          />
-          <ReactTooltip
-            id="trait"
-            effect="solid"
-            border={true}
-            type={ctx.theme}
-            getContent={(id) => {
-              const item = traits.get(Number(id))
-              return item ? (
-                <div style={{ maxWidth: 200 }}>
-                  <div style={{ fontWeight: 'bold', marginBottom: '0.5em' }}>{item.name}</div>
-                  {item.description ? (
-                    <div>{tidyDescriptions(item.description)}</div>
-                  ) : (
-                    <div>
-                      {item.facts.map((f, i) => (
-                        <div key={i}>{f.description || f.text}</div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ) : null
-            }}
-          />
-        </>
-      ) : null}
     </div>
   )
 }
 
 function tidyDescriptions(d: string) {
-  return (d || '').replace(/<c.+?>(.+?)<\/c>/g, (_, content) => content).replace(/<br\\>/g, '\n')
+  return (d || '').replace(/<c.+?>(.+?)<\/c>/g, (_, content) => content).replace(/<br\\?>/g, '\n')
 }
 
 const Title: React.FC = ({ children }) => {
@@ -254,8 +164,7 @@ const Title: React.FC = ({ children }) => {
         fontSize: '1rem',
         lineHeight: '1rem',
         textAlign: 'center',
-        borderBottom: '1px solid var(--color-text)',
-        marginTop: 8,
+        marginTop: 10,
         marginBottom: 8,
       }}
     >
@@ -264,29 +173,115 @@ const Title: React.FC = ({ children }) => {
   )
 }
 
-function Item({ equipment, slot }: { equipment?: any; slot: string }) {
+function Item2({ equipment, slot }: { equipment?: any; slot: string }) {
+  const { ctx } = useContext(TwitchContext)
   const item = equipment.get(slot)
-  return item ? (
-    <a data-for="item" data-tip={slot}>
+  if (!item) return null
+  const TipHtml = (
+    <div>
+      <div
+        style={{
+          fontWeight: 'bold',
+          marginBottom: '0.5em',
+          color: rarityColourMap[item.item?.rarity] || rarityColourMap.Basic,
+          textShadow: ['Legendary', 'Basic', undefined].includes(item.item?.rarity)
+            ? '0px 0px 10px #ffffff'
+            : undefined,
+        }}
+      >
+        {item.item?.name}
+      </div>
+      <div>
+        {Object.entries(item.stats?.attributes || {}).map(([k, v]) => (
+          <div key={k}>
+            {v} {modifierMap[k] || k}
+          </div>
+        ))}
+        {Object.entries(item.item?.attributes || {}).map(([k, v]) => (
+          <div key={k}>
+            {v} {modifierMap[k] || k}
+          </div>
+        ))}
+        {(item.item?.details?.infix_upgrade?.attributes || []).map((i) => (
+          <div key={i.attribute}>
+            {i.modifier} {modifierMap[i.attribute] || i.attribute}
+          </div>
+        ))}
+        {(item.item?.details?.bonuses || []).map((i, j) => (
+          <div key={j}>{i}</div>
+        ))}
+      </div>
+    </div>
+  )
+  return (
+    <Tippy
+      animateFill={false}
+      arrow={true}
+      duration={150}
+      animation="fade"
+      html={TipHtml}
+      style={{ cursor: 'pointer' }}
+      theme={ctx.theme}
+    >
       <img src={item?.item.icon} height={35} width={40} />
-    </a>
-  ) : null
+    </Tippy>
+  )
 }
 
 function Skill({ skills, id }: { skills?: any; id?: number }) {
+  const { ctx } = useContext(TwitchContext)
   const item = skills.get(id)
-  return item ? (
-    <a data-for="skill" data-tip={id}>
+  if (!item) return null
+  const TipHtml = (
+    <div>
+      <div style={{ fontWeight: 'bold', marginBottom: '0.5em' }}>{item.name}</div>
+      <div style={{ maxWidth: 200 }}>{tidyDescriptions(item.description)}</div>
+    </div>
+  )
+  return (
+    <Tippy
+      animateFill={false}
+      arrow={true}
+      duration={150}
+      animation="fade"
+      html={TipHtml}
+      style={{ cursor: 'pointer' }}
+      theme={ctx.theme}
+    >
       <img src={item?.icon} height={40} width={40} />
-    </a>
-  ) : null
+    </Tippy>
+  )
 }
 
 function Trait({ traits, id }: { traits?: any; id?: number }) {
+  const { ctx } = useContext(TwitchContext)
   const item = traits.get(id)
-  return item ? (
-    <a data-for="trait" data-tip={id}>
+  if (!item) return null
+  const TipHtml = (
+    <div>
+      <div style={{ fontWeight: 'bold', marginBottom: '0.5em' }}>{item.name}</div>
+      {item.description ? (
+        <div>{tidyDescriptions(item.description)}</div>
+      ) : (
+        <div>
+          {item.facts.map((f, i) => (
+            <div key={i}>{f.description || f.text}</div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+  return (
+    <Tippy
+      animateFill={false}
+      arrow={true}
+      duration={150}
+      animation="fade"
+      html={TipHtml}
+      style={{ cursor: 'pointer' }}
+      theme={ctx.theme}
+    >
       <img src={item?.icon} height={30} width={30} />
-    </a>
-  ) : null
+    </Tippy>
+  )
 }

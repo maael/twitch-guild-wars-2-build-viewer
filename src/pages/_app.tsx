@@ -4,6 +4,7 @@ import useFathom from '../components/hooks/useFathom'
 import SEO from '../../next-seo.config'
 import EmojiFavicon from '../components/primitives/EmojiFavicon'
 import TwitchContext from '../components/context/Twitch'
+import 'react-tippy/dist/tippy.css'
 
 function App({ Component, pageProps }) {
   useFathom()

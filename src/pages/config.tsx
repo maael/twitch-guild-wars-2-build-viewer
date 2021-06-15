@@ -48,7 +48,7 @@ export default function Index() {
             >
               here
             </a>
-            , with the "characters" permission.
+            , with the "account", "characters", "unlocks", and "builds" permissions.
           </small>
         </div>
         <div style={{ flexDirection: 'column', display: 'flex', gap: 2 }}>
