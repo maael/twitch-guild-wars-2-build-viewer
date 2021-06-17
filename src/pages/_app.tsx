@@ -21,6 +21,18 @@ function App({ Component, pageProps }) {
           --breakpont-desktop: 992px;
           --desktop-only-display: none;
           --color-background: #ffffff;
+          --color-tooltip-ability: #f59e0b;
+          --color-tooltip-title: #d97706;
+
+          --color-guardian: #72c1d9;
+          --color-revenant: #d16e5a;
+          --color-warrior: #ffd166;
+          --color-engineer: #d09c59;
+          --color-ranger: #8cdc82;
+          --color-thief: #c08f95;
+          --color-elementalist: #f68a87;
+          --color-mesmer: #b679d5;
+          --color-necromancer: #52a76f;
         }
 
         @media screen and (min-width: 576px) {
@@ -42,13 +54,15 @@ function App({ Component, pageProps }) {
         body.dark {
           --color-background: #18181b;
           --color-text: #ffffff;
+          --color-tooltip-ability: #e7e2b6;
+          --color-tooltip-title: #f6ecb8;
         }
 
         body {
           background-color: var(--color-background);
           color: var(--color-text);
-          transition: background-color 0.3s ease, color 0.3s ease;
           font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+          overflow: hidden;
         }
 
         /* Sane Reset Below */
@@ -135,6 +149,15 @@ function App({ Component, pageProps }) {
             transition-duration: 0.01ms !important;
             scroll-behavior: auto !important;
           }
+        }
+
+        .description-abilitytype {
+          color: var(--color-tooltip-ability);
+        }
+
+        .description-reminder {
+          opacity: 0.8;
+          font-size: 0.8rem;
         }
       `}</style>
       <DefaultSeo {...SEO} />

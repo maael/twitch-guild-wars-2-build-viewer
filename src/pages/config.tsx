@@ -1,22 +1,55 @@
-import React, { useContext, useCallback, useEffect, useState, useRef } from 'react'
+import React, { useContext, useCallback, useEffect, useState, useRef, useMemo } from 'react'
 import { TwitchContext } from '../components/context/Twitch'
+import useLocalstorage from '../components/hooks/useLocalstorage'
 
 export default function Index() {
   const { twitch, config } = useContext(TwitchContext)
-  const [characters, setCharacters] = useState<any>([])
-  const getData = useCallback(async (apiKey) => {
-    if (!apiKey) return
-    const res = await fetch(
-      `https://api.guildwars2.com/v2/characters?access_token=${encodeURIComponent(apiKey)}&ids=all`
-    )
-    if (res.ok) {
-      const data = await res.json()
-      setCharacters(data)
-    }
-  }, [])
+  const [apiKey, setApiKey] = useState(() => config.broadcaster.apiKey || '')
+  const [character, setCharacter] = useState(() => config.broadcaster.character || '')
+  const [gamemode, setGamemode] = useState(() => config.broadcaster.gamemode || 'pve')
+  const [charactersByKey, setCharactersByKey] = useLocalstorage<{ [k: string]: any[] }>(
+    'twitch-gw2-build-characters-v1',
+    {}
+  )
+  const characters = useMemo(() => (charactersByKey || {})[apiKey] || [], [apiKey, charactersByKey])
   useEffect(() => {
-    getData(config.broadcaster.apiKey)
-  }, [config.broadcaster.apiKey, getData])
+    if (!apiKey) setApiKey(config.broadcaster.apiKey || apiKey)
+  }, [apiKey, config.broadcaster.apiKey])
+  useEffect(() => {
+    if (!character) setCharacter(config.broadcaster.character || character)
+  }, [character, config.broadcaster.character])
+  useEffect(() => {
+    setGamemode(config.broadcaster.gamemode || gamemode)
+  }, [gamemode, config.broadcaster.gamemode])
+  const getData = useCallback(
+    async (apiKey) => {
+      if (!apiKey) return
+      const res = await fetch(
+        `https://api.guildwars2.com/v2/characters?access_token=${encodeURIComponent(apiKey)}&ids=all`
+      )
+      if (res.ok) {
+        const data = await res.json()
+        setCharactersByKey((c) => ({ ...c, [apiKey]: data }))
+      }
+    },
+    [setCharactersByKey]
+  )
+  useEffect(() => {
+    getData(apiKey)
+  }, [apiKey, getData])
+  const save = useCallback(
+    (e) => {
+      e.preventDefault()
+      const newConfig = {
+        ...config.broadcaster,
+        apiKey: (apiKey || '').trim(),
+        character: (character || characters[0]?.name || '').trim(),
+        gamemode: (gamemode || 'pve').trim().toLowerCase(),
+      }
+      twitch.configuration.set('broadcaster', '1.0', JSON.stringify(newConfig))
+    },
+    [apiKey, character, gamemode, config.broadcaster, twitch, characters]
+  )
   const formRef = useRef<HTMLFormElement>(null)
   return (
     <div>
@@ -24,22 +57,9 @@ export default function Index() {
       <small style={{ position: 'relative', top: -5 }}>
         After making changes here, make sure to save, and then you will need to refresh to see them.
       </small>
-      <form
-        ref={formRef}
-        onSubmit={(e) => {
-          e.preventDefault()
-          const newConfig = {
-            ...config.broadcaster,
-            apiKey: (e as any).target.elements.apiKey.value.trim(),
-            character: (e as any).target.elements.character.value.trim(),
-            gamemode: (e as any).target.elements.gamemode.value.trim().toLowerCase(),
-          }
-          twitch.configuration.set('broadcaster', '1.0', JSON.stringify(newConfig))
-        }}
-        style={{ flexDirection: 'column', display: 'flex', gap: 10 }}
-      >
+      <form ref={formRef} onSubmit={save} style={{ flexDirection: 'column', display: 'flex', gap: 10 }}>
         <div style={{ flexDirection: 'column', display: 'flex', gap: 2 }}>
-          <input name="apiKey" placeholder="API key..." defaultValue={config.broadcaster.apiKey} />
+          <input name="apiKey" placeholder="API key..." value={apiKey} onChange={(e) => setApiKey(e.target.value)} />
           <small>
             You can get an API key from{' '}
             <a
@@ -52,10 +72,10 @@ export default function Index() {
           </small>
         </div>
         <div style={{ flexDirection: 'column', display: 'flex', gap: 2 }}>
-          <select name="character">
+          <select name="character" value={character} onChange={(e) => setCharacter(e.target.value)}>
             {characters.length === 0 ? <option disabled>Loading...</option> : null}
             {characters.map((c) => (
-              <option key={c.name} value={c.name} selected={config.broadcaster.character === c.name}>
+              <option key={c.name} value={c.name}>
                 {c.name}
               </option>
             ))}
@@ -66,16 +86,10 @@ export default function Index() {
           </small>
         </div>
         <div style={{ flexDirection: 'column', display: 'flex', gap: 2 }}>
-          <select name="gamemode">
-            <option value="pve" selected={config.broadcaster.gamemode === 'pve'}>
-              PvE
-            </option>
-            <option value="pvp" selected={config.broadcaster.gamemode === 'pvp'}>
-              PvP
-            </option>
-            <option value="wvw" selected={config.broadcaster.gamemode === 'wvw'}>
-              WvW
-            </option>
+          <select name="gamemode" value={gamemode} onChange={(e) => setGamemode(e.target.value)}>
+            <option value="pve">PvE</option>
+            <option value="pvp">PvP</option>
+            <option value="wvw">WvW</option>
           </select>
           <small>This is the gamemode you want to show information for.</small>
         </div>
