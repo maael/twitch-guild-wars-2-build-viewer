@@ -14,3 +14,23 @@ Go to the extension version `Asset Hosting` tab, then:
 ### Configuration capabilities
 
 Go to the extension version `Capabilities` tab, scroll to the bottom, and tick `Extension Configuration Service`, and hit `Save Changes`.
+
+## Twitch Releases
+
+### Walkthrough Guide
+
+```Change log:
+- Changes
+
+Walkthrough Guide:
+
+For Viewer:
+1. Go to page with panel extension configured
+2. See loading message and then character information
+
+For broadcaster:
+1. Set up extension configuration, making sure to use an API key created with the required permissions, described on the config page. For testing the API key <KEY> can be used
+2. Save configuration
+3. Refresh page
+4. View extension panel, see loading message and then character information
+```
