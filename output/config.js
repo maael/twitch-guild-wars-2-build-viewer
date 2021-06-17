@@ -1229,7 +1229,7 @@
             }
             return dispatcher.useContext(Context, unstable_observedBits)
           }
-          function useState3(initialState) {
+          function useState4(initialState) {
             var dispatcher = resolveDispatcher()
             return dispatcher.useState(initialState)
           }
@@ -1237,7 +1237,7 @@
             var dispatcher = resolveDispatcher()
             return dispatcher.useReducer(reducer, initialArg, init)
           }
-          function useRef2(initialValue) {
+          function useRef3(initialValue) {
             var dispatcher = resolveDispatcher()
             return dispatcher.useRef(initialValue)
           }
@@ -1245,15 +1245,15 @@
             var dispatcher = resolveDispatcher()
             return dispatcher.useEffect(create, deps)
           }
-          function useLayoutEffect(create, deps) {
+          function useLayoutEffect2(create, deps) {
             var dispatcher = resolveDispatcher()
             return dispatcher.useLayoutEffect(create, deps)
           }
-          function useCallback2(callback, deps) {
+          function useCallback3(callback, deps) {
             var dispatcher = resolveDispatcher()
             return dispatcher.useCallback(callback, deps)
           }
-          function useMemo(create, deps) {
+          function useMemo2(create, deps) {
             var dispatcher = resolveDispatcher()
             return dispatcher.useMemo(create, deps)
           }
@@ -1857,16 +1857,16 @@
           exports.isValidElement = isValidElement
           exports.lazy = lazy
           exports.memo = memo
-          exports.useCallback = useCallback2
+          exports.useCallback = useCallback3
           exports.useContext = useContext2
           exports.useDebugValue = useDebugValue
           exports.useEffect = useEffect3
           exports.useImperativeHandle = useImperativeHandle
-          exports.useLayoutEffect = useLayoutEffect
-          exports.useMemo = useMemo
+          exports.useLayoutEffect = useLayoutEffect2
+          exports.useMemo = useMemo2
           exports.useReducer = useReducer
-          exports.useRef = useRef2
-          exports.useState = useState3
+          exports.useRef = useRef3
+          exports.useState = useState4
           exports.version = ReactVersion
         })()
       }
@@ -9374,9 +9374,9 @@
               ? rootContainerElement
               : rootContainerElement.ownerDocument
           }
-          function noop() {}
+          function noop2() {}
           function trapClickOnNonInteractiveElement(node) {
-            node.onclick = noop
+            node.onclick = noop2
           }
           function setInitialDOMProperties(tag, domElement, rootContainerElement, nextProps, isCustomComponentTag) {
             for (var propKey in nextProps) {
@@ -22662,11 +22662,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
   })
 
   // src/mounts/config.tsx
-  var import_react3 = __toModule(require_react())
+  var import_react4 = __toModule(require_react())
   var import_react_dom = __toModule(require_react_dom())
 
   // src/pages/config.tsx
-  var import_react2 = __toModule(require_react())
+  var import_react3 = __toModule(require_react())
 
   // src/components/context/Twitch.tsx
   var import_react = __toModule(require_react())
@@ -22713,70 +22713,149 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
   }
   var Twitch_default = TwitchContextWrapper
 
+  // src/components/hooks/useLocalstorage.ts
+  var import_react2 = __toModule(require_react())
+  var noop = () => void 0
+  var isBrowser = typeof window !== 'undefined'
+  var useLocalStorage = (key, initialValue, options) => {
+    if (!isBrowser) {
+      return [initialValue, noop, noop]
+    }
+    if (!key) {
+      throw new Error('useLocalStorage key may not be falsy')
+    }
+    const deserializer = options ? (options.raw ? (value) => value : options.deserializer) : JSON.parse
+    const initializer = (0, import_react2.useRef)((key2) => {
+      try {
+        const serializer = options ? (options.raw ? String : options.serializer) : JSON.stringify
+        const localStorageValue = localStorage.getItem(key2)
+        if (localStorageValue !== null) {
+          return deserializer(localStorageValue)
+        } else {
+          initialValue && localStorage.setItem(key2, serializer(initialValue))
+          return initialValue
+        }
+      } catch (e) {
+        return initialValue
+      }
+    })
+    const [state, setState] = (0, import_react2.useState)(() => initializer.current(key))
+    ;(0, import_react2.useLayoutEffect)(() => setState(initializer.current(key)), [key])
+    const set = (0, import_react2.useCallback)(
+      (valOrFunc) => {
+        try {
+          const newState = typeof valOrFunc === 'function' ? valOrFunc(state) : valOrFunc
+          if (typeof newState === 'undefined') return
+          let value
+          if (options)
+            if (options.raw)
+              if (typeof newState === 'string') value = newState
+              else value = JSON.stringify(newState)
+            else if (options.serializer) value = options.serializer(newState)
+            else value = JSON.stringify(newState)
+          else value = JSON.stringify(newState)
+          localStorage.setItem(key, value)
+          setState(deserializer(value))
+        } catch (e) {}
+      },
+      [key, setState]
+    )
+    const remove = (0, import_react2.useCallback)(() => {
+      try {
+        localStorage.removeItem(key)
+        setState(void 0)
+      } catch (e) {}
+    }, [key, setState])
+    return [state, set, remove]
+  }
+  var useLocalstorage_default = useLocalStorage
+
   // src/pages/config.tsx
   function Index() {
-    const { twitch, config } = (0, import_react2.useContext)(TwitchContext)
-    const [characters, setCharacters] = (0, import_react2.useState)([])
-    const getData = (0, import_react2.useCallback)(
-      (apiKey) =>
+    const { twitch, config } = (0, import_react3.useContext)(TwitchContext)
+    const [apiKey, setApiKey] = (0, import_react3.useState)(() => config.broadcaster.apiKey || '')
+    const [character, setCharacter] = (0, import_react3.useState)(() => config.broadcaster.character || '')
+    const [gamemode, setGamemode] = (0, import_react3.useState)(() => config.broadcaster.gamemode || 'pve')
+    const [charactersByKey, setCharactersByKey] = useLocalstorage_default('twitch-gw2-build-characters-v1', {})
+    const characters = (0, import_react3.useMemo)(
+      () => (charactersByKey || {})[apiKey] || [],
+      [apiKey, charactersByKey]
+    )
+    ;(0, import_react3.useEffect)(() => {
+      if (!apiKey) setApiKey(config.broadcaster.apiKey || apiKey)
+    }, [apiKey, config.broadcaster.apiKey])
+    ;(0, import_react3.useEffect)(() => {
+      if (!character) setCharacter(config.broadcaster.character || character)
+    }, [character, config.broadcaster.character])
+    ;(0, import_react3.useEffect)(() => {
+      setGamemode(config.broadcaster.gamemode || gamemode)
+    }, [gamemode, config.broadcaster.gamemode])
+    const getData = (0, import_react3.useCallback)(
+      (apiKey2) =>
         __async(this, null, function* () {
-          if (!apiKey) return
+          if (!apiKey2) return
           const res = yield fetch(
-            `https://api.guildwars2.com/v2/characters?access_token=${encodeURIComponent(apiKey)}&ids=all`
+            `https://api.guildwars2.com/v2/characters?access_token=${encodeURIComponent(apiKey2)}&ids=all`
           )
           if (res.ok) {
             const data = yield res.json()
-            setCharacters(data)
+            setCharactersByKey((c) => __spreadProps(__spreadValues({}, c), { [apiKey2]: data }))
           }
         }),
-      []
+      [setCharactersByKey]
     )
-    ;(0, import_react2.useEffect)(() => {
-      getData(config.broadcaster.apiKey)
-    }, [config.broadcaster.apiKey, getData])
-    const formRef = (0, import_react2.useRef)(null)
-    return /* @__PURE__ */ import_react2.default.createElement(
+    ;(0, import_react3.useEffect)(() => {
+      getData(apiKey)
+    }, [apiKey, getData])
+    const save = (0, import_react3.useCallback)(
+      (e) => {
+        var _a
+        e.preventDefault()
+        const newConfig = __spreadProps(__spreadValues({}, config.broadcaster), {
+          apiKey: (apiKey || '').trim(),
+          character: (character || ((_a = characters[0]) == null ? void 0 : _a.name) || '').trim(),
+          gamemode: (gamemode || 'pve').trim().toLowerCase(),
+        })
+        twitch.configuration.set('broadcaster', '1.0', JSON.stringify(newConfig))
+      },
+      [apiKey, character, gamemode, config.broadcaster, twitch, characters]
+    )
+    const formRef = (0, import_react3.useRef)(null)
+    return /* @__PURE__ */ import_react3.default.createElement(
       'div',
       null,
-      /* @__PURE__ */ import_react2.default.createElement('h2', null, 'Config'),
-      /* @__PURE__ */ import_react2.default.createElement(
+      /* @__PURE__ */ import_react3.default.createElement('h2', null, 'Config'),
+      /* @__PURE__ */ import_react3.default.createElement(
         'small',
         {
           style: { position: 'relative', top: -5 },
         },
         'After making changes here, make sure to save, and then you will need to refresh to see them.'
       ),
-      /* @__PURE__ */ import_react2.default.createElement(
+      /* @__PURE__ */ import_react3.default.createElement(
         'form',
         {
           ref: formRef,
-          onSubmit: (e) => {
-            e.preventDefault()
-            const newConfig = __spreadProps(__spreadValues({}, config.broadcaster), {
-              apiKey: e.target.elements.apiKey.value.trim(),
-              character: e.target.elements.character.value.trim(),
-              gamemode: e.target.elements.gamemode.value.trim().toLowerCase(),
-            })
-            twitch.configuration.set('broadcaster', '1.0', JSON.stringify(newConfig))
-          },
+          onSubmit: save,
           style: { flexDirection: 'column', display: 'flex', gap: 10 },
         },
-        /* @__PURE__ */ import_react2.default.createElement(
+        /* @__PURE__ */ import_react3.default.createElement(
           'div',
           {
             style: { flexDirection: 'column', display: 'flex', gap: 2 },
           },
-          /* @__PURE__ */ import_react2.default.createElement('input', {
+          /* @__PURE__ */ import_react3.default.createElement('input', {
             name: 'apiKey',
             placeholder: 'API key...',
-            defaultValue: config.broadcaster.apiKey,
+            value: apiKey,
+            onChange: (e) => setApiKey(e.target.value),
           }),
-          /* @__PURE__ */ import_react2.default.createElement(
+          /* @__PURE__ */ import_react3.default.createElement(
             'small',
             null,
             'You can get an API key from',
             ' ',
-            /* @__PURE__ */ import_react2.default.createElement(
+            /* @__PURE__ */ import_react3.default.createElement(
               'a',
               {
                 href: 'https://account.arena.net/applications',
@@ -22784,21 +22863,23 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
               },
               'here'
             ),
-            ', with the "characters" permission.'
+            ', with the "account", "characters", "unlocks", and "builds" permissions.'
           )
         ),
-        /* @__PURE__ */ import_react2.default.createElement(
+        /* @__PURE__ */ import_react3.default.createElement(
           'div',
           {
             style: { flexDirection: 'column', display: 'flex', gap: 2 },
           },
-          /* @__PURE__ */ import_react2.default.createElement(
+          /* @__PURE__ */ import_react3.default.createElement(
             'select',
             {
               name: 'character',
+              value: character,
+              onChange: (e) => setCharacter(e.target.value),
             },
             characters.length === 0
-              ? /* @__PURE__ */ import_react2.default.createElement(
+              ? /* @__PURE__ */ import_react3.default.createElement(
                   'option',
                   {
                     disabled: true,
@@ -22807,77 +22888,75 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
                 )
               : null,
             characters.map((c) =>
-              /* @__PURE__ */ import_react2.default.createElement(
+              /* @__PURE__ */ import_react3.default.createElement(
                 'option',
                 {
                   key: c.name,
                   value: c.name,
-                  selected: config.broadcaster.character === c.name,
                 },
                 c.name
               )
             )
           ),
-          /* @__PURE__ */ import_react2.default.createElement(
+          /* @__PURE__ */ import_react3.default.createElement(
             'small',
             null,
             `Guild Wars 2 doesn't let us know current character, so you have to set it manually. Add an API Key and press "Fetch Characters" to load the possible characters.`
           )
         ),
-        /* @__PURE__ */ import_react2.default.createElement(
+        /* @__PURE__ */ import_react3.default.createElement(
           'div',
           {
             style: { flexDirection: 'column', display: 'flex', gap: 2 },
           },
-          /* @__PURE__ */ import_react2.default.createElement(
+          /* @__PURE__ */ import_react3.default.createElement(
             'select',
             {
               name: 'gamemode',
+              value: gamemode,
+              onChange: (e) => setGamemode(e.target.value),
             },
-            /* @__PURE__ */ import_react2.default.createElement(
+            /* @__PURE__ */ import_react3.default.createElement(
               'option',
               {
                 value: 'pve',
-                selected: config.broadcaster.gamemode === 'pve',
               },
               'PvE'
             ),
-            /* @__PURE__ */ import_react2.default.createElement(
+            /* @__PURE__ */ import_react3.default.createElement(
               'option',
               {
                 value: 'pvp',
-                selected: config.broadcaster.gamemode === 'pvp',
               },
               'PvP'
             ),
-            /* @__PURE__ */ import_react2.default.createElement(
+            /* @__PURE__ */ import_react3.default.createElement(
               'option',
               {
                 value: 'wvw',
-                selected: config.broadcaster.gamemode === 'wvw',
               },
               'WvW'
             )
           ),
-          /* @__PURE__ */ import_react2.default.createElement(
+          /* @__PURE__ */ import_react3.default.createElement(
             'small',
             null,
             'This is the gamemode you want to show information for.'
           )
         ),
-        /* @__PURE__ */ import_react2.default.createElement(
+        /* @__PURE__ */ import_react3.default.createElement(
           'div',
           {
             style: { display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: 10 },
           },
-          /* @__PURE__ */ import_react2.default.createElement(
+          /* @__PURE__ */ import_react3.default.createElement(
             'button',
             {
               type: 'submit',
             },
             'Save'
           ),
-          /* @__PURE__ */ import_react2.default.createElement(
+          /* @__PURE__ */ import_react3.default.createElement(
             'button',
             {
               type: 'button',
@@ -22890,7 +22969,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
             },
             'Fetch Characters'
           ),
-          /* @__PURE__ */ import_react2.default.createElement(
+          /* @__PURE__ */ import_react3.default.createElement(
             'button',
             {
               type: 'reset',
@@ -22908,10 +22987,10 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
   // src/mounts/config.tsx
   console.info('[mount] Config')
   import_react_dom.default.render(
-    /* @__PURE__ */ import_react3.default.createElement(
+    /* @__PURE__ */ import_react4.default.createElement(
       Twitch_default,
       null,
-      /* @__PURE__ */ import_react3.default.createElement(Index, null)
+      /* @__PURE__ */ import_react4.default.createElement(Index, null)
     ),
     document.querySelector('#app')
   )

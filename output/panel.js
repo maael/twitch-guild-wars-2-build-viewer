@@ -78,9 +78,9 @@
     'node_modules/object-assign/index.js'(exports, module) {
       'use strict'
       var getOwnPropertySymbols = Object.getOwnPropertySymbols
-      var hasOwnProperty2 = Object.prototype.hasOwnProperty
+      var hasOwnProperty = Object.prototype.hasOwnProperty
       var propIsEnumerable = Object.prototype.propertyIsEnumerable
-      function toObject2(val) {
+      function toObject(val) {
         if (val === null || val === void 0) {
           throw new TypeError('Object.assign cannot be called with null or undefined')
         }
@@ -122,12 +122,12 @@
         ? Object.assign
         : function (target, source) {
             var from
-            var to = toObject2(target)
+            var to = toObject(target)
             var symbols
             for (var s = 1; s < arguments.length; s++) {
               from = Object(arguments[s])
               for (var key in from) {
-                if (hasOwnProperty2.call(from, key)) {
+                if (hasOwnProperty.call(from, key)) {
                   to[key] = from[key]
                 }
               }
@@ -464,7 +464,7 @@
             }
             return null
           }
-          var hasOwnProperty2 = Object.prototype.hasOwnProperty
+          var hasOwnProperty = Object.prototype.hasOwnProperty
           var RESERVED_PROPS = {
             key: true,
             ref: true,
@@ -477,7 +477,7 @@
           }
           function hasValidRef(config) {
             {
-              if (hasOwnProperty2.call(config, 'ref')) {
+              if (hasOwnProperty.call(config, 'ref')) {
                 var getter = Object.getOwnPropertyDescriptor(config, 'ref').get
                 if (getter && getter.isReactWarning) {
                   return false
@@ -488,7 +488,7 @@
           }
           function hasValidKey(config) {
             {
-              if (hasOwnProperty2.call(config, 'key')) {
+              if (hasOwnProperty.call(config, 'key')) {
                 var getter = Object.getOwnPropertyDescriptor(config, 'key').get
                 if (getter && getter.isReactWarning) {
                   return false
@@ -553,7 +553,7 @@
               }
             }
           }
-          var ReactElement = function (type, key, ref, self2, source, owner, props) {
+          var ReactElement = function (type, key, ref, self, source, owner, props) {
             var element = {
               $$typeof: REACT_ELEMENT_TYPE,
               type,
@@ -574,7 +574,7 @@
                 configurable: false,
                 enumerable: false,
                 writable: false,
-                value: self2,
+                value: self,
               })
               Object.defineProperty(element, '_source', {
                 configurable: false,
@@ -594,7 +594,7 @@
             var props = {}
             var key = null
             var ref = null
-            var self2 = null
+            var self = null
             var source = null
             if (config != null) {
               if (hasValidRef(config)) {
@@ -606,10 +606,10 @@
               if (hasValidKey(config)) {
                 key = '' + config.key
               }
-              self2 = config.__self === void 0 ? null : config.__self
+              self = config.__self === void 0 ? null : config.__self
               source = config.__source === void 0 ? null : config.__source
               for (propName in config) {
-                if (hasOwnProperty2.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName)) {
+                if (hasOwnProperty.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName)) {
                   props[propName] = config[propName]
                 }
               }
@@ -648,7 +648,7 @@
                 }
               }
             }
-            return ReactElement(type, key, ref, self2, source, ReactCurrentOwner.current, props)
+            return ReactElement(type, key, ref, self, source, ReactCurrentOwner.current, props)
           }
           function cloneAndReplaceKey(oldElement, newKey) {
             var newElement = ReactElement(
@@ -674,7 +674,7 @@
             var props = _assign({}, element.props)
             var key = element.key
             var ref = element.ref
-            var self2 = element._self
+            var self = element._self
             var source = element._source
             var owner = element._owner
             if (config != null) {
@@ -690,7 +690,7 @@
                 defaultProps = element.type.defaultProps
               }
               for (propName in config) {
-                if (hasOwnProperty2.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName)) {
+                if (hasOwnProperty.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName)) {
                   if (config[propName] === void 0 && defaultProps !== void 0) {
                     props[propName] = defaultProps[propName]
                   } else {
@@ -709,7 +709,7 @@
               }
               props.children = childArray
             }
-            return ReactElement(element.type, key, ref, self2, source, owner, props)
+            return ReactElement(element.type, key, ref, self, source, owner, props)
           }
           function isValidElement(object) {
             return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE
@@ -722,8 +722,8 @@
               '=': '=0',
               ':': '=2',
             }
-            var escapedString = key.replace(escapeRegex, function (match2) {
-              return escaperLookup[match2]
+            var escapedString = key.replace(escapeRegex, function (match) {
+              return escaperLookup[match]
             })
             return '$' + escapedString
           }
@@ -1241,25 +1241,25 @@
             var dispatcher = resolveDispatcher()
             return dispatcher.useRef(initialValue)
           }
-          function useEffect3(create2, deps) {
+          function useEffect3(create, deps) {
             var dispatcher = resolveDispatcher()
-            return dispatcher.useEffect(create2, deps)
+            return dispatcher.useEffect(create, deps)
           }
-          function useLayoutEffect(create2, deps) {
+          function useLayoutEffect(create, deps) {
             var dispatcher = resolveDispatcher()
-            return dispatcher.useLayoutEffect(create2, deps)
+            return dispatcher.useLayoutEffect(create, deps)
           }
           function useCallback2(callback, deps) {
             var dispatcher = resolveDispatcher()
             return dispatcher.useCallback(callback, deps)
           }
-          function useMemo(create2, deps) {
+          function useMemo(create, deps) {
             var dispatcher = resolveDispatcher()
-            return dispatcher.useMemo(create2, deps)
+            return dispatcher.useMemo(create, deps)
           }
-          function useImperativeHandle(ref, create2, deps) {
+          function useImperativeHandle(ref, create, deps) {
             var dispatcher = resolveDispatcher()
-            return dispatcher.useImperativeHandle(ref, create2, deps)
+            return dispatcher.useImperativeHandle(ref, create, deps)
           }
           function useDebugValue(value, formatterFn) {
             {
@@ -1352,8 +1352,8 @@
                 try {
                   throw Error()
                 } catch (x) {
-                  var match2 = x.stack.trim().match(/\n( *(at )?)/)
-                  prefix = (match2 && match2[1]) || ''
+                  var match = x.stack.trim().match(/\n( *(at )?)/)
+                  prefix = (match && match[1]) || ''
                 }
               }
               return '\n' + prefix + name
@@ -1531,9 +1531,9 @@
           }
           function checkPropTypes(typeSpecs, values, location, componentName, element) {
             {
-              var has2 = Function.call.bind(Object.prototype.hasOwnProperty)
+              var has = Function.call.bind(Object.prototype.hasOwnProperty)
               for (var typeSpecName in typeSpecs) {
-                if (has2(typeSpecs, typeSpecName)) {
+                if (has(typeSpecs, typeSpecName)) {
                   var error$1 = void 0
                   try {
                     if (typeof typeSpecs[typeSpecName] !== 'function') {
@@ -1726,9 +1726,9 @@
           }
           function validateFragmentProps(fragment) {
             {
-              var keys3 = Object.keys(fragment.props)
-              for (var i = 0; i < keys3.length; i++) {
-                var key = keys3[i]
+              var keys = Object.keys(fragment.props)
+              for (var i = 0; i < keys.length; i++) {
+                var key = keys[i]
                 if (key !== 'children' && key !== 'key') {
                   setCurrentlyValidatingElement$1(fragment)
                   error(
@@ -1949,14 +1949,14 @@
             var _setTimeout = window.setTimeout
             var _clearTimeout = window.clearTimeout
             if (typeof console !== 'undefined') {
-              var requestAnimationFrame = window.requestAnimationFrame
-              var cancelAnimationFrame = window.cancelAnimationFrame
-              if (typeof requestAnimationFrame !== 'function') {
+              var requestAnimationFrame2 = window.requestAnimationFrame
+              var cancelAnimationFrame2 = window.cancelAnimationFrame
+              if (typeof requestAnimationFrame2 !== 'function') {
                 console['error'](
                   "This browser doesn't support requestAnimationFrame. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
                 )
               }
-              if (typeof cancelAnimationFrame !== 'function') {
+              if (typeof cancelAnimationFrame2 !== 'function') {
                 console['error'](
                   "This browser doesn't support cancelAnimationFrame. Make sure that you load a polyfill in older browsers. https://reactjs.org/link/react-polyfills"
                 )
@@ -2027,7 +2027,7 @@
               taskTimeoutID = -1
             }
           }
-          function push2(heap, node) {
+          function push(heap, node) {
             var index = heap.length
             heap.push(node)
             siftUp(heap, node, index)
@@ -2122,7 +2122,7 @@
               } else if (timer.startTime <= currentTime) {
                 pop(timerQueue)
                 timer.sortIndex = timer.expirationTime
-                push2(taskQueue, timer)
+                push(taskQueue, timer)
               } else {
                 return
               }
@@ -2305,7 +2305,7 @@
             }
             if (startTime > currentTime) {
               newTask.sortIndex = startTime
-              push2(timerQueue, newTask)
+              push(timerQueue, newTask)
               if (peek(taskQueue) === null && newTask === peek(timerQueue)) {
                 if (isHostTimeoutScheduled) {
                   cancelHostTimeout()
@@ -2316,7 +2316,7 @@
               }
             } else {
               newTask.sortIndex = expirationTime
-              push2(taskQueue, newTask)
+              push(taskQueue, newTask)
               if (!isHostCallbackScheduled && !isPerformingWork) {
                 isHostCallbackScheduled = true
                 requestHostCallback(flushWork)
@@ -2676,11 +2676,11 @@
       if (true) {
         ;(function () {
           'use strict'
-          var React5 = require_react()
+          var React4 = require_react()
           var _assign = require_object_assign()
           var Scheduler = require_scheduler()
           var tracing = require_tracing()
-          var ReactSharedInternals = React5.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+          var ReactSharedInternals = React4.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
           function warn(format) {
             {
               for (
@@ -2720,7 +2720,7 @@
               Function.prototype.apply.call(console[level], console, argsWithFormat)
             }
           }
-          if (!React5) {
+          if (!React4) {
             {
               throw Error(
                 'ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.'
@@ -2803,14 +2803,14 @@
           var VALID_ATTRIBUTE_NAME_REGEX = new RegExp(
             '^[' + ATTRIBUTE_NAME_START_CHAR + '][' + ATTRIBUTE_NAME_CHAR + ']*$'
           )
-          var hasOwnProperty2 = Object.prototype.hasOwnProperty
+          var hasOwnProperty = Object.prototype.hasOwnProperty
           var illegalAttributeNameCache = {}
           var validatedAttributeNameCache = {}
           function isAttributeNameSafe(attributeName) {
-            if (hasOwnProperty2.call(validatedAttributeNameCache, attributeName)) {
+            if (hasOwnProperty.call(validatedAttributeNameCache, attributeName)) {
               return true
             }
-            if (hasOwnProperty2.call(illegalAttributeNameCache, attributeName)) {
+            if (hasOwnProperty.call(illegalAttributeNameCache, attributeName)) {
               return false
             }
             if (VALID_ATTRIBUTE_NAME_REGEX.test(attributeName)) {
@@ -3391,8 +3391,8 @@
                 try {
                   throw Error()
                 } catch (x) {
-                  var match2 = x.stack.trim().match(/\n( *(at )?)/)
-                  prefix = (match2 && match2[1]) || ''
+                  var match = x.stack.trim().match(/\n( *(at )?)/)
+                  prefix = (match && match[1]) || ''
                 }
               }
               return '\n' + prefix + name
@@ -3708,7 +3708,7 @@
               return isRendering
             }
           }
-          function toString2(value) {
+          function toString(value) {
             return '' + value
           }
           function getToStringValue(value) {
@@ -3790,16 +3790,16 @@
             ) {
               return
             }
-            var get4 = descriptor.get,
-              set4 = descriptor.set
+            var get2 = descriptor.get,
+              set2 = descriptor.set
             Object.defineProperty(node, valueField, {
               configurable: true,
               get: function () {
-                return get4.call(this)
+                return get2.call(this)
               },
               set: function (value) {
                 currentValue = '' + value
-                set4.call(this, value)
+                set2.call(this, value)
               },
             })
             Object.defineProperty(node, valueField, {
@@ -3929,10 +3929,10 @@
             if (value != null) {
               if (type === 'number') {
                 if ((value === 0 && node.value === '') || node.value != value) {
-                  node.value = toString2(value)
+                  node.value = toString(value)
                 }
-              } else if (node.value !== toString2(value)) {
-                node.value = toString2(value)
+              } else if (node.value !== toString(value)) {
+                node.value = toString(value)
               }
             } else if (type === 'submit' || type === 'reset') {
               node.removeAttribute('value')
@@ -3959,7 +3959,7 @@
               if (isButton && (props.value === void 0 || props.value === null)) {
                 return
               }
-              var initialValue = toString2(node._wrapperState.initialValue)
+              var initialValue = toString(node._wrapperState.initialValue)
               if (!isHydrating2) {
                 {
                   if (initialValue !== node.value) {
@@ -4017,9 +4017,9 @@
           function setDefaultValue(node, type, value) {
             if (type !== 'number' || getActiveElement(node.ownerDocument) !== node) {
               if (value == null) {
-                node.defaultValue = toString2(node._wrapperState.initialValue)
-              } else if (node.defaultValue !== toString2(value)) {
-                node.defaultValue = toString2(value)
+                node.defaultValue = toString(node._wrapperState.initialValue)
+              } else if (node.defaultValue !== toString(value)) {
+                node.defaultValue = toString(value)
               }
             }
           }
@@ -4027,7 +4027,7 @@
           var didWarnInvalidChild = false
           function flattenChildren(children) {
             var content = ''
-            React5.Children.forEach(children, function (child) {
+            React4.Children.forEach(children, function (child) {
               if (child == null) {
                 return
               }
@@ -4038,7 +4038,7 @@
           function validateProps(element, props) {
             {
               if (typeof props.children === 'object' && props.children !== null) {
-                React5.Children.forEach(props.children, function (child) {
+                React4.Children.forEach(props.children, function (child) {
                   if (child == null) {
                     return
                   }
@@ -4062,7 +4062,7 @@
           }
           function postMountWrapper$1(element, props) {
             if (props.value != null) {
-              element.setAttribute('value', toString2(getToStringValue(props.value)))
+              element.setAttribute('value', toString(getToStringValue(props.value)))
             }
           }
           function getHostProps$1(element, props) {
@@ -4098,14 +4098,14 @@
                 if (props[propName] == null) {
                   continue
                 }
-                var isArray4 = Array.isArray(props[propName])
-                if (props.multiple && !isArray4) {
+                var isArray2 = Array.isArray(props[propName])
+                if (props.multiple && !isArray2) {
                   error(
                     'The `%s` prop supplied to <select> must be an array if `multiple` is true.%s',
                     propName,
                     getDeclarationErrorAddendum()
                   )
-                } else if (!props.multiple && isArray4) {
+                } else if (!props.multiple && isArray2) {
                   error(
                     'The `%s` prop supplied to <select> must be a scalar value if `multiple` is false.%s',
                     propName,
@@ -4133,7 +4133,7 @@
                 }
               }
             } else {
-              var _selectedValue = toString2(getToStringValue(propValue))
+              var _selectedValue = toString(getToStringValue(propValue))
               var defaultSelected = null
               for (var _i2 = 0; _i2 < options2.length; _i2++) {
                 if (options2[_i2].value === _selectedValue) {
@@ -4217,7 +4217,7 @@
             var hostProps = _assign({}, props, {
               value: void 0,
               defaultValue: void 0,
-              children: toString2(node._wrapperState.initialValue),
+              children: toString(node._wrapperState.initialValue),
             })
             return hostProps
           }
@@ -4272,7 +4272,7 @@
             var value = getToStringValue(props.value)
             var defaultValue = getToStringValue(props.defaultValue)
             if (value != null) {
-              var newValue = toString2(value)
+              var newValue = toString(value)
               if (newValue !== node.value) {
                 node.value = newValue
               }
@@ -4281,7 +4281,7 @@
               }
             }
             if (defaultValue != null) {
-              node.defaultValue = toString2(defaultValue)
+              node.defaultValue = toString(defaultValue)
             }
           }
           function postMountWrapper$3(element, props) {
@@ -4335,11 +4335,11 @@
             }
           }
           var reusableSVGContainer
-          var setInnerHTML = createMicrosoftUnsafeLocalFunction(function (node, html2) {
+          var setInnerHTML = createMicrosoftUnsafeLocalFunction(function (node, html) {
             if (node.namespaceURI === Namespaces.svg) {
               if (!('innerHTML' in node)) {
                 reusableSVGContainer = reusableSVGContainer || document.createElement('div')
-                reusableSVGContainer.innerHTML = '<svg>' + html2.valueOf().toString() + '</svg>'
+                reusableSVGContainer.innerHTML = '<svg>' + html.valueOf().toString() + '</svg>'
                 var svgNode = reusableSVGContainer.firstChild
                 while (node.firstChild) {
                   node.removeChild(node.firstChild)
@@ -4350,7 +4350,7 @@
                 return
               }
             }
-            node.innerHTML = html2
+            node.innerHTML = html
           })
           var ELEMENT_NODE = 1
           var TEXT_NODE = 3
@@ -5835,7 +5835,7 @@
               passiveBrowserEventsSupported = false
             }
           }
-          function invokeGuardedCallbackProd(name, func, context, a, b, c, d, e, f2) {
+          function invokeGuardedCallbackProd(name, func, context, a, b, c, d, e, f) {
             var funcArgs = Array.prototype.slice.call(arguments, 3)
             try {
               func.apply(context, funcArgs)
@@ -5852,7 +5852,7 @@
               typeof document.createEvent === 'function'
             ) {
               var fakeNode = document.createElement('react')
-              invokeGuardedCallbackImpl = function invokeGuardedCallbackDev(name, func, context, a, b, c, d, e, f2) {
+              invokeGuardedCallbackImpl = function invokeGuardedCallbackDev(name, func, context, a, b, c, d, e, f) {
                 if (!(typeof document !== 'undefined')) {
                   {
                     throw Error(
@@ -5934,12 +5934,12 @@
               caughtError = error2
             },
           }
-          function invokeGuardedCallback(name, func, context, a, b, c, d, e, f2) {
+          function invokeGuardedCallback(name, func, context, a, b, c, d, e, f) {
             hasError = false
             caughtError = null
             invokeGuardedCallbackImpl$1.apply(reporter, arguments)
           }
-          function invokeGuardedCallbackAndCatchFirstError(name, func, context, a, b, c, d, e, f2) {
+          function invokeGuardedCallbackAndCatchFirstError(name, func, context, a, b, c, d, e, f) {
             invokeGuardedCallback.apply(this, arguments)
             if (hasError) {
               var error2 = clearCaughtError()
@@ -5976,13 +5976,13 @@
               }
             }
           }
-          function get3(key) {
+          function get(key) {
             return key._reactInternals
           }
-          function has2(key) {
+          function has(key) {
             return key._reactInternals !== void 0
           }
-          function set3(key, value) {
+          function set(key, value) {
             key._reactInternals = value
           }
           var NoFlags = 0
@@ -6064,7 +6064,7 @@
                 instance._warnedAboutRefsInRender = true
               }
             }
-            var fiber = get3(component)
+            var fiber = get(component)
             if (!fiber) {
               return false
             }
@@ -7258,14 +7258,14 @@
           function includesSomeLane(a, b) {
             return (a & b) !== NoLanes
           }
-          function isSubsetOfLanes(set4, subset) {
-            return (set4 & subset) === subset
+          function isSubsetOfLanes(set2, subset) {
+            return (set2 & subset) === subset
           }
           function mergeLanes(a, b) {
             return a | b
           }
-          function removeLanes(set4, subset) {
-            return set4 & ~subset
+          function removeLanes(set2, subset) {
+            return set2 & ~subset
           }
           function laneToLanes(lane) {
             return lane
@@ -7556,9 +7556,9 @@
                 if (!Interface.hasOwnProperty(_propName)) {
                   continue
                 }
-                var normalize2 = Interface[_propName]
-                if (normalize2) {
-                  this[_propName] = normalize2(nativeEvent)
+                var normalize = Interface[_propName]
+                if (normalize) {
+                  this[_propName] = normalize(nativeEvent)
                 } else {
                   this[_propName] = nativeEvent[_propName]
                 }
@@ -9172,7 +9172,7 @@
             }
             return listeners
           }
-          function getParent3(inst) {
+          function getParent(inst) {
             if (inst === null) {
               return null
             }
@@ -9188,19 +9188,19 @@
             var nodeA = instA
             var nodeB = instB
             var depthA = 0
-            for (var tempA = nodeA; tempA; tempA = getParent3(tempA)) {
+            for (var tempA = nodeA; tempA; tempA = getParent(tempA)) {
               depthA++
             }
             var depthB = 0
-            for (var tempB = nodeB; tempB; tempB = getParent3(tempB)) {
+            for (var tempB = nodeB; tempB; tempB = getParent(tempB)) {
               depthB++
             }
             while (depthA - depthB > 0) {
-              nodeA = getParent3(nodeA)
+              nodeA = getParent(nodeA)
               depthA--
             }
             while (depthB - depthA > 0) {
-              nodeB = getParent3(nodeB)
+              nodeB = getParent(nodeB)
               depthB--
             }
             var depth = depthA
@@ -9208,8 +9208,8 @@
               if (nodeA === nodeB || (nodeB !== null && nodeA === nodeB.alternate)) {
                 return nodeA
               }
-              nodeA = getParent3(nodeA)
-              nodeB = getParent3(nodeB)
+              nodeA = getParent(nodeA)
+              nodeB = getParent(nodeB)
             }
             return null
           }
@@ -9360,12 +9360,12 @@
                 )
               }
             }
-            normalizeHTML = function (parent, html2) {
+            normalizeHTML = function (parent, html) {
               var testElement =
                 parent.namespaceURI === HTML_NAMESPACE$1
                   ? parent.ownerDocument.createElement(parent.tagName)
                   : parent.ownerDocument.createElementNS(parent.namespaceURI, parent.tagName)
-              testElement.innerHTML = html2
+              testElement.innerHTML = html
               return testElement.innerHTML
             }
           }
@@ -10656,17 +10656,17 @@
             var depth = 0
             while (node) {
               if (node.nodeType === COMMENT_NODE) {
-                var data2 = node.data
-                if (data2 === SUSPENSE_END_DATA) {
+                var data = node.data
+                if (data === SUSPENSE_END_DATA) {
                   if (depth === 0) {
                     return getNextHydratableSibling(node)
                   } else {
                     depth--
                   }
                 } else if (
-                  data2 === SUSPENSE_START_DATA ||
-                  data2 === SUSPENSE_FALLBACK_START_DATA ||
-                  data2 === SUSPENSE_PENDING_START_DATA
+                  data === SUSPENSE_START_DATA ||
+                  data === SUSPENSE_FALLBACK_START_DATA ||
+                  data === SUSPENSE_PENDING_START_DATA
                 ) {
                   depth++
                 }
@@ -10680,18 +10680,18 @@
             var depth = 0
             while (node) {
               if (node.nodeType === COMMENT_NODE) {
-                var data2 = node.data
+                var data = node.data
                 if (
-                  data2 === SUSPENSE_START_DATA ||
-                  data2 === SUSPENSE_FALLBACK_START_DATA ||
-                  data2 === SUSPENSE_PENDING_START_DATA
+                  data === SUSPENSE_START_DATA ||
+                  data === SUSPENSE_FALLBACK_START_DATA ||
+                  data === SUSPENSE_PENDING_START_DATA
                 ) {
                   if (depth === 0) {
                     return node
                   } else {
                     depth--
                   }
-                } else if (data2 === SUSPENSE_END_DATA) {
+                } else if (data === SUSPENSE_END_DATA) {
                   depth++
                 }
               }
@@ -10760,15 +10760,15 @@
           }
           var clientId = 0
           function makeClientIdInDEV(warnOnAccessInDEV) {
-            var id2 = 'r:' + (clientId++).toString(36)
+            var id = 'r:' + (clientId++).toString(36)
             return {
               toString: function () {
                 warnOnAccessInDEV()
-                return id2
+                return id
               },
               valueOf: function () {
                 warnOnAccessInDEV()
-                return id2
+                return id
               },
             }
           }
@@ -10889,9 +10889,9 @@
           }
           function checkPropTypes(typeSpecs, values, location, componentName, element) {
             {
-              var has3 = Function.call.bind(Object.prototype.hasOwnProperty)
+              var has2 = Function.call.bind(Object.prototype.hasOwnProperty)
               for (var typeSpecName in typeSpecs) {
-                if (has3(typeSpecs, typeSpecName)) {
+                if (has2(typeSpecs, typeSpecName)) {
                   var error$1 = void 0
                   try {
                     if (typeof typeSpecs[typeSpecName] !== 'function') {
@@ -10970,7 +10970,7 @@
             }
             index--
           }
-          function push2(cursor, value, fiber) {
+          function push(cursor, value, fiber) {
             index++
             valueStack[index] = cursor.current
             {
@@ -11061,8 +11061,8 @@
                   )
                 }
               }
-              push2(contextStackCursor, context, fiber)
-              push2(didPerformWorkStackCursor, didChange, fiber)
+              push(contextStackCursor, context, fiber)
+              push(didPerformWorkStackCursor, didChange, fiber)
             }
           }
           function processChildContext(fiber, type, parentContext) {
@@ -11109,8 +11109,8 @@
               var memoizedMergedChildContext =
                 (instance && instance.__reactInternalMemoizedMergedChildContext) || emptyContextObject
               previousContext = contextStackCursor.current
-              push2(contextStackCursor, memoizedMergedChildContext, workInProgress2)
-              push2(didPerformWorkStackCursor, didPerformWorkStackCursor.current, workInProgress2)
+              push(contextStackCursor, memoizedMergedChildContext, workInProgress2)
+              push(didPerformWorkStackCursor, didPerformWorkStackCursor.current, workInProgress2)
               return true
             }
           }
@@ -11129,11 +11129,11 @@
                 instance.__reactInternalMemoizedMergedChildContext = mergedContext
                 pop(didPerformWorkStackCursor, workInProgress2)
                 pop(contextStackCursor, workInProgress2)
-                push2(contextStackCursor, mergedContext, workInProgress2)
-                push2(didPerformWorkStackCursor, didChange, workInProgress2)
+                push(contextStackCursor, mergedContext, workInProgress2)
+                push(didPerformWorkStackCursor, didChange, workInProgress2)
               } else {
                 pop(didPerformWorkStackCursor, workInProgress2)
-                push2(didPerformWorkStackCursor, didChange, workInProgress2)
+                push(didPerformWorkStackCursor, didChange, workInProgress2)
               }
             }
           }
@@ -11421,9 +11421,9 @@
               }
               return maybeStrictRoot
             }
-            var setToSortedString = function (set4) {
+            var setToSortedString = function (set2) {
               var array = []
-              set4.forEach(function (value) {
+              set2.forEach(function (value) {
                 array.push(value)
               })
               return array.sort().join(', ')
@@ -11662,7 +11662,7 @@
           function pushProvider(providerFiber, nextValue) {
             var context = providerFiber.type._context
             {
-              push2(valueCursor, context._currentValue, providerFiber)
+              push(valueCursor, context._currentValue, providerFiber)
               context._currentValue = nextValue
               {
                 if (
@@ -12165,8 +12165,8 @@
             }
           }
           var fakeInternalInstance = {}
-          var isArray3 = Array.isArray
-          var emptyRefsObject = new React5.Component().refs
+          var isArray = Array.isArray
+          var emptyRefsObject = new React4.Component().refs
           var didWarnAboutStateAssignmentForComponent
           var didWarnAboutUninitializedState
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate
@@ -12254,7 +12254,7 @@
           var classComponentUpdater = {
             isMounted,
             enqueueSetState: function (inst, payload, callback) {
-              var fiber = get3(inst)
+              var fiber = get(inst)
               var eventTime = requestEventTime()
               var lane = requestUpdateLane(fiber)
               var update = createUpdate(eventTime, lane)
@@ -12269,7 +12269,7 @@
               scheduleUpdateOnFiber(fiber, lane, eventTime)
             },
             enqueueReplaceState: function (inst, payload, callback) {
-              var fiber = get3(inst)
+              var fiber = get(inst)
               var eventTime = requestEventTime()
               var lane = requestUpdateLane(fiber)
               var update = createUpdate(eventTime, lane)
@@ -12285,7 +12285,7 @@
               scheduleUpdateOnFiber(fiber, lane, eventTime)
             },
             enqueueForceUpdate: function (inst, callback) {
-              var fiber = get3(inst)
+              var fiber = get(inst)
               var eventTime = requestEventTime()
               var lane = requestUpdateLane(fiber)
               var update = createUpdate(eventTime, lane)
@@ -12479,7 +12479,7 @@
                 )
               }
               var _state = instance.state
-              if (_state && (typeof _state !== 'object' || isArray3(_state))) {
+              if (_state && (typeof _state !== 'object' || isArray(_state))) {
                 error('%s.state: must be set to an object or null', name)
               }
               if (typeof instance.getChildContext === 'function' && typeof ctor.childContextTypes !== 'object') {
@@ -12493,7 +12493,7 @@
           function adoptClassInstance(workInProgress2, instance) {
             instance.updater = classComponentUpdater
             workInProgress2.stateNode = instance
-            set3(instance, workInProgress2)
+            set(instance, workInProgress2)
             {
               instance._reactInternalInstance = fakeInternalInstance
             }
@@ -13622,8 +13622,8 @@
               if (isUnkeyedTopLevelFragment) {
                 newChild = newChild.props.children
               }
-              var isObject2 = typeof newChild === 'object' && newChild !== null
-              if (isObject2) {
+              var isObject = typeof newChild === 'object' && newChild !== null
+              if (isObject) {
                 switch (newChild.$$typeof) {
                   case REACT_ELEMENT_TYPE:
                     return placeSingleChild(reconcileSingleElement(returnFiber, currentFirstChild, newChild, lanes))
@@ -13640,7 +13640,7 @@
               if (getIteratorFn(newChild)) {
                 return reconcileChildrenIterator(returnFiber, currentFirstChild, newChild, lanes)
               }
-              if (isObject2) {
+              if (isObject) {
                 throwOnInvalidObjectType(returnFiber, newChild)
               }
               {
@@ -13725,12 +13725,12 @@
             return rootInstance
           }
           function pushHostContainer(fiber, nextRootInstance) {
-            push2(rootInstanceStackCursor, nextRootInstance, fiber)
-            push2(contextFiberStackCursor, fiber, fiber)
-            push2(contextStackCursor$1, NO_CONTEXT, fiber)
+            push(rootInstanceStackCursor, nextRootInstance, fiber)
+            push(contextFiberStackCursor, fiber, fiber)
+            push(contextStackCursor$1, NO_CONTEXT, fiber)
             var nextRootContext = getRootHostContext(nextRootInstance)
             pop(contextStackCursor$1, fiber)
-            push2(contextStackCursor$1, nextRootContext, fiber)
+            push(contextStackCursor$1, nextRootContext, fiber)
           }
           function popHostContainer(fiber) {
             pop(contextStackCursor$1, fiber)
@@ -13748,8 +13748,8 @@
             if (context === nextContext) {
               return
             }
-            push2(contextFiberStackCursor, fiber, fiber)
-            push2(contextStackCursor$1, nextContext, fiber)
+            push(contextFiberStackCursor, fiber, fiber)
+            push(contextStackCursor$1, nextContext, fiber)
           }
           function popHostContext(fiber) {
             if (contextFiberStackCursor.current !== fiber) {
@@ -13776,7 +13776,7 @@
             return parentContext | subtreeContext
           }
           function pushSuspenseContext(fiber, newContext) {
-            push2(suspenseStackCursor, newContext, fiber)
+            push(suspenseStackCursor, newContext, fiber)
           }
           function popSuspenseContext(fiber) {
             pop(suspenseStackCursor, fiber)
@@ -14104,9 +14104,9 @@
               return mutableSource._workInProgressVersionPrimary
             }
           }
-          function setWorkInProgressVersion(mutableSource, version2) {
+          function setWorkInProgressVersion(mutableSource, version) {
             {
-              mutableSource._workInProgressVersionPrimary = version2
+              mutableSource._workInProgressVersionPrimary = version
             }
             workInProgressSources.push(mutableSource)
           }
@@ -14551,15 +14551,15 @@
               warnAboutMultipleRenderersDEV(source)
             }
             var getVersion = source._getVersion
-            var version2 = getVersion(source._source)
+            var version = getVersion(source._source)
             var isSafeToReadFromSource = false
             var currentRenderVersion = getWorkInProgressVersion(source)
             if (currentRenderVersion !== null) {
-              isSafeToReadFromSource = currentRenderVersion === version2
+              isSafeToReadFromSource = currentRenderVersion === version
             } else {
               isSafeToReadFromSource = isSubsetOfLanes(renderLanes, root2.mutableReadLanes)
               if (isSafeToReadFromSource) {
-                setWorkInProgressVersion(source, version2)
+                setWorkInProgressVersion(source, version)
               }
             }
             if (isSafeToReadFromSource) {
@@ -14591,7 +14591,7 @@
               }
             }
             var getVersion = source._getVersion
-            var version2 = getVersion(source._source)
+            var version = getVersion(source._source)
             var dispatcher = ReactCurrentDispatcher$1.current
             var _dispatcher$useState = dispatcher.useState(function () {
                 return readFromUnsubcribedMutableSource(root2, source, getSnapshot)
@@ -14616,7 +14616,7 @@
                 refs.getSnapshot = getSnapshot
                 refs.setSnapshot = setSnapshot
                 var maybeNewVersion = getVersion(source._source)
-                if (!objectIs(version2, maybeNewVersion)) {
+                if (!objectIs(version, maybeNewVersion)) {
                   var maybeNewSnapshot = getSnapshot(source._source)
                   {
                     if (typeof maybeNewSnapshot === 'function') {
@@ -14716,10 +14716,10 @@
           function rerenderState(initialState) {
             return rerenderReducer(basicStateReducer)
           }
-          function pushEffect(tag, create2, destroy, deps) {
+          function pushEffect(tag, create, destroy, deps) {
             var effect = {
               tag,
-              create: create2,
+              create,
               destroy,
               deps,
               next: null,
@@ -14757,13 +14757,13 @@
             var hook = updateWorkInProgressHook()
             return hook.memoizedState
           }
-          function mountEffectImpl(fiberFlags, hookFlags, create2, deps) {
+          function mountEffectImpl(fiberFlags, hookFlags, create, deps) {
             var hook = mountWorkInProgressHook()
             var nextDeps = deps === void 0 ? null : deps
             currentlyRenderingFiber$1.flags |= fiberFlags
-            hook.memoizedState = pushEffect(HasEffect | hookFlags, create2, void 0, nextDeps)
+            hook.memoizedState = pushEffect(HasEffect | hookFlags, create, void 0, nextDeps)
           }
-          function updateEffectImpl(fiberFlags, hookFlags, create2, deps) {
+          function updateEffectImpl(fiberFlags, hookFlags, create, deps) {
             var hook = updateWorkInProgressHook()
             var nextDeps = deps === void 0 ? null : deps
             var destroy = void 0
@@ -14773,40 +14773,40 @@
               if (nextDeps !== null) {
                 var prevDeps = prevEffect.deps
                 if (areHookInputsEqual(nextDeps, prevDeps)) {
-                  pushEffect(hookFlags, create2, destroy, nextDeps)
+                  pushEffect(hookFlags, create, destroy, nextDeps)
                   return
                 }
               }
             }
             currentlyRenderingFiber$1.flags |= fiberFlags
-            hook.memoizedState = pushEffect(HasEffect | hookFlags, create2, destroy, nextDeps)
+            hook.memoizedState = pushEffect(HasEffect | hookFlags, create, destroy, nextDeps)
           }
-          function mountEffect(create2, deps) {
+          function mountEffect(create, deps) {
             {
               if (typeof jest !== 'undefined') {
                 warnIfNotCurrentlyActingEffectsInDEV(currentlyRenderingFiber$1)
               }
             }
-            return mountEffectImpl(Update | Passive, Passive$1, create2, deps)
+            return mountEffectImpl(Update | Passive, Passive$1, create, deps)
           }
-          function updateEffect(create2, deps) {
+          function updateEffect(create, deps) {
             {
               if (typeof jest !== 'undefined') {
                 warnIfNotCurrentlyActingEffectsInDEV(currentlyRenderingFiber$1)
               }
             }
-            return updateEffectImpl(Update | Passive, Passive$1, create2, deps)
+            return updateEffectImpl(Update | Passive, Passive$1, create, deps)
           }
-          function mountLayoutEffect(create2, deps) {
-            return mountEffectImpl(Update, Layout, create2, deps)
+          function mountLayoutEffect(create, deps) {
+            return mountEffectImpl(Update, Layout, create, deps)
           }
-          function updateLayoutEffect(create2, deps) {
-            return updateEffectImpl(Update, Layout, create2, deps)
+          function updateLayoutEffect(create, deps) {
+            return updateEffectImpl(Update, Layout, create, deps)
           }
-          function imperativeHandleEffect(create2, ref) {
+          function imperativeHandleEffect(create, ref) {
             if (typeof ref === 'function') {
               var refCallback = ref
-              var _inst = create2()
+              var _inst = create()
               refCallback(_inst)
               return function () {
                 refCallback(null)
@@ -14821,36 +14821,36 @@
                   )
                 }
               }
-              var _inst2 = create2()
+              var _inst2 = create()
               refObject.current = _inst2
               return function () {
                 refObject.current = null
               }
             }
           }
-          function mountImperativeHandle(ref, create2, deps) {
+          function mountImperativeHandle(ref, create, deps) {
             {
-              if (typeof create2 !== 'function') {
+              if (typeof create !== 'function') {
                 error(
                   'Expected useImperativeHandle() second argument to be a function that creates a handle. Instead received: %s.',
-                  create2 !== null ? typeof create2 : 'null'
+                  create !== null ? typeof create : 'null'
                 )
               }
             }
             var effectDeps = deps !== null && deps !== void 0 ? deps.concat([ref]) : null
-            return mountEffectImpl(Update, Layout, imperativeHandleEffect.bind(null, create2, ref), effectDeps)
+            return mountEffectImpl(Update, Layout, imperativeHandleEffect.bind(null, create, ref), effectDeps)
           }
-          function updateImperativeHandle(ref, create2, deps) {
+          function updateImperativeHandle(ref, create, deps) {
             {
-              if (typeof create2 !== 'function') {
+              if (typeof create !== 'function') {
                 error(
                   'Expected useImperativeHandle() second argument to be a function that creates a handle. Instead received: %s.',
-                  create2 !== null ? typeof create2 : 'null'
+                  create !== null ? typeof create : 'null'
                 )
               }
             }
             var effectDeps = deps !== null && deps !== void 0 ? deps.concat([ref]) : null
-            return updateEffectImpl(Update, Layout, imperativeHandleEffect.bind(null, create2, ref), effectDeps)
+            return updateEffectImpl(Update, Layout, imperativeHandleEffect.bind(null, create, ref), effectDeps)
           }
           function mountDebugValue(value, formatterFn) {}
           var updateDebugValue = mountDebugValue
@@ -15038,8 +15038,8 @@
                   }
                 }
               }
-              var id2 = makeOpaqueHydratingObject(readValue)
-              var setId = mountState(id2)[1]
+              var id = makeOpaqueHydratingObject(readValue)
+              var setId = mountState(id)[1]
               if ((currentlyRenderingFiber$1.mode & BlockingMode) === NoMode) {
                 currentlyRenderingFiber$1.flags |= Update | Passive
                 pushEffect(
@@ -15051,7 +15051,7 @@
                   null
                 )
               }
-              return id2
+              return id
             } else {
               var _id = makeId()
               mountState(_id)
@@ -15059,12 +15059,12 @@
             }
           }
           function updateOpaqueIdentifier() {
-            var id2 = updateState()[0]
-            return id2
+            var id = updateState()[0]
+            return id
           }
           function rerenderOpaqueIdentifier() {
-            var id2 = rerenderState()[0]
-            return id2
+            var id = rerenderState()[0]
+            return id
           }
           function dispatchAction(fiber, queue, action) {
             {
@@ -15182,32 +15182,32 @@
                 mountHookTypesDev()
                 return readContext(context, observedBits)
               },
-              useEffect: function (create2, deps) {
+              useEffect: function (create, deps) {
                 currentHookNameInDev = 'useEffect'
                 mountHookTypesDev()
                 checkDepsAreArrayDev(deps)
-                return mountEffect(create2, deps)
+                return mountEffect(create, deps)
               },
-              useImperativeHandle: function (ref, create2, deps) {
+              useImperativeHandle: function (ref, create, deps) {
                 currentHookNameInDev = 'useImperativeHandle'
                 mountHookTypesDev()
                 checkDepsAreArrayDev(deps)
-                return mountImperativeHandle(ref, create2, deps)
+                return mountImperativeHandle(ref, create, deps)
               },
-              useLayoutEffect: function (create2, deps) {
+              useLayoutEffect: function (create, deps) {
                 currentHookNameInDev = 'useLayoutEffect'
                 mountHookTypesDev()
                 checkDepsAreArrayDev(deps)
-                return mountLayoutEffect(create2, deps)
+                return mountLayoutEffect(create, deps)
               },
-              useMemo: function (create2, deps) {
+              useMemo: function (create, deps) {
                 currentHookNameInDev = 'useMemo'
                 mountHookTypesDev()
                 checkDepsAreArrayDev(deps)
                 var prevDispatcher = ReactCurrentDispatcher$1.current
                 ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV
                 try {
-                  return mountMemo(create2, deps)
+                  return mountMemo(create, deps)
                 } finally {
                   ReactCurrentDispatcher$1.current = prevDispatcher
                 }
@@ -15280,28 +15280,28 @@
                 updateHookTypesDev()
                 return readContext(context, observedBits)
               },
-              useEffect: function (create2, deps) {
+              useEffect: function (create, deps) {
                 currentHookNameInDev = 'useEffect'
                 updateHookTypesDev()
-                return mountEffect(create2, deps)
+                return mountEffect(create, deps)
               },
-              useImperativeHandle: function (ref, create2, deps) {
+              useImperativeHandle: function (ref, create, deps) {
                 currentHookNameInDev = 'useImperativeHandle'
                 updateHookTypesDev()
-                return mountImperativeHandle(ref, create2, deps)
+                return mountImperativeHandle(ref, create, deps)
               },
-              useLayoutEffect: function (create2, deps) {
+              useLayoutEffect: function (create, deps) {
                 currentHookNameInDev = 'useLayoutEffect'
                 updateHookTypesDev()
-                return mountLayoutEffect(create2, deps)
+                return mountLayoutEffect(create, deps)
               },
-              useMemo: function (create2, deps) {
+              useMemo: function (create, deps) {
                 currentHookNameInDev = 'useMemo'
                 updateHookTypesDev()
                 var prevDispatcher = ReactCurrentDispatcher$1.current
                 ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV
                 try {
-                  return mountMemo(create2, deps)
+                  return mountMemo(create, deps)
                 } finally {
                   ReactCurrentDispatcher$1.current = prevDispatcher
                 }
@@ -15374,28 +15374,28 @@
                 updateHookTypesDev()
                 return readContext(context, observedBits)
               },
-              useEffect: function (create2, deps) {
+              useEffect: function (create, deps) {
                 currentHookNameInDev = 'useEffect'
                 updateHookTypesDev()
-                return updateEffect(create2, deps)
+                return updateEffect(create, deps)
               },
-              useImperativeHandle: function (ref, create2, deps) {
+              useImperativeHandle: function (ref, create, deps) {
                 currentHookNameInDev = 'useImperativeHandle'
                 updateHookTypesDev()
-                return updateImperativeHandle(ref, create2, deps)
+                return updateImperativeHandle(ref, create, deps)
               },
-              useLayoutEffect: function (create2, deps) {
+              useLayoutEffect: function (create, deps) {
                 currentHookNameInDev = 'useLayoutEffect'
                 updateHookTypesDev()
-                return updateLayoutEffect(create2, deps)
+                return updateLayoutEffect(create, deps)
               },
-              useMemo: function (create2, deps) {
+              useMemo: function (create, deps) {
                 currentHookNameInDev = 'useMemo'
                 updateHookTypesDev()
                 var prevDispatcher = ReactCurrentDispatcher$1.current
                 ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV
                 try {
-                  return updateMemo(create2, deps)
+                  return updateMemo(create, deps)
                 } finally {
                   ReactCurrentDispatcher$1.current = prevDispatcher
                 }
@@ -15468,28 +15468,28 @@
                 updateHookTypesDev()
                 return readContext(context, observedBits)
               },
-              useEffect: function (create2, deps) {
+              useEffect: function (create, deps) {
                 currentHookNameInDev = 'useEffect'
                 updateHookTypesDev()
-                return updateEffect(create2, deps)
+                return updateEffect(create, deps)
               },
-              useImperativeHandle: function (ref, create2, deps) {
+              useImperativeHandle: function (ref, create, deps) {
                 currentHookNameInDev = 'useImperativeHandle'
                 updateHookTypesDev()
-                return updateImperativeHandle(ref, create2, deps)
+                return updateImperativeHandle(ref, create, deps)
               },
-              useLayoutEffect: function (create2, deps) {
+              useLayoutEffect: function (create, deps) {
                 currentHookNameInDev = 'useLayoutEffect'
                 updateHookTypesDev()
-                return updateLayoutEffect(create2, deps)
+                return updateLayoutEffect(create, deps)
               },
-              useMemo: function (create2, deps) {
+              useMemo: function (create, deps) {
                 currentHookNameInDev = 'useMemo'
                 updateHookTypesDev()
                 var prevDispatcher = ReactCurrentDispatcher$1.current
                 ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnRerenderInDEV
                 try {
-                  return updateMemo(create2, deps)
+                  return updateMemo(create, deps)
                 } finally {
                   ReactCurrentDispatcher$1.current = prevDispatcher
                 }
@@ -15565,32 +15565,32 @@
                 mountHookTypesDev()
                 return readContext(context, observedBits)
               },
-              useEffect: function (create2, deps) {
+              useEffect: function (create, deps) {
                 currentHookNameInDev = 'useEffect'
                 warnInvalidHookAccess()
                 mountHookTypesDev()
-                return mountEffect(create2, deps)
+                return mountEffect(create, deps)
               },
-              useImperativeHandle: function (ref, create2, deps) {
+              useImperativeHandle: function (ref, create, deps) {
                 currentHookNameInDev = 'useImperativeHandle'
                 warnInvalidHookAccess()
                 mountHookTypesDev()
-                return mountImperativeHandle(ref, create2, deps)
+                return mountImperativeHandle(ref, create, deps)
               },
-              useLayoutEffect: function (create2, deps) {
+              useLayoutEffect: function (create, deps) {
                 currentHookNameInDev = 'useLayoutEffect'
                 warnInvalidHookAccess()
                 mountHookTypesDev()
-                return mountLayoutEffect(create2, deps)
+                return mountLayoutEffect(create, deps)
               },
-              useMemo: function (create2, deps) {
+              useMemo: function (create, deps) {
                 currentHookNameInDev = 'useMemo'
                 warnInvalidHookAccess()
                 mountHookTypesDev()
                 var prevDispatcher = ReactCurrentDispatcher$1.current
                 ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnMountInDEV
                 try {
-                  return mountMemo(create2, deps)
+                  return mountMemo(create, deps)
                 } finally {
                   ReactCurrentDispatcher$1.current = prevDispatcher
                 }
@@ -15674,32 +15674,32 @@
                 updateHookTypesDev()
                 return readContext(context, observedBits)
               },
-              useEffect: function (create2, deps) {
+              useEffect: function (create, deps) {
                 currentHookNameInDev = 'useEffect'
                 warnInvalidHookAccess()
                 updateHookTypesDev()
-                return updateEffect(create2, deps)
+                return updateEffect(create, deps)
               },
-              useImperativeHandle: function (ref, create2, deps) {
+              useImperativeHandle: function (ref, create, deps) {
                 currentHookNameInDev = 'useImperativeHandle'
                 warnInvalidHookAccess()
                 updateHookTypesDev()
-                return updateImperativeHandle(ref, create2, deps)
+                return updateImperativeHandle(ref, create, deps)
               },
-              useLayoutEffect: function (create2, deps) {
+              useLayoutEffect: function (create, deps) {
                 currentHookNameInDev = 'useLayoutEffect'
                 warnInvalidHookAccess()
                 updateHookTypesDev()
-                return updateLayoutEffect(create2, deps)
+                return updateLayoutEffect(create, deps)
               },
-              useMemo: function (create2, deps) {
+              useMemo: function (create, deps) {
                 currentHookNameInDev = 'useMemo'
                 warnInvalidHookAccess()
                 updateHookTypesDev()
                 var prevDispatcher = ReactCurrentDispatcher$1.current
                 ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV
                 try {
-                  return updateMemo(create2, deps)
+                  return updateMemo(create, deps)
                 } finally {
                   ReactCurrentDispatcher$1.current = prevDispatcher
                 }
@@ -15783,32 +15783,32 @@
                 updateHookTypesDev()
                 return readContext(context, observedBits)
               },
-              useEffect: function (create2, deps) {
+              useEffect: function (create, deps) {
                 currentHookNameInDev = 'useEffect'
                 warnInvalidHookAccess()
                 updateHookTypesDev()
-                return updateEffect(create2, deps)
+                return updateEffect(create, deps)
               },
-              useImperativeHandle: function (ref, create2, deps) {
+              useImperativeHandle: function (ref, create, deps) {
                 currentHookNameInDev = 'useImperativeHandle'
                 warnInvalidHookAccess()
                 updateHookTypesDev()
-                return updateImperativeHandle(ref, create2, deps)
+                return updateImperativeHandle(ref, create, deps)
               },
-              useLayoutEffect: function (create2, deps) {
+              useLayoutEffect: function (create, deps) {
                 currentHookNameInDev = 'useLayoutEffect'
                 warnInvalidHookAccess()
                 updateHookTypesDev()
-                return updateLayoutEffect(create2, deps)
+                return updateLayoutEffect(create, deps)
               },
-              useMemo: function (create2, deps) {
+              useMemo: function (create, deps) {
                 currentHookNameInDev = 'useMemo'
                 warnInvalidHookAccess()
                 updateHookTypesDev()
                 var prevDispatcher = ReactCurrentDispatcher$1.current
                 ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV
                 try {
-                  return updateMemo(create2, deps)
+                  return updateMemo(create, deps)
                 } finally {
                   ReactCurrentDispatcher$1.current = prevDispatcher
                 }
@@ -16339,8 +16339,8 @@
                 if (mutableSourceEagerHydrationData != null) {
                   for (var i = 0; i < mutableSourceEagerHydrationData.length; i += 2) {
                     var mutableSource = mutableSourceEagerHydrationData[i]
-                    var version2 = mutableSourceEagerHydrationData[i + 1]
-                    setWorkInProgressVersion(mutableSource, version2)
+                    var version = mutableSourceEagerHydrationData[i + 1]
+                    setWorkInProgressVersion(mutableSource, version)
                   }
                 }
               }
@@ -17011,10 +17011,10 @@
           }
           function validateSuspenseListNestedChild(childSlot, index2) {
             {
-              var isArray4 = Array.isArray(childSlot)
-              var isIterable = !isArray4 && typeof getIteratorFn(childSlot) === 'function'
-              if (isArray4 || isIterable) {
-                var type = isArray4 ? 'array' : 'iterable'
+              var isArray2 = Array.isArray(childSlot)
+              var isIterable = !isArray2 && typeof getIteratorFn(childSlot) === 'function'
+              if (isArray2 || isIterable) {
+                var type = isArray2 ? 'array' : 'iterable'
                 error(
                   'A nested %s was passed to row #%s in <SuspenseList />. Wrap it in an additional SuspenseList to configure its revealOrder: <SuspenseList revealOrder=...> ... <SuspenseList revealOrder=...>{%s}</SuspenseList> ... </SuspenseList>',
                   type,
@@ -18484,8 +18484,8 @@
               var effect = firstEffect
               do {
                 if ((effect.tag & tag) === tag) {
-                  var create2 = effect.create
-                  effect.destroy = create2()
+                  var create = effect.create
+                  effect.destroy = create()
                   {
                     var destroy = effect.destroy
                     if (destroy !== void 0 && typeof destroy !== 'function') {
@@ -19251,7 +19251,7 @@
               })
             }
           }
-          var ceil2 = Math.ceil
+          var ceil = Math.ceil
           var ReactCurrentDispatcher$2 = ReactSharedInternals.ReactCurrentDispatcher,
             ReactCurrentOwner$2 = ReactSharedInternals.ReactCurrentOwner,
             IsSomeRendererActing = ReactSharedInternals.IsSomeRendererActing
@@ -19760,7 +19760,7 @@
             }
           }
           function pushRenderLanes(fiber, lanes) {
-            push2(subtreeRenderLanesCursor, subtreeRenderLanes, fiber)
+            push(subtreeRenderLanesCursor, subtreeRenderLanes, fiber)
             subtreeRenderLanes = mergeLanes(subtreeRenderLanes, lanes)
             workInProgressRootIncludedLanes = mergeLanes(workInProgressRootIncludedLanes, lanes)
           }
@@ -20435,8 +20435,8 @@
             }
           }
           function invokePassiveEffectCreate(effect) {
-            var create2 = effect.create
-            effect.destroy = create2()
+            var create = effect.create
+            effect.destroy = create()
           }
           function flushPassiveEffectsImpl() {
             if (rootWithPendingPassiveEffects === null) {
@@ -20664,7 +20664,7 @@
               ? 3e3
               : timeElapsed < 4320
               ? 4320
-              : ceil2(timeElapsed / 1960) * 1960
+              : ceil(timeElapsed / 1960) * 1960
           }
           function checkForNestedUpdates() {
             if (nestedUpdateCount > NESTED_UPDATE_LIMIT) {
@@ -21829,11 +21829,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
           }
           function registerMutableSourceForHydration(root2, mutableSource) {
             var getVersion = mutableSource._getVersion
-            var version2 = getVersion(mutableSource._source)
+            var version = getVersion(mutableSource._source)
             if (root2.mutableSourceEagerHydrationData == null) {
-              root2.mutableSourceEagerHydrationData = [mutableSource, version2]
+              root2.mutableSourceEagerHydrationData = [mutableSource, version]
             } else {
-              root2.mutableSourceEagerHydrationData.push(mutableSource, version2)
+              root2.mutableSourceEagerHydrationData.push(mutableSource, version)
             }
           }
           function createPortal(children, containerInfo, implementation) {
@@ -21856,7 +21856,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
             if (!parentComponent) {
               return emptyContextObject
             }
-            var fiber = get3(parentComponent)
+            var fiber = get(parentComponent)
             var parentContext = findCurrentUnmaskedContext(fiber)
             if (fiber.tag === ClassComponent) {
               var Component = fiber.type
@@ -21868,7 +21868,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
           }
           function findHostInstanceWithWarning(component, methodName) {
             {
-              var fiber = get3(component)
+              var fiber = get(component)
               if (fiber === void 0) {
                 if (typeof component.render === 'function') {
                   {
@@ -22057,10 +22057,10 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
           var scheduleUpdate = null
           var setSuspenseHandler = null
           {
-            var copyWithDeleteImpl = function (obj, path2, index2) {
-              var key = path2[index2]
+            var copyWithDeleteImpl = function (obj, path, index2) {
+              var key = path[index2]
               var updated = Array.isArray(obj) ? obj.slice() : _assign({}, obj)
-              if (index2 + 1 === path2.length) {
+              if (index2 + 1 === path.length) {
                 if (Array.isArray(updated)) {
                   updated.splice(key, 1)
                 } else {
@@ -22068,11 +22068,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
                 }
                 return updated
               }
-              updated[key] = copyWithDeleteImpl(obj[key], path2, index2 + 1)
+              updated[key] = copyWithDeleteImpl(obj[key], path, index2 + 1)
               return updated
             }
-            var copyWithDelete = function (obj, path2) {
-              return copyWithDeleteImpl(obj, path2, 0)
+            var copyWithDelete = function (obj, path) {
+              return copyWithDeleteImpl(obj, path, 0)
             }
             var copyWithRenameImpl = function (obj, oldPath, newPath, index2) {
               var oldKey = oldPath[index2]
@@ -22104,48 +22104,48 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
               }
               return copyWithRenameImpl(obj, oldPath, newPath, 0)
             }
-            var copyWithSetImpl = function (obj, path2, index2, value) {
-              if (index2 >= path2.length) {
+            var copyWithSetImpl = function (obj, path, index2, value) {
+              if (index2 >= path.length) {
                 return value
               }
-              var key = path2[index2]
+              var key = path[index2]
               var updated = Array.isArray(obj) ? obj.slice() : _assign({}, obj)
-              updated[key] = copyWithSetImpl(obj[key], path2, index2 + 1, value)
+              updated[key] = copyWithSetImpl(obj[key], path, index2 + 1, value)
               return updated
             }
-            var copyWithSet = function (obj, path2, value) {
-              return copyWithSetImpl(obj, path2, 0, value)
+            var copyWithSet = function (obj, path, value) {
+              return copyWithSetImpl(obj, path, 0, value)
             }
-            var findHook = function (fiber, id2) {
+            var findHook = function (fiber, id) {
               var currentHook2 = fiber.memoizedState
-              while (currentHook2 !== null && id2 > 0) {
+              while (currentHook2 !== null && id > 0) {
                 currentHook2 = currentHook2.next
-                id2--
+                id--
               }
               return currentHook2
             }
-            overrideHookState = function (fiber, id2, path2, value) {
-              var hook = findHook(fiber, id2)
+            overrideHookState = function (fiber, id, path, value) {
+              var hook = findHook(fiber, id)
               if (hook !== null) {
-                var newState = copyWithSet(hook.memoizedState, path2, value)
+                var newState = copyWithSet(hook.memoizedState, path, value)
                 hook.memoizedState = newState
                 hook.baseState = newState
                 fiber.memoizedProps = _assign({}, fiber.memoizedProps)
                 scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp)
               }
             }
-            overrideHookStateDeletePath = function (fiber, id2, path2) {
-              var hook = findHook(fiber, id2)
+            overrideHookStateDeletePath = function (fiber, id, path) {
+              var hook = findHook(fiber, id)
               if (hook !== null) {
-                var newState = copyWithDelete(hook.memoizedState, path2)
+                var newState = copyWithDelete(hook.memoizedState, path)
                 hook.memoizedState = newState
                 hook.baseState = newState
                 fiber.memoizedProps = _assign({}, fiber.memoizedProps)
                 scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp)
               }
             }
-            overrideHookStateRenamePath = function (fiber, id2, oldPath, newPath) {
-              var hook = findHook(fiber, id2)
+            overrideHookStateRenamePath = function (fiber, id, oldPath, newPath) {
+              var hook = findHook(fiber, id)
               if (hook !== null) {
                 var newState = copyWithRename(hook.memoizedState, oldPath, newPath)
                 hook.memoizedState = newState
@@ -22154,15 +22154,15 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
                 scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp)
               }
             }
-            overrideProps = function (fiber, path2, value) {
-              fiber.pendingProps = copyWithSet(fiber.memoizedProps, path2, value)
+            overrideProps = function (fiber, path, value) {
+              fiber.pendingProps = copyWithSet(fiber.memoizedProps, path, value)
               if (fiber.alternate) {
                 fiber.alternate.pendingProps = fiber.pendingProps
               }
               scheduleUpdateOnFiber(fiber, SyncLane, NoTimestamp)
             }
-            overridePropsDeletePath = function (fiber, path2) {
-              fiber.pendingProps = copyWithDelete(fiber.memoizedProps, path2)
+            overridePropsDeletePath = function (fiber, path) {
+              fiber.pendingProps = copyWithDelete(fiber.memoizedProps, path)
               if (fiber.alternate) {
                 fiber.alternate.pendingProps = fiber.pendingProps
               }
@@ -22492,7 +22492,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
                 throw Error('Target container is not a DOM element.')
               }
             }
-            if (!(parentComponent != null && has2(parentComponent))) {
+            if (!(parentComponent != null && has(parentComponent))) {
               {
                 throw Error('parentComponent must be a valid React Component')
               }
@@ -22661,3270 +22661,3487 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
     },
   })
 
-  // node_modules/react-is/cjs/react-is.development.js
-  var require_react_is_development = __commonJS({
-    'node_modules/react-is/cjs/react-is.development.js'(exports) {
-      'use strict'
-      if (true) {
-        ;(function () {
-          'use strict'
-          var hasSymbol = typeof Symbol === 'function' && Symbol.for
-          var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 60103
-          var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 60106
-          var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 60107
-          var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 60108
-          var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 60114
-          var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 60109
-          var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 60110
-          var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for('react.async_mode') : 60111
-          var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 60111
-          var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 60112
-          var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 60113
-          var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for('react.suspense_list') : 60120
-          var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 60115
-          var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 60116
-          var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for('react.block') : 60121
-          var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for('react.fundamental') : 60117
-          var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for('react.responder') : 60118
-          var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for('react.scope') : 60119
-          function isValidElementType(type) {
-            return (
-              typeof type === 'string' ||
-              typeof type === 'function' ||
-              type === REACT_FRAGMENT_TYPE ||
-              type === REACT_CONCURRENT_MODE_TYPE ||
-              type === REACT_PROFILER_TYPE ||
-              type === REACT_STRICT_MODE_TYPE ||
-              type === REACT_SUSPENSE_TYPE ||
-              type === REACT_SUSPENSE_LIST_TYPE ||
-              (typeof type === 'object' &&
-                type !== null &&
-                (type.$$typeof === REACT_LAZY_TYPE ||
-                  type.$$typeof === REACT_MEMO_TYPE ||
-                  type.$$typeof === REACT_PROVIDER_TYPE ||
-                  type.$$typeof === REACT_CONTEXT_TYPE ||
-                  type.$$typeof === REACT_FORWARD_REF_TYPE ||
-                  type.$$typeof === REACT_FUNDAMENTAL_TYPE ||
-                  type.$$typeof === REACT_RESPONDER_TYPE ||
-                  type.$$typeof === REACT_SCOPE_TYPE ||
-                  type.$$typeof === REACT_BLOCK_TYPE))
-            )
-          }
-          function typeOf(object) {
-            if (typeof object === 'object' && object !== null) {
-              var $$typeof = object.$$typeof
-              switch ($$typeof) {
-                case REACT_ELEMENT_TYPE:
-                  var type = object.type
-                  switch (type) {
-                    case REACT_ASYNC_MODE_TYPE:
-                    case REACT_CONCURRENT_MODE_TYPE:
-                    case REACT_FRAGMENT_TYPE:
-                    case REACT_PROFILER_TYPE:
-                    case REACT_STRICT_MODE_TYPE:
-                    case REACT_SUSPENSE_TYPE:
-                      return type
-                    default:
-                      var $$typeofType = type && type.$$typeof
-                      switch ($$typeofType) {
-                        case REACT_CONTEXT_TYPE:
-                        case REACT_FORWARD_REF_TYPE:
-                        case REACT_LAZY_TYPE:
-                        case REACT_MEMO_TYPE:
-                        case REACT_PROVIDER_TYPE:
-                          return $$typeofType
-                        default:
-                          return $$typeof
-                      }
-                  }
-                case REACT_PORTAL_TYPE:
-                  return $$typeof
-              }
+  // node_modules/popper.js/dist/umd/popper.js
+  var require_popper = __commonJS({
+    'node_modules/popper.js/dist/umd/popper.js'(exports, module) {
+      ;(function (global2, factory) {
+        typeof exports === 'object' && typeof module !== 'undefined'
+          ? (module.exports = factory())
+          : typeof define === 'function' && define.amd
+          ? define(factory)
+          : (global2.Popper = factory())
+      })(exports, function () {
+        'use strict'
+        var isBrowser =
+          typeof window !== 'undefined' && typeof document !== 'undefined' && typeof navigator !== 'undefined'
+        var timeoutDuration = (function () {
+          var longerTimeoutBrowsers = ['Edge', 'Trident', 'Firefox']
+          for (var i = 0; i < longerTimeoutBrowsers.length; i += 1) {
+            if (isBrowser && navigator.userAgent.indexOf(longerTimeoutBrowsers[i]) >= 0) {
+              return 1
             }
-            return void 0
           }
-          var AsyncMode = REACT_ASYNC_MODE_TYPE
-          var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE
-          var ContextConsumer = REACT_CONTEXT_TYPE
-          var ContextProvider = REACT_PROVIDER_TYPE
-          var Element = REACT_ELEMENT_TYPE
-          var ForwardRef = REACT_FORWARD_REF_TYPE
-          var Fragment = REACT_FRAGMENT_TYPE
-          var Lazy = REACT_LAZY_TYPE
-          var Memo = REACT_MEMO_TYPE
-          var Portal = REACT_PORTAL_TYPE
-          var Profiler = REACT_PROFILER_TYPE
-          var StrictMode = REACT_STRICT_MODE_TYPE
-          var Suspense = REACT_SUSPENSE_TYPE
-          var hasWarnedAboutDeprecatedIsAsyncMode = false
-          function isAsyncMode(object) {
-            {
-              if (!hasWarnedAboutDeprecatedIsAsyncMode) {
-                hasWarnedAboutDeprecatedIsAsyncMode = true
-                console['warn'](
-                  'The ReactIs.isAsyncMode() alias has been deprecated, and will be removed in React 17+. Update your code to use ReactIs.isConcurrentMode() instead. It has the exact same API.'
-                )
-              }
-            }
-            return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE
-          }
-          function isConcurrentMode(object) {
-            return typeOf(object) === REACT_CONCURRENT_MODE_TYPE
-          }
-          function isContextConsumer(object) {
-            return typeOf(object) === REACT_CONTEXT_TYPE
-          }
-          function isContextProvider(object) {
-            return typeOf(object) === REACT_PROVIDER_TYPE
-          }
-          function isElement(object) {
-            return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE
-          }
-          function isForwardRef(object) {
-            return typeOf(object) === REACT_FORWARD_REF_TYPE
-          }
-          function isFragment(object) {
-            return typeOf(object) === REACT_FRAGMENT_TYPE
-          }
-          function isLazy(object) {
-            return typeOf(object) === REACT_LAZY_TYPE
-          }
-          function isMemo(object) {
-            return typeOf(object) === REACT_MEMO_TYPE
-          }
-          function isPortal(object) {
-            return typeOf(object) === REACT_PORTAL_TYPE
-          }
-          function isProfiler(object) {
-            return typeOf(object) === REACT_PROFILER_TYPE
-          }
-          function isStrictMode(object) {
-            return typeOf(object) === REACT_STRICT_MODE_TYPE
-          }
-          function isSuspense(object) {
-            return typeOf(object) === REACT_SUSPENSE_TYPE
-          }
-          exports.AsyncMode = AsyncMode
-          exports.ConcurrentMode = ConcurrentMode
-          exports.ContextConsumer = ContextConsumer
-          exports.ContextProvider = ContextProvider
-          exports.Element = Element
-          exports.ForwardRef = ForwardRef
-          exports.Fragment = Fragment
-          exports.Lazy = Lazy
-          exports.Memo = Memo
-          exports.Portal = Portal
-          exports.Profiler = Profiler
-          exports.StrictMode = StrictMode
-          exports.Suspense = Suspense
-          exports.isAsyncMode = isAsyncMode
-          exports.isConcurrentMode = isConcurrentMode
-          exports.isContextConsumer = isContextConsumer
-          exports.isContextProvider = isContextProvider
-          exports.isElement = isElement
-          exports.isForwardRef = isForwardRef
-          exports.isFragment = isFragment
-          exports.isLazy = isLazy
-          exports.isMemo = isMemo
-          exports.isPortal = isPortal
-          exports.isProfiler = isProfiler
-          exports.isStrictMode = isStrictMode
-          exports.isSuspense = isSuspense
-          exports.isValidElementType = isValidElementType
-          exports.typeOf = typeOf
+          return 0
         })()
-      }
-    },
-  })
-
-  // node_modules/react-is/index.js
-  var require_react_is = __commonJS({
-    'node_modules/react-is/index.js'(exports, module) {
-      'use strict'
-      if (false) {
-        module.exports = null
-      } else {
-        module.exports = require_react_is_development()
-      }
-    },
-  })
-
-  // node_modules/prop-types/lib/ReactPropTypesSecret.js
-  var require_ReactPropTypesSecret = __commonJS({
-    'node_modules/prop-types/lib/ReactPropTypesSecret.js'(exports, module) {
-      'use strict'
-      var ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED'
-      module.exports = ReactPropTypesSecret
-    },
-  })
-
-  // node_modules/prop-types/checkPropTypes.js
-  var require_checkPropTypes = __commonJS({
-    'node_modules/prop-types/checkPropTypes.js'(exports, module) {
-      'use strict'
-      var printWarning = function () {}
-      if (true) {
-        ReactPropTypesSecret = require_ReactPropTypesSecret()
-        loggedTypeFailures = {}
-        has2 = Function.call.bind(Object.prototype.hasOwnProperty)
-        printWarning = function (text) {
-          var message = 'Warning: ' + text
-          if (typeof console !== 'undefined') {
-            console.error(message)
-          }
-          try {
-            throw new Error(message)
-          } catch (x) {}
-        }
-      }
-      var ReactPropTypesSecret
-      var loggedTypeFailures
-      var has2
-      function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
-        if (true) {
-          for (var typeSpecName in typeSpecs) {
-            if (has2(typeSpecs, typeSpecName)) {
-              var error
-              try {
-                if (typeof typeSpecs[typeSpecName] !== 'function') {
-                  var err = Error(
-                    (componentName || 'React class') +
-                      ': ' +
-                      location +
-                      ' type `' +
-                      typeSpecName +
-                      '` is invalid; it must be a function, usually from the `prop-types` package, but received `' +
-                      typeof typeSpecs[typeSpecName] +
-                      '`.'
-                  )
-                  err.name = 'Invariant Violation'
-                  throw err
-                }
-                error = typeSpecs[typeSpecName](
-                  values,
-                  typeSpecName,
-                  componentName,
-                  location,
-                  null,
-                  ReactPropTypesSecret
-                )
-              } catch (ex) {
-                error = ex
-              }
-              if (error && !(error instanceof Error)) {
-                printWarning(
-                  (componentName || 'React class') +
-                    ': type specification of ' +
-                    location +
-                    ' `' +
-                    typeSpecName +
-                    '` is invalid; the type checker function must return `null` or an `Error` but returned a ' +
-                    typeof error +
-                    '. You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).'
-                )
-              }
-              if (error instanceof Error && !(error.message in loggedTypeFailures)) {
-                loggedTypeFailures[error.message] = true
-                var stack = getStack ? getStack() : ''
-                printWarning('Failed ' + location + ' type: ' + error.message + (stack != null ? stack : ''))
-              }
+        function microtaskDebounce(fn) {
+          var called = false
+          return function () {
+            if (called) {
+              return
             }
-          }
-        }
-      }
-      checkPropTypes.resetWarningCache = function () {
-        if (true) {
-          loggedTypeFailures = {}
-        }
-      }
-      module.exports = checkPropTypes
-    },
-  })
-
-  // node_modules/prop-types/factoryWithTypeCheckers.js
-  var require_factoryWithTypeCheckers = __commonJS({
-    'node_modules/prop-types/factoryWithTypeCheckers.js'(exports, module) {
-      'use strict'
-      var ReactIs = require_react_is()
-      var assign = require_object_assign()
-      var ReactPropTypesSecret = require_ReactPropTypesSecret()
-      var checkPropTypes = require_checkPropTypes()
-      var has2 = Function.call.bind(Object.prototype.hasOwnProperty)
-      var printWarning = function () {}
-      if (true) {
-        printWarning = function (text) {
-          var message = 'Warning: ' + text
-          if (typeof console !== 'undefined') {
-            console.error(message)
-          }
-          try {
-            throw new Error(message)
-          } catch (x) {}
-        }
-      }
-      function emptyFunctionThatReturnsNull() {
-        return null
-      }
-      module.exports = function (isValidElement, throwOnDirectAccess) {
-        var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator
-        var FAUX_ITERATOR_SYMBOL = '@@iterator'
-        function getIteratorFn(maybeIterable) {
-          var iteratorFn =
-            maybeIterable &&
-            ((ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL]) || maybeIterable[FAUX_ITERATOR_SYMBOL])
-          if (typeof iteratorFn === 'function') {
-            return iteratorFn
-          }
-        }
-        var ANONYMOUS = '<<anonymous>>'
-        var ReactPropTypes = {
-          array: createPrimitiveTypeChecker('array'),
-          bool: createPrimitiveTypeChecker('boolean'),
-          func: createPrimitiveTypeChecker('function'),
-          number: createPrimitiveTypeChecker('number'),
-          object: createPrimitiveTypeChecker('object'),
-          string: createPrimitiveTypeChecker('string'),
-          symbol: createPrimitiveTypeChecker('symbol'),
-          any: createAnyTypeChecker(),
-          arrayOf: createArrayOfTypeChecker,
-          element: createElementTypeChecker(),
-          elementType: createElementTypeTypeChecker(),
-          instanceOf: createInstanceTypeChecker,
-          node: createNodeChecker(),
-          objectOf: createObjectOfTypeChecker,
-          oneOf: createEnumTypeChecker,
-          oneOfType: createUnionTypeChecker,
-          shape: createShapeTypeChecker,
-          exact: createStrictShapeTypeChecker,
-        }
-        function is(x, y) {
-          if (x === y) {
-            return x !== 0 || 1 / x === 1 / y
-          } else {
-            return x !== x && y !== y
-          }
-        }
-        function PropTypeError(message) {
-          this.message = message
-          this.stack = ''
-        }
-        PropTypeError.prototype = Error.prototype
-        function createChainableTypeChecker(validate) {
-          if (true) {
-            var manualPropTypeCallCache = {}
-            var manualPropTypeWarningCount = 0
-          }
-          function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
-            componentName = componentName || ANONYMOUS
-            propFullName = propFullName || propName
-            if (secret !== ReactPropTypesSecret) {
-              if (throwOnDirectAccess) {
-                var err = new Error(
-                  'Calling PropTypes validators directly is not supported by the `prop-types` package. Use `PropTypes.checkPropTypes()` to call them. Read more at http://fb.me/use-check-prop-types'
-                )
-                err.name = 'Invariant Violation'
-                throw err
-              } else if (typeof console !== 'undefined') {
-                var cacheKey = componentName + ':' + propName
-                if (!manualPropTypeCallCache[cacheKey] && manualPropTypeWarningCount < 3) {
-                  printWarning(
-                    'You are manually calling a React.PropTypes validation function for the `' +
-                      propFullName +
-                      '` prop on `' +
-                      componentName +
-                      '`. This is deprecated and will throw in the standalone `prop-types` package. You may be seeing this warning due to a third-party PropTypes library. See https://fb.me/react-warning-dont-call-proptypes for details.'
-                  )
-                  manualPropTypeCallCache[cacheKey] = true
-                  manualPropTypeWarningCount++
-                }
-              }
-            }
-            if (props[propName] == null) {
-              if (isRequired) {
-                if (props[propName] === null) {
-                  return new PropTypeError(
-                    'The ' +
-                      location +
-                      ' `' +
-                      propFullName +
-                      '` is marked as required ' +
-                      ('in `' + componentName + '`, but its value is `null`.')
-                  )
-                }
-                return new PropTypeError(
-                  'The ' +
-                    location +
-                    ' `' +
-                    propFullName +
-                    '` is marked as required in ' +
-                    ('`' + componentName + '`, but its value is `undefined`.')
-                )
-              }
-              return null
-            } else {
-              return validate(props, propName, componentName, location, propFullName)
-            }
-          }
-          var chainedCheckType = checkType.bind(null, false)
-          chainedCheckType.isRequired = checkType.bind(null, true)
-          return chainedCheckType
-        }
-        function createPrimitiveTypeChecker(expectedType) {
-          function validate(props, propName, componentName, location, propFullName, secret) {
-            var propValue = props[propName]
-            var propType = getPropType(propValue)
-            if (propType !== expectedType) {
-              var preciseType = getPreciseType(propValue)
-              return new PropTypeError(
-                'Invalid ' +
-                  location +
-                  ' `' +
-                  propFullName +
-                  '` of type ' +
-                  ('`' + preciseType + '` supplied to `' + componentName + '`, expected ') +
-                  ('`' + expectedType + '`.')
-              )
-            }
-            return null
-          }
-          return createChainableTypeChecker(validate)
-        }
-        function createAnyTypeChecker() {
-          return createChainableTypeChecker(emptyFunctionThatReturnsNull)
-        }
-        function createArrayOfTypeChecker(typeChecker) {
-          function validate(props, propName, componentName, location, propFullName) {
-            if (typeof typeChecker !== 'function') {
-              return new PropTypeError(
-                'Property `' +
-                  propFullName +
-                  '` of component `' +
-                  componentName +
-                  '` has invalid PropType notation inside arrayOf.'
-              )
-            }
-            var propValue = props[propName]
-            if (!Array.isArray(propValue)) {
-              var propType = getPropType(propValue)
-              return new PropTypeError(
-                'Invalid ' +
-                  location +
-                  ' `' +
-                  propFullName +
-                  '` of type ' +
-                  ('`' + propType + '` supplied to `' + componentName + '`, expected an array.')
-              )
-            }
-            for (var i = 0; i < propValue.length; i++) {
-              var error = typeChecker(
-                propValue,
-                i,
-                componentName,
-                location,
-                propFullName + '[' + i + ']',
-                ReactPropTypesSecret
-              )
-              if (error instanceof Error) {
-                return error
-              }
-            }
-            return null
-          }
-          return createChainableTypeChecker(validate)
-        }
-        function createElementTypeChecker() {
-          function validate(props, propName, componentName, location, propFullName) {
-            var propValue = props[propName]
-            if (!isValidElement(propValue)) {
-              var propType = getPropType(propValue)
-              return new PropTypeError(
-                'Invalid ' +
-                  location +
-                  ' `' +
-                  propFullName +
-                  '` of type ' +
-                  ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement.')
-              )
-            }
-            return null
-          }
-          return createChainableTypeChecker(validate)
-        }
-        function createElementTypeTypeChecker() {
-          function validate(props, propName, componentName, location, propFullName) {
-            var propValue = props[propName]
-            if (!ReactIs.isValidElementType(propValue)) {
-              var propType = getPropType(propValue)
-              return new PropTypeError(
-                'Invalid ' +
-                  location +
-                  ' `' +
-                  propFullName +
-                  '` of type ' +
-                  ('`' + propType + '` supplied to `' + componentName + '`, expected a single ReactElement type.')
-              )
-            }
-            return null
-          }
-          return createChainableTypeChecker(validate)
-        }
-        function createInstanceTypeChecker(expectedClass) {
-          function validate(props, propName, componentName, location, propFullName) {
-            if (!(props[propName] instanceof expectedClass)) {
-              var expectedClassName = expectedClass.name || ANONYMOUS
-              var actualClassName = getClassName(props[propName])
-              return new PropTypeError(
-                'Invalid ' +
-                  location +
-                  ' `' +
-                  propFullName +
-                  '` of type ' +
-                  ('`' + actualClassName + '` supplied to `' + componentName + '`, expected ') +
-                  ('instance of `' + expectedClassName + '`.')
-              )
-            }
-            return null
-          }
-          return createChainableTypeChecker(validate)
-        }
-        function createEnumTypeChecker(expectedValues) {
-          if (!Array.isArray(expectedValues)) {
-            if (true) {
-              if (arguments.length > 1) {
-                printWarning(
-                  'Invalid arguments supplied to oneOf, expected an array, got ' +
-                    arguments.length +
-                    ' arguments. A common mistake is to write oneOf(x, y, z) instead of oneOf([x, y, z]).'
-                )
-              } else {
-                printWarning('Invalid argument supplied to oneOf, expected an array.')
-              }
-            }
-            return emptyFunctionThatReturnsNull
-          }
-          function validate(props, propName, componentName, location, propFullName) {
-            var propValue = props[propName]
-            for (var i = 0; i < expectedValues.length; i++) {
-              if (is(propValue, expectedValues[i])) {
-                return null
-              }
-            }
-            var valuesString = JSON.stringify(expectedValues, function replacer(key, value) {
-              var type = getPreciseType(value)
-              if (type === 'symbol') {
-                return String(value)
-              }
-              return value
+            called = true
+            window.Promise.resolve().then(function () {
+              called = false
+              fn()
             })
-            return new PropTypeError(
-              'Invalid ' +
-                location +
-                ' `' +
-                propFullName +
-                '` of value `' +
-                String(propValue) +
-                '` ' +
-                ('supplied to `' + componentName + '`, expected one of ' + valuesString + '.')
-            )
-          }
-          return createChainableTypeChecker(validate)
-        }
-        function createObjectOfTypeChecker(typeChecker) {
-          function validate(props, propName, componentName, location, propFullName) {
-            if (typeof typeChecker !== 'function') {
-              return new PropTypeError(
-                'Property `' +
-                  propFullName +
-                  '` of component `' +
-                  componentName +
-                  '` has invalid PropType notation inside objectOf.'
-              )
-            }
-            var propValue = props[propName]
-            var propType = getPropType(propValue)
-            if (propType !== 'object') {
-              return new PropTypeError(
-                'Invalid ' +
-                  location +
-                  ' `' +
-                  propFullName +
-                  '` of type ' +
-                  ('`' + propType + '` supplied to `' + componentName + '`, expected an object.')
-              )
-            }
-            for (var key in propValue) {
-              if (has2(propValue, key)) {
-                var error = typeChecker(
-                  propValue,
-                  key,
-                  componentName,
-                  location,
-                  propFullName + '.' + key,
-                  ReactPropTypesSecret
-                )
-                if (error instanceof Error) {
-                  return error
-                }
-              }
-            }
-            return null
-          }
-          return createChainableTypeChecker(validate)
-        }
-        function createUnionTypeChecker(arrayOfTypeCheckers) {
-          if (!Array.isArray(arrayOfTypeCheckers)) {
-            true ? printWarning('Invalid argument supplied to oneOfType, expected an instance of array.') : void 0
-            return emptyFunctionThatReturnsNull
-          }
-          for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
-            var checker = arrayOfTypeCheckers[i]
-            if (typeof checker !== 'function') {
-              printWarning(
-                'Invalid argument supplied to oneOfType. Expected an array of check functions, but received ' +
-                  getPostfixForTypeWarning(checker) +
-                  ' at index ' +
-                  i +
-                  '.'
-              )
-              return emptyFunctionThatReturnsNull
-            }
-          }
-          function validate(props, propName, componentName, location, propFullName) {
-            for (var i2 = 0; i2 < arrayOfTypeCheckers.length; i2++) {
-              var checker2 = arrayOfTypeCheckers[i2]
-              if (checker2(props, propName, componentName, location, propFullName, ReactPropTypesSecret) == null) {
-                return null
-              }
-            }
-            return new PropTypeError(
-              'Invalid ' + location + ' `' + propFullName + '` supplied to ' + ('`' + componentName + '`.')
-            )
-          }
-          return createChainableTypeChecker(validate)
-        }
-        function createNodeChecker() {
-          function validate(props, propName, componentName, location, propFullName) {
-            if (!isNode(props[propName])) {
-              return new PropTypeError(
-                'Invalid ' +
-                  location +
-                  ' `' +
-                  propFullName +
-                  '` supplied to ' +
-                  ('`' + componentName + '`, expected a ReactNode.')
-              )
-            }
-            return null
-          }
-          return createChainableTypeChecker(validate)
-        }
-        function createShapeTypeChecker(shapeTypes) {
-          function validate(props, propName, componentName, location, propFullName) {
-            var propValue = props[propName]
-            var propType = getPropType(propValue)
-            if (propType !== 'object') {
-              return new PropTypeError(
-                'Invalid ' +
-                  location +
-                  ' `' +
-                  propFullName +
-                  '` of type `' +
-                  propType +
-                  '` ' +
-                  ('supplied to `' + componentName + '`, expected `object`.')
-              )
-            }
-            for (var key in shapeTypes) {
-              var checker = shapeTypes[key]
-              if (!checker) {
-                continue
-              }
-              var error = checker(
-                propValue,
-                key,
-                componentName,
-                location,
-                propFullName + '.' + key,
-                ReactPropTypesSecret
-              )
-              if (error) {
-                return error
-              }
-            }
-            return null
-          }
-          return createChainableTypeChecker(validate)
-        }
-        function createStrictShapeTypeChecker(shapeTypes) {
-          function validate(props, propName, componentName, location, propFullName) {
-            var propValue = props[propName]
-            var propType = getPropType(propValue)
-            if (propType !== 'object') {
-              return new PropTypeError(
-                'Invalid ' +
-                  location +
-                  ' `' +
-                  propFullName +
-                  '` of type `' +
-                  propType +
-                  '` ' +
-                  ('supplied to `' + componentName + '`, expected `object`.')
-              )
-            }
-            var allKeys = assign({}, props[propName], shapeTypes)
-            for (var key in allKeys) {
-              var checker = shapeTypes[key]
-              if (!checker) {
-                return new PropTypeError(
-                  'Invalid ' +
-                    location +
-                    ' `' +
-                    propFullName +
-                    '` key `' +
-                    key +
-                    '` supplied to `' +
-                    componentName +
-                    '`.\nBad object: ' +
-                    JSON.stringify(props[propName], null, '  ') +
-                    '\nValid keys: ' +
-                    JSON.stringify(Object.keys(shapeTypes), null, '  ')
-                )
-              }
-              var error = checker(
-                propValue,
-                key,
-                componentName,
-                location,
-                propFullName + '.' + key,
-                ReactPropTypesSecret
-              )
-              if (error) {
-                return error
-              }
-            }
-            return null
-          }
-          return createChainableTypeChecker(validate)
-        }
-        function isNode(propValue) {
-          switch (typeof propValue) {
-            case 'number':
-            case 'string':
-            case 'undefined':
-              return true
-            case 'boolean':
-              return !propValue
-            case 'object':
-              if (Array.isArray(propValue)) {
-                return propValue.every(isNode)
-              }
-              if (propValue === null || isValidElement(propValue)) {
-                return true
-              }
-              var iteratorFn = getIteratorFn(propValue)
-              if (iteratorFn) {
-                var iterator = iteratorFn.call(propValue)
-                var step
-                if (iteratorFn !== propValue.entries) {
-                  while (!(step = iterator.next()).done) {
-                    if (!isNode(step.value)) {
-                      return false
-                    }
-                  }
-                } else {
-                  while (!(step = iterator.next()).done) {
-                    var entry = step.value
-                    if (entry) {
-                      if (!isNode(entry[1])) {
-                        return false
-                      }
-                    }
-                  }
-                }
-              } else {
-                return false
-              }
-              return true
-            default:
-              return false
           }
         }
-        function isSymbol(propType, propValue) {
-          if (propType === 'symbol') {
-            return true
+        function taskDebounce(fn) {
+          var scheduled = false
+          return function () {
+            if (!scheduled) {
+              scheduled = true
+              setTimeout(function () {
+                scheduled = false
+                fn()
+              }, timeoutDuration)
+            }
           }
-          if (!propValue) {
+        }
+        var supportsMicroTasks = isBrowser && window.Promise
+        var debounce = supportsMicroTasks ? microtaskDebounce : taskDebounce
+        function isFunction(functionToCheck) {
+          var getType = {}
+          return functionToCheck && getType.toString.call(functionToCheck) === '[object Function]'
+        }
+        function getStyleComputedProperty(element, property) {
+          if (element.nodeType !== 1) {
+            return []
+          }
+          var window2 = element.ownerDocument.defaultView
+          var css = window2.getComputedStyle(element, null)
+          return property ? css[property] : css
+        }
+        function getParentNode(element) {
+          if (element.nodeName === 'HTML') {
+            return element
+          }
+          return element.parentNode || element.host
+        }
+        function getScrollParent(element) {
+          if (!element) {
+            return document.body
+          }
+          switch (element.nodeName) {
+            case 'HTML':
+            case 'BODY':
+              return element.ownerDocument.body
+            case '#document':
+              return element.body
+          }
+          var _getStyleComputedProp = getStyleComputedProperty(element),
+            overflow = _getStyleComputedProp.overflow,
+            overflowX = _getStyleComputedProp.overflowX,
+            overflowY = _getStyleComputedProp.overflowY
+          if (/(auto|scroll|overlay)/.test(overflow + overflowY + overflowX)) {
+            return element
+          }
+          return getScrollParent(getParentNode(element))
+        }
+        function getReferenceNode(reference) {
+          return reference && reference.referenceNode ? reference.referenceNode : reference
+        }
+        var isIE11 = isBrowser && !!(window.MSInputMethodContext && document.documentMode)
+        var isIE10 = isBrowser && /MSIE 10/.test(navigator.userAgent)
+        function isIE(version) {
+          if (version === 11) {
+            return isIE11
+          }
+          if (version === 10) {
+            return isIE10
+          }
+          return isIE11 || isIE10
+        }
+        function getOffsetParent(element) {
+          if (!element) {
+            return document.documentElement
+          }
+          var noOffsetParent = isIE(10) ? document.body : null
+          var offsetParent = element.offsetParent || null
+          while (offsetParent === noOffsetParent && element.nextElementSibling) {
+            offsetParent = (element = element.nextElementSibling).offsetParent
+          }
+          var nodeName = offsetParent && offsetParent.nodeName
+          if (!nodeName || nodeName === 'BODY' || nodeName === 'HTML') {
+            return element ? element.ownerDocument.documentElement : document.documentElement
+          }
+          if (
+            ['TH', 'TD', 'TABLE'].indexOf(offsetParent.nodeName) !== -1 &&
+            getStyleComputedProperty(offsetParent, 'position') === 'static'
+          ) {
+            return getOffsetParent(offsetParent)
+          }
+          return offsetParent
+        }
+        function isOffsetContainer(element) {
+          var nodeName = element.nodeName
+          if (nodeName === 'BODY') {
             return false
           }
-          if (propValue['@@toStringTag'] === 'Symbol') {
-            return true
-          }
-          if (typeof Symbol === 'function' && propValue instanceof Symbol) {
-            return true
-          }
-          return false
+          return nodeName === 'HTML' || getOffsetParent(element.firstElementChild) === element
         }
-        function getPropType(propValue) {
-          var propType = typeof propValue
-          if (Array.isArray(propValue)) {
-            return 'array'
+        function getRoot(node) {
+          if (node.parentNode !== null) {
+            return getRoot(node.parentNode)
           }
-          if (propValue instanceof RegExp) {
-            return 'object'
-          }
-          if (isSymbol(propType, propValue)) {
-            return 'symbol'
-          }
-          return propType
+          return node
         }
-        function getPreciseType(propValue) {
-          if (typeof propValue === 'undefined' || propValue === null) {
-            return '' + propValue
+        function findCommonOffsetParent(element1, element2) {
+          if (!element1 || !element1.nodeType || !element2 || !element2.nodeType) {
+            return document.documentElement
           }
-          var propType = getPropType(propValue)
-          if (propType === 'object') {
-            if (propValue instanceof Date) {
-              return 'date'
-            } else if (propValue instanceof RegExp) {
-              return 'regexp'
+          var order = element1.compareDocumentPosition(element2) & Node.DOCUMENT_POSITION_FOLLOWING
+          var start = order ? element1 : element2
+          var end = order ? element2 : element1
+          var range = document.createRange()
+          range.setStart(start, 0)
+          range.setEnd(end, 0)
+          var commonAncestorContainer = range.commonAncestorContainer
+          if ((element1 !== commonAncestorContainer && element2 !== commonAncestorContainer) || start.contains(end)) {
+            if (isOffsetContainer(commonAncestorContainer)) {
+              return commonAncestorContainer
+            }
+            return getOffsetParent(commonAncestorContainer)
+          }
+          var element1root = getRoot(element1)
+          if (element1root.host) {
+            return findCommonOffsetParent(element1root.host, element2)
+          } else {
+            return findCommonOffsetParent(element1, getRoot(element2).host)
+          }
+        }
+        function getScroll(element) {
+          var side = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 'top'
+          var upperSide = side === 'top' ? 'scrollTop' : 'scrollLeft'
+          var nodeName = element.nodeName
+          if (nodeName === 'BODY' || nodeName === 'HTML') {
+            var html = element.ownerDocument.documentElement
+            var scrollingElement = element.ownerDocument.scrollingElement || html
+            return scrollingElement[upperSide]
+          }
+          return element[upperSide]
+        }
+        function includeScroll(rect, element) {
+          var subtract = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : false
+          var scrollTop = getScroll(element, 'top')
+          var scrollLeft = getScroll(element, 'left')
+          var modifier = subtract ? -1 : 1
+          rect.top += scrollTop * modifier
+          rect.bottom += scrollTop * modifier
+          rect.left += scrollLeft * modifier
+          rect.right += scrollLeft * modifier
+          return rect
+        }
+        function getBordersSize(styles, axis) {
+          var sideA = axis === 'x' ? 'Left' : 'Top'
+          var sideB = sideA === 'Left' ? 'Right' : 'Bottom'
+          return parseFloat(styles['border' + sideA + 'Width']) + parseFloat(styles['border' + sideB + 'Width'])
+        }
+        function getSize(axis, body, html, computedStyle) {
+          return Math.max(
+            body['offset' + axis],
+            body['scroll' + axis],
+            html['client' + axis],
+            html['offset' + axis],
+            html['scroll' + axis],
+            isIE(10)
+              ? parseInt(html['offset' + axis]) +
+                  parseInt(computedStyle['margin' + (axis === 'Height' ? 'Top' : 'Left')]) +
+                  parseInt(computedStyle['margin' + (axis === 'Height' ? 'Bottom' : 'Right')])
+              : 0
+          )
+        }
+        function getWindowSizes(document2) {
+          var body = document2.body
+          var html = document2.documentElement
+          var computedStyle = isIE(10) && getComputedStyle(html)
+          return {
+            height: getSize('Height', body, html, computedStyle),
+            width: getSize('Width', body, html, computedStyle),
+          }
+        }
+        var classCallCheck = function (instance, Constructor) {
+          if (!(instance instanceof Constructor)) {
+            throw new TypeError('Cannot call a class as a function')
+          }
+        }
+        var createClass = (function () {
+          function defineProperties(target, props) {
+            for (var i = 0; i < props.length; i++) {
+              var descriptor = props[i]
+              descriptor.enumerable = descriptor.enumerable || false
+              descriptor.configurable = true
+              if ('value' in descriptor) descriptor.writable = true
+              Object.defineProperty(target, descriptor.key, descriptor)
             }
           }
-          return propType
+          return function (Constructor, protoProps, staticProps) {
+            if (protoProps) defineProperties(Constructor.prototype, protoProps)
+            if (staticProps) defineProperties(Constructor, staticProps)
+            return Constructor
+          }
+        })()
+        var defineProperty = function (obj, key, value) {
+          if (key in obj) {
+            Object.defineProperty(obj, key, {
+              value,
+              enumerable: true,
+              configurable: true,
+              writable: true,
+            })
+          } else {
+            obj[key] = value
+          }
+          return obj
         }
-        function getPostfixForTypeWarning(value) {
-          var type = getPreciseType(value)
-          switch (type) {
-            case 'array':
-            case 'object':
-              return 'an ' + type
-            case 'boolean':
-            case 'date':
-            case 'regexp':
-              return 'a ' + type
+        var _extends =
+          Object.assign ||
+          function (target) {
+            for (var i = 1; i < arguments.length; i++) {
+              var source = arguments[i]
+              for (var key in source) {
+                if (Object.prototype.hasOwnProperty.call(source, key)) {
+                  target[key] = source[key]
+                }
+              }
+            }
+            return target
+          }
+        function getClientRect(offsets) {
+          return _extends({}, offsets, {
+            right: offsets.left + offsets.width,
+            bottom: offsets.top + offsets.height,
+          })
+        }
+        function getBoundingClientRect(element) {
+          var rect = {}
+          try {
+            if (isIE(10)) {
+              rect = element.getBoundingClientRect()
+              var scrollTop = getScroll(element, 'top')
+              var scrollLeft = getScroll(element, 'left')
+              rect.top += scrollTop
+              rect.left += scrollLeft
+              rect.bottom += scrollTop
+              rect.right += scrollLeft
+            } else {
+              rect = element.getBoundingClientRect()
+            }
+          } catch (e) {}
+          var result = {
+            left: rect.left,
+            top: rect.top,
+            width: rect.right - rect.left,
+            height: rect.bottom - rect.top,
+          }
+          var sizes = element.nodeName === 'HTML' ? getWindowSizes(element.ownerDocument) : {}
+          var width = sizes.width || element.clientWidth || result.width
+          var height = sizes.height || element.clientHeight || result.height
+          var horizScrollbar = element.offsetWidth - width
+          var vertScrollbar = element.offsetHeight - height
+          if (horizScrollbar || vertScrollbar) {
+            var styles = getStyleComputedProperty(element)
+            horizScrollbar -= getBordersSize(styles, 'x')
+            vertScrollbar -= getBordersSize(styles, 'y')
+            result.width -= horizScrollbar
+            result.height -= vertScrollbar
+          }
+          return getClientRect(result)
+        }
+        function getOffsetRectRelativeToArbitraryNode(children, parent) {
+          var fixedPosition = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : false
+          var isIE102 = isIE(10)
+          var isHTML = parent.nodeName === 'HTML'
+          var childrenRect = getBoundingClientRect(children)
+          var parentRect = getBoundingClientRect(parent)
+          var scrollParent = getScrollParent(children)
+          var styles = getStyleComputedProperty(parent)
+          var borderTopWidth = parseFloat(styles.borderTopWidth)
+          var borderLeftWidth = parseFloat(styles.borderLeftWidth)
+          if (fixedPosition && isHTML) {
+            parentRect.top = Math.max(parentRect.top, 0)
+            parentRect.left = Math.max(parentRect.left, 0)
+          }
+          var offsets = getClientRect({
+            top: childrenRect.top - parentRect.top - borderTopWidth,
+            left: childrenRect.left - parentRect.left - borderLeftWidth,
+            width: childrenRect.width,
+            height: childrenRect.height,
+          })
+          offsets.marginTop = 0
+          offsets.marginLeft = 0
+          if (!isIE102 && isHTML) {
+            var marginTop = parseFloat(styles.marginTop)
+            var marginLeft = parseFloat(styles.marginLeft)
+            offsets.top -= borderTopWidth - marginTop
+            offsets.bottom -= borderTopWidth - marginTop
+            offsets.left -= borderLeftWidth - marginLeft
+            offsets.right -= borderLeftWidth - marginLeft
+            offsets.marginTop = marginTop
+            offsets.marginLeft = marginLeft
+          }
+          if (
+            isIE102 && !fixedPosition
+              ? parent.contains(scrollParent)
+              : parent === scrollParent && scrollParent.nodeName !== 'BODY'
+          ) {
+            offsets = includeScroll(offsets, parent)
+          }
+          return offsets
+        }
+        function getViewportOffsetRectRelativeToArtbitraryNode(element) {
+          var excludeScroll = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : false
+          var html = element.ownerDocument.documentElement
+          var relativeOffset = getOffsetRectRelativeToArbitraryNode(element, html)
+          var width = Math.max(html.clientWidth, window.innerWidth || 0)
+          var height = Math.max(html.clientHeight, window.innerHeight || 0)
+          var scrollTop = !excludeScroll ? getScroll(html) : 0
+          var scrollLeft = !excludeScroll ? getScroll(html, 'left') : 0
+          var offset2 = {
+            top: scrollTop - relativeOffset.top + relativeOffset.marginTop,
+            left: scrollLeft - relativeOffset.left + relativeOffset.marginLeft,
+            width,
+            height,
+          }
+          return getClientRect(offset2)
+        }
+        function isFixed(element) {
+          var nodeName = element.nodeName
+          if (nodeName === 'BODY' || nodeName === 'HTML') {
+            return false
+          }
+          if (getStyleComputedProperty(element, 'position') === 'fixed') {
+            return true
+          }
+          var parentNode = getParentNode(element)
+          if (!parentNode) {
+            return false
+          }
+          return isFixed(parentNode)
+        }
+        function getFixedPositionOffsetParent(element) {
+          if (!element || !element.parentElement || isIE()) {
+            return document.documentElement
+          }
+          var el = element.parentElement
+          while (el && getStyleComputedProperty(el, 'transform') === 'none') {
+            el = el.parentElement
+          }
+          return el || document.documentElement
+        }
+        function getBoundaries(popper, reference, padding, boundariesElement) {
+          var fixedPosition = arguments.length > 4 && arguments[4] !== void 0 ? arguments[4] : false
+          var boundaries = { top: 0, left: 0 }
+          var offsetParent = fixedPosition
+            ? getFixedPositionOffsetParent(popper)
+            : findCommonOffsetParent(popper, getReferenceNode(reference))
+          if (boundariesElement === 'viewport') {
+            boundaries = getViewportOffsetRectRelativeToArtbitraryNode(offsetParent, fixedPosition)
+          } else {
+            var boundariesNode = void 0
+            if (boundariesElement === 'scrollParent') {
+              boundariesNode = getScrollParent(getParentNode(reference))
+              if (boundariesNode.nodeName === 'BODY') {
+                boundariesNode = popper.ownerDocument.documentElement
+              }
+            } else if (boundariesElement === 'window') {
+              boundariesNode = popper.ownerDocument.documentElement
+            } else {
+              boundariesNode = boundariesElement
+            }
+            var offsets = getOffsetRectRelativeToArbitraryNode(boundariesNode, offsetParent, fixedPosition)
+            if (boundariesNode.nodeName === 'HTML' && !isFixed(offsetParent)) {
+              var _getWindowSizes = getWindowSizes(popper.ownerDocument),
+                height = _getWindowSizes.height,
+                width = _getWindowSizes.width
+              boundaries.top += offsets.top - offsets.marginTop
+              boundaries.bottom = height + offsets.top
+              boundaries.left += offsets.left - offsets.marginLeft
+              boundaries.right = width + offsets.left
+            } else {
+              boundaries = offsets
+            }
+          }
+          padding = padding || 0
+          var isPaddingNumber = typeof padding === 'number'
+          boundaries.left += isPaddingNumber ? padding : padding.left || 0
+          boundaries.top += isPaddingNumber ? padding : padding.top || 0
+          boundaries.right -= isPaddingNumber ? padding : padding.right || 0
+          boundaries.bottom -= isPaddingNumber ? padding : padding.bottom || 0
+          return boundaries
+        }
+        function getArea(_ref) {
+          var width = _ref.width,
+            height = _ref.height
+          return width * height
+        }
+        function computeAutoPlacement(placement, refRect, popper, reference, boundariesElement) {
+          var padding = arguments.length > 5 && arguments[5] !== void 0 ? arguments[5] : 0
+          if (placement.indexOf('auto') === -1) {
+            return placement
+          }
+          var boundaries = getBoundaries(popper, reference, padding, boundariesElement)
+          var rects = {
+            top: {
+              width: boundaries.width,
+              height: refRect.top - boundaries.top,
+            },
+            right: {
+              width: boundaries.right - refRect.right,
+              height: boundaries.height,
+            },
+            bottom: {
+              width: boundaries.width,
+              height: boundaries.bottom - refRect.bottom,
+            },
+            left: {
+              width: refRect.left - boundaries.left,
+              height: boundaries.height,
+            },
+          }
+          var sortedAreas = Object.keys(rects)
+            .map(function (key) {
+              return _extends(
+                {
+                  key,
+                },
+                rects[key],
+                {
+                  area: getArea(rects[key]),
+                }
+              )
+            })
+            .sort(function (a, b) {
+              return b.area - a.area
+            })
+          var filteredAreas = sortedAreas.filter(function (_ref2) {
+            var width = _ref2.width,
+              height = _ref2.height
+            return width >= popper.clientWidth && height >= popper.clientHeight
+          })
+          var computedPlacement = filteredAreas.length > 0 ? filteredAreas[0].key : sortedAreas[0].key
+          var variation = placement.split('-')[1]
+          return computedPlacement + (variation ? '-' + variation : '')
+        }
+        function getReferenceOffsets(state, popper, reference) {
+          var fixedPosition = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : null
+          var commonOffsetParent = fixedPosition
+            ? getFixedPositionOffsetParent(popper)
+            : findCommonOffsetParent(popper, getReferenceNode(reference))
+          return getOffsetRectRelativeToArbitraryNode(reference, commonOffsetParent, fixedPosition)
+        }
+        function getOuterSizes(element) {
+          var window2 = element.ownerDocument.defaultView
+          var styles = window2.getComputedStyle(element)
+          var x = parseFloat(styles.marginTop || 0) + parseFloat(styles.marginBottom || 0)
+          var y = parseFloat(styles.marginLeft || 0) + parseFloat(styles.marginRight || 0)
+          var result = {
+            width: element.offsetWidth + y,
+            height: element.offsetHeight + x,
+          }
+          return result
+        }
+        function getOppositePlacement(placement) {
+          var hash = { left: 'right', right: 'left', bottom: 'top', top: 'bottom' }
+          return placement.replace(/left|right|bottom|top/g, function (matched) {
+            return hash[matched]
+          })
+        }
+        function getPopperOffsets(popper, referenceOffsets, placement) {
+          placement = placement.split('-')[0]
+          var popperRect = getOuterSizes(popper)
+          var popperOffsets = {
+            width: popperRect.width,
+            height: popperRect.height,
+          }
+          var isHoriz = ['right', 'left'].indexOf(placement) !== -1
+          var mainSide = isHoriz ? 'top' : 'left'
+          var secondarySide = isHoriz ? 'left' : 'top'
+          var measurement = isHoriz ? 'height' : 'width'
+          var secondaryMeasurement = !isHoriz ? 'height' : 'width'
+          popperOffsets[mainSide] =
+            referenceOffsets[mainSide] + referenceOffsets[measurement] / 2 - popperRect[measurement] / 2
+          if (placement === secondarySide) {
+            popperOffsets[secondarySide] = referenceOffsets[secondarySide] - popperRect[secondaryMeasurement]
+          } else {
+            popperOffsets[secondarySide] = referenceOffsets[getOppositePlacement(secondarySide)]
+          }
+          return popperOffsets
+        }
+        function find(arr, check) {
+          if (Array.prototype.find) {
+            return arr.find(check)
+          }
+          return arr.filter(check)[0]
+        }
+        function findIndex(arr, prop, value) {
+          if (Array.prototype.findIndex) {
+            return arr.findIndex(function (cur) {
+              return cur[prop] === value
+            })
+          }
+          var match = find(arr, function (obj) {
+            return obj[prop] === value
+          })
+          return arr.indexOf(match)
+        }
+        function runModifiers(modifiers2, data, ends) {
+          var modifiersToRun = ends === void 0 ? modifiers2 : modifiers2.slice(0, findIndex(modifiers2, 'name', ends))
+          modifiersToRun.forEach(function (modifier) {
+            if (modifier['function']) {
+              console.warn('`modifier.function` is deprecated, use `modifier.fn`!')
+            }
+            var fn = modifier['function'] || modifier.fn
+            if (modifier.enabled && isFunction(fn)) {
+              data.offsets.popper = getClientRect(data.offsets.popper)
+              data.offsets.reference = getClientRect(data.offsets.reference)
+              data = fn(data, modifier)
+            }
+          })
+          return data
+        }
+        function update() {
+          if (this.state.isDestroyed) {
+            return
+          }
+          var data = {
+            instance: this,
+            styles: {},
+            arrowStyles: {},
+            attributes: {},
+            flipped: false,
+            offsets: {},
+          }
+          data.offsets.reference = getReferenceOffsets(
+            this.state,
+            this.popper,
+            this.reference,
+            this.options.positionFixed
+          )
+          data.placement = computeAutoPlacement(
+            this.options.placement,
+            data.offsets.reference,
+            this.popper,
+            this.reference,
+            this.options.modifiers.flip.boundariesElement,
+            this.options.modifiers.flip.padding
+          )
+          data.originalPlacement = data.placement
+          data.positionFixed = this.options.positionFixed
+          data.offsets.popper = getPopperOffsets(this.popper, data.offsets.reference, data.placement)
+          data.offsets.popper.position = this.options.positionFixed ? 'fixed' : 'absolute'
+          data = runModifiers(this.modifiers, data)
+          if (!this.state.isCreated) {
+            this.state.isCreated = true
+            this.options.onCreate(data)
+          } else {
+            this.options.onUpdate(data)
+          }
+        }
+        function isModifierEnabled(modifiers2, modifierName) {
+          return modifiers2.some(function (_ref) {
+            var name = _ref.name,
+              enabled = _ref.enabled
+            return enabled && name === modifierName
+          })
+        }
+        function getSupportedPropertyName(property) {
+          var prefixes = [false, 'ms', 'Webkit', 'Moz', 'O']
+          var upperProp = property.charAt(0).toUpperCase() + property.slice(1)
+          for (var i = 0; i < prefixes.length; i++) {
+            var prefix = prefixes[i]
+            var toCheck = prefix ? '' + prefix + upperProp : property
+            if (typeof document.body.style[toCheck] !== 'undefined') {
+              return toCheck
+            }
+          }
+          return null
+        }
+        function destroy() {
+          this.state.isDestroyed = true
+          if (isModifierEnabled(this.modifiers, 'applyStyle')) {
+            this.popper.removeAttribute('x-placement')
+            this.popper.style.position = ''
+            this.popper.style.top = ''
+            this.popper.style.left = ''
+            this.popper.style.right = ''
+            this.popper.style.bottom = ''
+            this.popper.style.willChange = ''
+            this.popper.style[getSupportedPropertyName('transform')] = ''
+          }
+          this.disableEventListeners()
+          if (this.options.removeOnDestroy) {
+            this.popper.parentNode.removeChild(this.popper)
+          }
+          return this
+        }
+        function getWindow(element) {
+          var ownerDocument = element.ownerDocument
+          return ownerDocument ? ownerDocument.defaultView : window
+        }
+        function attachToScrollParents(scrollParent, event, callback, scrollParents) {
+          var isBody = scrollParent.nodeName === 'BODY'
+          var target = isBody ? scrollParent.ownerDocument.defaultView : scrollParent
+          target.addEventListener(event, callback, { passive: true })
+          if (!isBody) {
+            attachToScrollParents(getScrollParent(target.parentNode), event, callback, scrollParents)
+          }
+          scrollParents.push(target)
+        }
+        function setupEventListeners(reference, options, state, updateBound) {
+          state.updateBound = updateBound
+          getWindow(reference).addEventListener('resize', state.updateBound, { passive: true })
+          var scrollElement = getScrollParent(reference)
+          attachToScrollParents(scrollElement, 'scroll', state.updateBound, state.scrollParents)
+          state.scrollElement = scrollElement
+          state.eventsEnabled = true
+          return state
+        }
+        function enableEventListeners() {
+          if (!this.state.eventsEnabled) {
+            this.state = setupEventListeners(this.reference, this.options, this.state, this.scheduleUpdate)
+          }
+        }
+        function removeEventListeners(reference, state) {
+          getWindow(reference).removeEventListener('resize', state.updateBound)
+          state.scrollParents.forEach(function (target) {
+            target.removeEventListener('scroll', state.updateBound)
+          })
+          state.updateBound = null
+          state.scrollParents = []
+          state.scrollElement = null
+          state.eventsEnabled = false
+          return state
+        }
+        function disableEventListeners() {
+          if (this.state.eventsEnabled) {
+            cancelAnimationFrame(this.scheduleUpdate)
+            this.state = removeEventListeners(this.reference, this.state)
+          }
+        }
+        function isNumeric(n) {
+          return n !== '' && !isNaN(parseFloat(n)) && isFinite(n)
+        }
+        function setStyles(element, styles) {
+          Object.keys(styles).forEach(function (prop) {
+            var unit = ''
+            if (['width', 'height', 'top', 'right', 'bottom', 'left'].indexOf(prop) !== -1 && isNumeric(styles[prop])) {
+              unit = 'px'
+            }
+            element.style[prop] = styles[prop] + unit
+          })
+        }
+        function setAttributes(element, attributes) {
+          Object.keys(attributes).forEach(function (prop) {
+            var value = attributes[prop]
+            if (value !== false) {
+              element.setAttribute(prop, attributes[prop])
+            } else {
+              element.removeAttribute(prop)
+            }
+          })
+        }
+        function applyStyle(data) {
+          setStyles(data.instance.popper, data.styles)
+          setAttributes(data.instance.popper, data.attributes)
+          if (data.arrowElement && Object.keys(data.arrowStyles).length) {
+            setStyles(data.arrowElement, data.arrowStyles)
+          }
+          return data
+        }
+        function applyStyleOnLoad(reference, popper, options, modifierOptions, state) {
+          var referenceOffsets = getReferenceOffsets(state, popper, reference, options.positionFixed)
+          var placement = computeAutoPlacement(
+            options.placement,
+            referenceOffsets,
+            popper,
+            reference,
+            options.modifiers.flip.boundariesElement,
+            options.modifiers.flip.padding
+          )
+          popper.setAttribute('x-placement', placement)
+          setStyles(popper, { position: options.positionFixed ? 'fixed' : 'absolute' })
+          return options
+        }
+        function getRoundedOffsets(data, shouldRound) {
+          var _data$offsets = data.offsets,
+            popper = _data$offsets.popper,
+            reference = _data$offsets.reference
+          var round = Math.round,
+            floor = Math.floor
+          var noRound = function noRound2(v) {
+            return v
+          }
+          var referenceWidth = round(reference.width)
+          var popperWidth = round(popper.width)
+          var isVertical = ['left', 'right'].indexOf(data.placement) !== -1
+          var isVariation = data.placement.indexOf('-') !== -1
+          var sameWidthParity = referenceWidth % 2 === popperWidth % 2
+          var bothOddWidth = referenceWidth % 2 === 1 && popperWidth % 2 === 1
+          var horizontalToInteger = !shouldRound
+            ? noRound
+            : isVertical || isVariation || sameWidthParity
+            ? round
+            : floor
+          var verticalToInteger = !shouldRound ? noRound : round
+          return {
+            left: horizontalToInteger(bothOddWidth && !isVariation && shouldRound ? popper.left - 1 : popper.left),
+            top: verticalToInteger(popper.top),
+            bottom: verticalToInteger(popper.bottom),
+            right: horizontalToInteger(popper.right),
+          }
+        }
+        var isFirefox = isBrowser && /Firefox/i.test(navigator.userAgent)
+        function computeStyle(data, options) {
+          var x = options.x,
+            y = options.y
+          var popper = data.offsets.popper
+          var legacyGpuAccelerationOption = find(data.instance.modifiers, function (modifier) {
+            return modifier.name === 'applyStyle'
+          }).gpuAcceleration
+          if (legacyGpuAccelerationOption !== void 0) {
+            console.warn(
+              'WARNING: `gpuAcceleration` option moved to `computeStyle` modifier and will not be supported in future versions of Popper.js!'
+            )
+          }
+          var gpuAcceleration =
+            legacyGpuAccelerationOption !== void 0 ? legacyGpuAccelerationOption : options.gpuAcceleration
+          var offsetParent = getOffsetParent(data.instance.popper)
+          var offsetParentRect = getBoundingClientRect(offsetParent)
+          var styles = {
+            position: popper.position,
+          }
+          var offsets = getRoundedOffsets(data, window.devicePixelRatio < 2 || !isFirefox)
+          var sideA = x === 'bottom' ? 'top' : 'bottom'
+          var sideB = y === 'right' ? 'left' : 'right'
+          var prefixedProperty = getSupportedPropertyName('transform')
+          var left = void 0,
+            top = void 0
+          if (sideA === 'bottom') {
+            if (offsetParent.nodeName === 'HTML') {
+              top = -offsetParent.clientHeight + offsets.bottom
+            } else {
+              top = -offsetParentRect.height + offsets.bottom
+            }
+          } else {
+            top = offsets.top
+          }
+          if (sideB === 'right') {
+            if (offsetParent.nodeName === 'HTML') {
+              left = -offsetParent.clientWidth + offsets.right
+            } else {
+              left = -offsetParentRect.width + offsets.right
+            }
+          } else {
+            left = offsets.left
+          }
+          if (gpuAcceleration && prefixedProperty) {
+            styles[prefixedProperty] = 'translate3d(' + left + 'px, ' + top + 'px, 0)'
+            styles[sideA] = 0
+            styles[sideB] = 0
+            styles.willChange = 'transform'
+          } else {
+            var invertTop = sideA === 'bottom' ? -1 : 1
+            var invertLeft = sideB === 'right' ? -1 : 1
+            styles[sideA] = top * invertTop
+            styles[sideB] = left * invertLeft
+            styles.willChange = sideA + ', ' + sideB
+          }
+          var attributes = {
+            'x-placement': data.placement,
+          }
+          data.attributes = _extends({}, attributes, data.attributes)
+          data.styles = _extends({}, styles, data.styles)
+          data.arrowStyles = _extends({}, data.offsets.arrow, data.arrowStyles)
+          return data
+        }
+        function isModifierRequired(modifiers2, requestingName, requestedName) {
+          var requesting = find(modifiers2, function (_ref) {
+            var name = _ref.name
+            return name === requestingName
+          })
+          var isRequired =
+            !!requesting &&
+            modifiers2.some(function (modifier) {
+              return modifier.name === requestedName && modifier.enabled && modifier.order < requesting.order
+            })
+          if (!isRequired) {
+            var _requesting = '`' + requestingName + '`'
+            var requested = '`' + requestedName + '`'
+            console.warn(
+              requested +
+                ' modifier is required by ' +
+                _requesting +
+                ' modifier in order to work, be sure to include it before ' +
+                _requesting +
+                '!'
+            )
+          }
+          return isRequired
+        }
+        function arrow(data, options) {
+          var _data$offsets$arrow
+          if (!isModifierRequired(data.instance.modifiers, 'arrow', 'keepTogether')) {
+            return data
+          }
+          var arrowElement = options.element
+          if (typeof arrowElement === 'string') {
+            arrowElement = data.instance.popper.querySelector(arrowElement)
+            if (!arrowElement) {
+              return data
+            }
+          } else {
+            if (!data.instance.popper.contains(arrowElement)) {
+              console.warn('WARNING: `arrow.element` must be child of its popper element!')
+              return data
+            }
+          }
+          var placement = data.placement.split('-')[0]
+          var _data$offsets = data.offsets,
+            popper = _data$offsets.popper,
+            reference = _data$offsets.reference
+          var isVertical = ['left', 'right'].indexOf(placement) !== -1
+          var len = isVertical ? 'height' : 'width'
+          var sideCapitalized = isVertical ? 'Top' : 'Left'
+          var side = sideCapitalized.toLowerCase()
+          var altSide = isVertical ? 'left' : 'top'
+          var opSide = isVertical ? 'bottom' : 'right'
+          var arrowElementSize = getOuterSizes(arrowElement)[len]
+          if (reference[opSide] - arrowElementSize < popper[side]) {
+            data.offsets.popper[side] -= popper[side] - (reference[opSide] - arrowElementSize)
+          }
+          if (reference[side] + arrowElementSize > popper[opSide]) {
+            data.offsets.popper[side] += reference[side] + arrowElementSize - popper[opSide]
+          }
+          data.offsets.popper = getClientRect(data.offsets.popper)
+          var center = reference[side] + reference[len] / 2 - arrowElementSize / 2
+          var css = getStyleComputedProperty(data.instance.popper)
+          var popperMarginSide = parseFloat(css['margin' + sideCapitalized])
+          var popperBorderSide = parseFloat(css['border' + sideCapitalized + 'Width'])
+          var sideValue = center - data.offsets.popper[side] - popperMarginSide - popperBorderSide
+          sideValue = Math.max(Math.min(popper[len] - arrowElementSize, sideValue), 0)
+          data.arrowElement = arrowElement
+          data.offsets.arrow =
+            ((_data$offsets$arrow = {}),
+            defineProperty(_data$offsets$arrow, side, Math.round(sideValue)),
+            defineProperty(_data$offsets$arrow, altSide, ''),
+            _data$offsets$arrow)
+          return data
+        }
+        function getOppositeVariation(variation) {
+          if (variation === 'end') {
+            return 'start'
+          } else if (variation === 'start') {
+            return 'end'
+          }
+          return variation
+        }
+        var placements = [
+          'auto-start',
+          'auto',
+          'auto-end',
+          'top-start',
+          'top',
+          'top-end',
+          'right-start',
+          'right',
+          'right-end',
+          'bottom-end',
+          'bottom',
+          'bottom-start',
+          'left-end',
+          'left',
+          'left-start',
+        ]
+        var validPlacements = placements.slice(3)
+        function clockwise(placement) {
+          var counter = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : false
+          var index = validPlacements.indexOf(placement)
+          var arr = validPlacements.slice(index + 1).concat(validPlacements.slice(0, index))
+          return counter ? arr.reverse() : arr
+        }
+        var BEHAVIORS = {
+          FLIP: 'flip',
+          CLOCKWISE: 'clockwise',
+          COUNTERCLOCKWISE: 'counterclockwise',
+        }
+        function flip(data, options) {
+          if (isModifierEnabled(data.instance.modifiers, 'inner')) {
+            return data
+          }
+          if (data.flipped && data.placement === data.originalPlacement) {
+            return data
+          }
+          var boundaries = getBoundaries(
+            data.instance.popper,
+            data.instance.reference,
+            options.padding,
+            options.boundariesElement,
+            data.positionFixed
+          )
+          var placement = data.placement.split('-')[0]
+          var placementOpposite = getOppositePlacement(placement)
+          var variation = data.placement.split('-')[1] || ''
+          var flipOrder = []
+          switch (options.behavior) {
+            case BEHAVIORS.FLIP:
+              flipOrder = [placement, placementOpposite]
+              break
+            case BEHAVIORS.CLOCKWISE:
+              flipOrder = clockwise(placement)
+              break
+            case BEHAVIORS.COUNTERCLOCKWISE:
+              flipOrder = clockwise(placement, true)
+              break
             default:
-              return type
+              flipOrder = options.behavior
+          }
+          flipOrder.forEach(function (step, index) {
+            if (placement !== step || flipOrder.length === index + 1) {
+              return data
+            }
+            placement = data.placement.split('-')[0]
+            placementOpposite = getOppositePlacement(placement)
+            var popperOffsets = data.offsets.popper
+            var refOffsets = data.offsets.reference
+            var floor = Math.floor
+            var overlapsRef =
+              (placement === 'left' && floor(popperOffsets.right) > floor(refOffsets.left)) ||
+              (placement === 'right' && floor(popperOffsets.left) < floor(refOffsets.right)) ||
+              (placement === 'top' && floor(popperOffsets.bottom) > floor(refOffsets.top)) ||
+              (placement === 'bottom' && floor(popperOffsets.top) < floor(refOffsets.bottom))
+            var overflowsLeft = floor(popperOffsets.left) < floor(boundaries.left)
+            var overflowsRight = floor(popperOffsets.right) > floor(boundaries.right)
+            var overflowsTop = floor(popperOffsets.top) < floor(boundaries.top)
+            var overflowsBottom = floor(popperOffsets.bottom) > floor(boundaries.bottom)
+            var overflowsBoundaries =
+              (placement === 'left' && overflowsLeft) ||
+              (placement === 'right' && overflowsRight) ||
+              (placement === 'top' && overflowsTop) ||
+              (placement === 'bottom' && overflowsBottom)
+            var isVertical = ['top', 'bottom'].indexOf(placement) !== -1
+            var flippedVariationByRef =
+              !!options.flipVariations &&
+              ((isVertical && variation === 'start' && overflowsLeft) ||
+                (isVertical && variation === 'end' && overflowsRight) ||
+                (!isVertical && variation === 'start' && overflowsTop) ||
+                (!isVertical && variation === 'end' && overflowsBottom))
+            var flippedVariationByContent =
+              !!options.flipVariationsByContent &&
+              ((isVertical && variation === 'start' && overflowsRight) ||
+                (isVertical && variation === 'end' && overflowsLeft) ||
+                (!isVertical && variation === 'start' && overflowsBottom) ||
+                (!isVertical && variation === 'end' && overflowsTop))
+            var flippedVariation = flippedVariationByRef || flippedVariationByContent
+            if (overlapsRef || overflowsBoundaries || flippedVariation) {
+              data.flipped = true
+              if (overlapsRef || overflowsBoundaries) {
+                placement = flipOrder[index + 1]
+              }
+              if (flippedVariation) {
+                variation = getOppositeVariation(variation)
+              }
+              data.placement = placement + (variation ? '-' + variation : '')
+              data.offsets.popper = _extends(
+                {},
+                data.offsets.popper,
+                getPopperOffsets(data.instance.popper, data.offsets.reference, data.placement)
+              )
+              data = runModifiers(data.instance.modifiers, data, 'flip')
+            }
+          })
+          return data
+        }
+        function keepTogether(data) {
+          var _data$offsets = data.offsets,
+            popper = _data$offsets.popper,
+            reference = _data$offsets.reference
+          var placement = data.placement.split('-')[0]
+          var floor = Math.floor
+          var isVertical = ['top', 'bottom'].indexOf(placement) !== -1
+          var side = isVertical ? 'right' : 'bottom'
+          var opSide = isVertical ? 'left' : 'top'
+          var measurement = isVertical ? 'width' : 'height'
+          if (popper[side] < floor(reference[opSide])) {
+            data.offsets.popper[opSide] = floor(reference[opSide]) - popper[measurement]
+          }
+          if (popper[opSide] > floor(reference[side])) {
+            data.offsets.popper[opSide] = floor(reference[side])
+          }
+          return data
+        }
+        function toValue(str, measurement, popperOffsets, referenceOffsets) {
+          var split = str.match(/((?:\-|\+)?\d*\.?\d*)(.*)/)
+          var value = +split[1]
+          var unit = split[2]
+          if (!value) {
+            return str
+          }
+          if (unit.indexOf('%') === 0) {
+            var element = void 0
+            switch (unit) {
+              case '%p':
+                element = popperOffsets
+                break
+              case '%':
+              case '%r':
+              default:
+                element = referenceOffsets
+            }
+            var rect = getClientRect(element)
+            return (rect[measurement] / 100) * value
+          } else if (unit === 'vh' || unit === 'vw') {
+            var size = void 0
+            if (unit === 'vh') {
+              size = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+            } else {
+              size = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+            }
+            return (size / 100) * value
+          } else {
+            return value
           }
         }
-        function getClassName(propValue) {
-          if (!propValue.constructor || !propValue.constructor.name) {
-            return ANONYMOUS
+        function parseOffset(offset2, popperOffsets, referenceOffsets, basePlacement) {
+          var offsets = [0, 0]
+          var useHeight = ['right', 'left'].indexOf(basePlacement) !== -1
+          var fragments = offset2.split(/(\+|\-)/).map(function (frag) {
+            return frag.trim()
+          })
+          var divider = fragments.indexOf(
+            find(fragments, function (frag) {
+              return frag.search(/,|\s/) !== -1
+            })
+          )
+          if (fragments[divider] && fragments[divider].indexOf(',') === -1) {
+            console.warn('Offsets separated by white space(s) are deprecated, use a comma (,) instead.')
           }
-          return propValue.constructor.name
+          var splitRegex = /\s*,\s*|\s+/
+          var ops =
+            divider !== -1
+              ? [
+                  fragments.slice(0, divider).concat([fragments[divider].split(splitRegex)[0]]),
+                  [fragments[divider].split(splitRegex)[1]].concat(fragments.slice(divider + 1)),
+                ]
+              : [fragments]
+          ops = ops.map(function (op, index) {
+            var measurement = (index === 1 ? !useHeight : useHeight) ? 'height' : 'width'
+            var mergeWithPrevious = false
+            return op
+              .reduce(function (a, b) {
+                if (a[a.length - 1] === '' && ['+', '-'].indexOf(b) !== -1) {
+                  a[a.length - 1] = b
+                  mergeWithPrevious = true
+                  return a
+                } else if (mergeWithPrevious) {
+                  a[a.length - 1] += b
+                  mergeWithPrevious = false
+                  return a
+                } else {
+                  return a.concat(b)
+                }
+              }, [])
+              .map(function (str) {
+                return toValue(str, measurement, popperOffsets, referenceOffsets)
+              })
+          })
+          ops.forEach(function (op, index) {
+            op.forEach(function (frag, index2) {
+              if (isNumeric(frag)) {
+                offsets[index] += frag * (op[index2 - 1] === '-' ? -1 : 1)
+              }
+            })
+          })
+          return offsets
         }
-        ReactPropTypes.checkPropTypes = checkPropTypes
-        ReactPropTypes.resetWarningCache = checkPropTypes.resetWarningCache
-        ReactPropTypes.PropTypes = ReactPropTypes
-        return ReactPropTypes
-      }
+        function offset(data, _ref) {
+          var offset2 = _ref.offset
+          var placement = data.placement,
+            _data$offsets = data.offsets,
+            popper = _data$offsets.popper,
+            reference = _data$offsets.reference
+          var basePlacement = placement.split('-')[0]
+          var offsets = void 0
+          if (isNumeric(+offset2)) {
+            offsets = [+offset2, 0]
+          } else {
+            offsets = parseOffset(offset2, popper, reference, basePlacement)
+          }
+          if (basePlacement === 'left') {
+            popper.top += offsets[0]
+            popper.left -= offsets[1]
+          } else if (basePlacement === 'right') {
+            popper.top += offsets[0]
+            popper.left += offsets[1]
+          } else if (basePlacement === 'top') {
+            popper.left += offsets[0]
+            popper.top -= offsets[1]
+          } else if (basePlacement === 'bottom') {
+            popper.left += offsets[0]
+            popper.top += offsets[1]
+          }
+          data.popper = popper
+          return data
+        }
+        function preventOverflow(data, options) {
+          var boundariesElement = options.boundariesElement || getOffsetParent(data.instance.popper)
+          if (data.instance.reference === boundariesElement) {
+            boundariesElement = getOffsetParent(boundariesElement)
+          }
+          var transformProp = getSupportedPropertyName('transform')
+          var popperStyles = data.instance.popper.style
+          var top = popperStyles.top,
+            left = popperStyles.left,
+            transform = popperStyles[transformProp]
+          popperStyles.top = ''
+          popperStyles.left = ''
+          popperStyles[transformProp] = ''
+          var boundaries = getBoundaries(
+            data.instance.popper,
+            data.instance.reference,
+            options.padding,
+            boundariesElement,
+            data.positionFixed
+          )
+          popperStyles.top = top
+          popperStyles.left = left
+          popperStyles[transformProp] = transform
+          options.boundaries = boundaries
+          var order = options.priority
+          var popper = data.offsets.popper
+          var check = {
+            primary: function primary(placement) {
+              var value = popper[placement]
+              if (popper[placement] < boundaries[placement] && !options.escapeWithReference) {
+                value = Math.max(popper[placement], boundaries[placement])
+              }
+              return defineProperty({}, placement, value)
+            },
+            secondary: function secondary(placement) {
+              var mainSide = placement === 'right' ? 'left' : 'top'
+              var value = popper[mainSide]
+              if (popper[placement] > boundaries[placement] && !options.escapeWithReference) {
+                value = Math.min(
+                  popper[mainSide],
+                  boundaries[placement] - (placement === 'right' ? popper.width : popper.height)
+                )
+              }
+              return defineProperty({}, mainSide, value)
+            },
+          }
+          order.forEach(function (placement) {
+            var side = ['left', 'top'].indexOf(placement) !== -1 ? 'primary' : 'secondary'
+            popper = _extends({}, popper, check[side](placement))
+          })
+          data.offsets.popper = popper
+          return data
+        }
+        function shift(data) {
+          var placement = data.placement
+          var basePlacement = placement.split('-')[0]
+          var shiftvariation = placement.split('-')[1]
+          if (shiftvariation) {
+            var _data$offsets = data.offsets,
+              reference = _data$offsets.reference,
+              popper = _data$offsets.popper
+            var isVertical = ['bottom', 'top'].indexOf(basePlacement) !== -1
+            var side = isVertical ? 'left' : 'top'
+            var measurement = isVertical ? 'width' : 'height'
+            var shiftOffsets = {
+              start: defineProperty({}, side, reference[side]),
+              end: defineProperty({}, side, reference[side] + reference[measurement] - popper[measurement]),
+            }
+            data.offsets.popper = _extends({}, popper, shiftOffsets[shiftvariation])
+          }
+          return data
+        }
+        function hide(data) {
+          if (!isModifierRequired(data.instance.modifiers, 'hide', 'preventOverflow')) {
+            return data
+          }
+          var refRect = data.offsets.reference
+          var bound = find(data.instance.modifiers, function (modifier) {
+            return modifier.name === 'preventOverflow'
+          }).boundaries
+          if (
+            refRect.bottom < bound.top ||
+            refRect.left > bound.right ||
+            refRect.top > bound.bottom ||
+            refRect.right < bound.left
+          ) {
+            if (data.hide === true) {
+              return data
+            }
+            data.hide = true
+            data.attributes['x-out-of-boundaries'] = ''
+          } else {
+            if (data.hide === false) {
+              return data
+            }
+            data.hide = false
+            data.attributes['x-out-of-boundaries'] = false
+          }
+          return data
+        }
+        function inner(data) {
+          var placement = data.placement
+          var basePlacement = placement.split('-')[0]
+          var _data$offsets = data.offsets,
+            popper = _data$offsets.popper,
+            reference = _data$offsets.reference
+          var isHoriz = ['left', 'right'].indexOf(basePlacement) !== -1
+          var subtractLength = ['top', 'left'].indexOf(basePlacement) === -1
+          popper[isHoriz ? 'left' : 'top'] =
+            reference[basePlacement] - (subtractLength ? popper[isHoriz ? 'width' : 'height'] : 0)
+          data.placement = getOppositePlacement(placement)
+          data.offsets.popper = getClientRect(popper)
+          return data
+        }
+        var modifiers = {
+          shift: {
+            order: 100,
+            enabled: true,
+            fn: shift,
+          },
+          offset: {
+            order: 200,
+            enabled: true,
+            fn: offset,
+            offset: 0,
+          },
+          preventOverflow: {
+            order: 300,
+            enabled: true,
+            fn: preventOverflow,
+            priority: ['left', 'right', 'top', 'bottom'],
+            padding: 5,
+            boundariesElement: 'scrollParent',
+          },
+          keepTogether: {
+            order: 400,
+            enabled: true,
+            fn: keepTogether,
+          },
+          arrow: {
+            order: 500,
+            enabled: true,
+            fn: arrow,
+            element: '[x-arrow]',
+          },
+          flip: {
+            order: 600,
+            enabled: true,
+            fn: flip,
+            behavior: 'flip',
+            padding: 5,
+            boundariesElement: 'viewport',
+            flipVariations: false,
+            flipVariationsByContent: false,
+          },
+          inner: {
+            order: 700,
+            enabled: false,
+            fn: inner,
+          },
+          hide: {
+            order: 800,
+            enabled: true,
+            fn: hide,
+          },
+          computeStyle: {
+            order: 850,
+            enabled: true,
+            fn: computeStyle,
+            gpuAcceleration: true,
+            x: 'bottom',
+            y: 'right',
+          },
+          applyStyle: {
+            order: 900,
+            enabled: true,
+            fn: applyStyle,
+            onLoad: applyStyleOnLoad,
+            gpuAcceleration: void 0,
+          },
+        }
+        var Defaults = {
+          placement: 'bottom',
+          positionFixed: false,
+          eventsEnabled: true,
+          removeOnDestroy: false,
+          onCreate: function onCreate() {},
+          onUpdate: function onUpdate() {},
+          modifiers,
+        }
+        var Popper = (function () {
+          function Popper2(reference, popper) {
+            var _this = this
+            var options = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : {}
+            classCallCheck(this, Popper2)
+            this.scheduleUpdate = function () {
+              return requestAnimationFrame(_this.update)
+            }
+            this.update = debounce(this.update.bind(this))
+            this.options = _extends({}, Popper2.Defaults, options)
+            this.state = {
+              isDestroyed: false,
+              isCreated: false,
+              scrollParents: [],
+            }
+            this.reference = reference && reference.jquery ? reference[0] : reference
+            this.popper = popper && popper.jquery ? popper[0] : popper
+            this.options.modifiers = {}
+            Object.keys(_extends({}, Popper2.Defaults.modifiers, options.modifiers)).forEach(function (name) {
+              _this.options.modifiers[name] = _extends(
+                {},
+                Popper2.Defaults.modifiers[name] || {},
+                options.modifiers ? options.modifiers[name] : {}
+              )
+            })
+            this.modifiers = Object.keys(this.options.modifiers)
+              .map(function (name) {
+                return _extends(
+                  {
+                    name,
+                  },
+                  _this.options.modifiers[name]
+                )
+              })
+              .sort(function (a, b) {
+                return a.order - b.order
+              })
+            this.modifiers.forEach(function (modifierOptions) {
+              if (modifierOptions.enabled && isFunction(modifierOptions.onLoad)) {
+                modifierOptions.onLoad(_this.reference, _this.popper, _this.options, modifierOptions, _this.state)
+              }
+            })
+            this.update()
+            var eventsEnabled = this.options.eventsEnabled
+            if (eventsEnabled) {
+              this.enableEventListeners()
+            }
+            this.state.eventsEnabled = eventsEnabled
+          }
+          createClass(Popper2, [
+            {
+              key: 'update',
+              value: function update$$1() {
+                return update.call(this)
+              },
+            },
+            {
+              key: 'destroy',
+              value: function destroy$$1() {
+                return destroy.call(this)
+              },
+            },
+            {
+              key: 'enableEventListeners',
+              value: function enableEventListeners$$1() {
+                return enableEventListeners.call(this)
+              },
+            },
+            {
+              key: 'disableEventListeners',
+              value: function disableEventListeners$$1() {
+                return disableEventListeners.call(this)
+              },
+            },
+          ])
+          return Popper2
+        })()
+        Popper.Utils = (typeof window !== 'undefined' ? window : global).PopperUtils
+        Popper.placements = placements
+        Popper.Defaults = Defaults
+        return Popper
+      })
     },
   })
 
-  // node_modules/prop-types/index.js
-  var require_prop_types = __commonJS({
-    'node_modules/prop-types/index.js'(exports, module) {
-      if (true) {
-        ReactIs = require_react_is()
-        throwOnDirectAccess = true
-        module.exports = require_factoryWithTypeCheckers()(ReactIs.isElement, throwOnDirectAccess)
-      } else {
-        module.exports = null()
-      }
-      var ReactIs
-      var throwOnDirectAccess
+  // node_modules/react-tippy/dist/react-tippy.js
+  var require_react_tippy = __commonJS({
+    'node_modules/react-tippy/dist/react-tippy.js'(exports, module) {
+      ;(function webpackUniversalModuleDefinition(root, factory) {
+        if (typeof exports === 'object' && typeof module === 'object')
+          module.exports = factory(require_react(), require_popper(), require_react_dom())
+        else if (typeof define === 'function' && define.amd)
+          define('reactTippy', ['react', 'popper.js', 'react-dom'], factory)
+        else if (typeof exports === 'object')
+          exports['reactTippy'] = factory(require_react(), require_popper(), require_react_dom())
+        else root['reactTippy'] = factory(root['React'], root['Popper'], root['ReactDOM'])
+      })(
+        exports,
+        function (__WEBPACK_EXTERNAL_MODULE_13__, __WEBPACK_EXTERNAL_MODULE_38__, __WEBPACK_EXTERNAL_MODULE_39__) {
+          return (function (modules) {
+            var installedModules = {}
+            function __webpack_require__(moduleId) {
+              if (installedModules[moduleId]) return installedModules[moduleId].exports
+              var module2 = (installedModules[moduleId] = {
+                i: moduleId,
+                l: false,
+                exports: {},
+              })
+              modules[moduleId].call(module2.exports, module2, module2.exports, __webpack_require__)
+              module2.l = true
+              return module2.exports
+            }
+            __webpack_require__.m = modules
+            __webpack_require__.c = installedModules
+            __webpack_require__.i = function (value) {
+              return value
+            }
+            __webpack_require__.d = function (exports2, name, getter) {
+              if (!__webpack_require__.o(exports2, name)) {
+                Object.defineProperty(exports2, name, {
+                  configurable: false,
+                  enumerable: true,
+                  get: getter,
+                })
+              }
+            }
+            __webpack_require__.n = function (module2) {
+              var getter =
+                module2 && module2.__esModule
+                  ? function getDefault() {
+                      return module2['default']
+                    }
+                  : function getModuleExports() {
+                      return module2
+                    }
+              __webpack_require__.d(getter, 'a', getter)
+              return getter
+            }
+            __webpack_require__.o = function (object, property) {
+              return Object.prototype.hasOwnProperty.call(object, property)
+            }
+            __webpack_require__.p = ''
+            return __webpack_require__((__webpack_require__.s = 15))
+          })([
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              var Browser = (exports2.Browser = {})
+              if (typeof window !== 'undefined') {
+                Browser.SUPPORTED = 'requestAnimationFrame' in window
+                Browser.SUPPORTS_TOUCH = 'ontouchstart' in window
+                Browser.touch = false
+                Browser.dynamicInputDetection = true
+                Browser.iOS = function () {
+                  return /iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream
+                }
+              }
+              var Store = (exports2.Store = [])
+              var Selectors = (exports2.Selectors = {
+                POPPER: '.tippy-popper',
+                TOOLTIP: '.tippy-tooltip',
+                CONTENT: '.tippy-tooltip-content',
+                CIRCLE: '[x-circle]',
+                ARROW: '[x-arrow]',
+                TOOLTIPPED_EL: '[data-tooltipped]',
+                CONTROLLER: '[data-tippy-controller]',
+              })
+              var Defaults = (exports2.Defaults = {
+                html: false,
+                position: 'top',
+                animation: 'shift',
+                animateFill: true,
+                arrow: false,
+                arrowSize: 'regular',
+                delay: 0,
+                trigger: 'mouseenter focus',
+                duration: 350,
+                interactive: false,
+                interactiveBorder: 2,
+                theme: 'dark',
+                size: 'regular',
+                distance: 10,
+                offset: 0,
+                hideOnClick: true,
+                multiple: false,
+                followCursor: false,
+                inertia: false,
+                flipDuration: 350,
+                sticky: false,
+                stickyDuration: 200,
+                appendTo: function appendTo() {
+                  return document.body
+                },
+                zIndex: 9999,
+                touchHold: false,
+                performance: false,
+                dynamicTitle: false,
+                useContext: false,
+                reactInstance: void 0,
+                popperOptions: {},
+                open: void 0,
+                onRequestClose: function onRequestClose() {},
+              })
+              var DefaultsKeys = (exports2.DefaultsKeys = Browser.SUPPORTED && Object.keys(Defaults))
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = prefix
+              function prefix(property) {
+                var prefixes = [false, 'webkit']
+                var upperProp = property.charAt(0).toUpperCase() + property.slice(1)
+                for (var i = 0; i < prefixes.length; i++) {
+                  var _prefix = prefixes[i]
+                  var prefixedProp = _prefix ? '' + _prefix + upperProp : property
+                  if (typeof window.document.body.style[prefixedProp] !== 'undefined') {
+                    return prefixedProp
+                  }
+                }
+                return null
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = find
+              function find(arr, checkFn) {
+                if (Array.prototype.find) {
+                  return arr.find(checkFn)
+                }
+                return arr.filter(checkFn)[0]
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = getCorePlacement
+              function getCorePlacement(placement) {
+                return placement.replace(/-.+/, '')
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = closest
+              var _matches = __webpack_require__(8)
+              function closest(element, parentSelector) {
+                var _closest =
+                  Element.prototype.closest ||
+                  function (selector) {
+                    var el = this
+                    while (el) {
+                      if (_matches.matches.call(el, selector)) {
+                        return el
+                      }
+                      el = el.parentElement
+                    }
+                  }
+                return _closest.call(element, parentSelector)
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = defer
+              function defer(fn) {
+                window.requestAnimationFrame(function () {
+                  setTimeout(fn, 0)
+                })
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = getInnerElements
+              var _globals = __webpack_require__(0)
+              function getInnerElements(popper) {
+                return {
+                  tooltip: popper.querySelector(_globals.Selectors.TOOLTIP),
+                  circle: popper.querySelector(_globals.Selectors.CIRCLE),
+                  content: popper.querySelector(_globals.Selectors.CONTENT),
+                }
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = isVisible
+              function isVisible(popper) {
+                return popper.style.visibility === 'visible'
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              function defaultMatchSelector(s) {
+                var matches2 = (this.document || this.ownerDocument).querySelectorAll(s),
+                  i = matches2.length
+                while (--i >= 0 && matches2.item(i) !== this) {}
+                return i > -1
+              }
+              var matches = (exports2.matches =
+                typeof window === 'undefined'
+                  ? defaultMatchSelector
+                  : Element.prototype.matches ||
+                    Element.prototype.matchesSelector ||
+                    Element.prototype.webkitMatchesSelector ||
+                    Element.prototype.mozMatchesSelector ||
+                    Element.prototype.msMatchesSelector ||
+                    defaultMatchSelector)
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              var _extends =
+                Object.assign ||
+                function (target) {
+                  for (var i = 1; i < arguments.length; i++) {
+                    var source = arguments[i]
+                    for (var key in source) {
+                      if (Object.prototype.hasOwnProperty.call(source, key)) {
+                        target[key] = source[key]
+                      }
+                    }
+                  }
+                  return target
+                }
+              var _createClass = (function () {
+                function defineProperties(target, props) {
+                  for (var i = 0; i < props.length; i++) {
+                    var descriptor = props[i]
+                    descriptor.enumerable = descriptor.enumerable || false
+                    descriptor.configurable = true
+                    if ('value' in descriptor) descriptor.writable = true
+                    Object.defineProperty(target, descriptor.key, descriptor)
+                  }
+                }
+                return function (Constructor, protoProps, staticProps) {
+                  if (protoProps) defineProperties(Constructor.prototype, protoProps)
+                  if (staticProps) defineProperties(Constructor, staticProps)
+                  return Constructor
+                }
+              })()
+              var _react = __webpack_require__(13)
+              var _react2 = _interopRequireDefault(_react)
+              var _tippy = __webpack_require__(30)
+              var _tippy2 = _interopRequireDefault(_tippy)
+              var _globals = __webpack_require__(0)
+              function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { default: obj }
+              }
+              function _classCallCheck(instance, Constructor) {
+                if (!(instance instanceof Constructor)) {
+                  throw new TypeError('Cannot call a class as a function')
+                }
+              }
+              function _possibleConstructorReturn(self, call) {
+                if (!self) {
+                  throw new ReferenceError("this hasn't been initialised - super() hasn't been called")
+                }
+                return call && (typeof call === 'object' || typeof call === 'function') ? call : self
+              }
+              function _inherits(subClass, superClass) {
+                if (typeof superClass !== 'function' && superClass !== null) {
+                  throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass)
+                }
+                subClass.prototype = Object.create(superClass && superClass.prototype, {
+                  constructor: { value: subClass, enumerable: false, writable: true, configurable: true },
+                })
+                if (superClass)
+                  Object.setPrototypeOf
+                    ? Object.setPrototypeOf(subClass, superClass)
+                    : (subClass.__proto__ = superClass)
+              }
+              var stopPortalEvent = function stopPortalEvent2(e) {
+                return e.stopPropagation()
+              }
+              var defaultProps = {
+                html: null,
+                position: 'top',
+                animation: 'shift',
+                animateFill: true,
+                arrow: false,
+                delay: 0,
+                hideDelay: 0,
+                trigger: 'mouseenter focus',
+                duration: 375,
+                hideDuration: 375,
+                interactive: false,
+                interactiveBorder: 2,
+                theme: 'dark',
+                offset: 0,
+                hideOnClick: true,
+                multiple: false,
+                followCursor: false,
+                inertia: false,
+                popperOptions: {},
+                onShow: function onShow() {},
+                onShown: function onShown() {},
+                onHide: function onHide() {},
+                onHidden: function onHidden() {},
+                disabled: false,
+                arrowSize: 'regular',
+                size: 'regular',
+                className: '',
+                style: {},
+                distance: 10,
+                onRequestClose: function onRequestClose() {},
+                sticky: false,
+                stickyDuration: 200,
+                tag: 'div',
+                touchHold: false,
+                unmountHTMLWhenHide: false,
+                zIndex: 9999,
+              }
+              var propKeys = Object.keys(defaultProps)
+              var detectPropsChanged = function detectPropsChanged2(props, prevProps) {
+                var result = []
+                propKeys.forEach(function (key) {
+                  if (props[key] !== prevProps[key]) {
+                    result.push(key)
+                  }
+                })
+                return result
+              }
+              var Tooltip = (function (_Component) {
+                _inherits(Tooltip2, _Component)
+                function Tooltip2(props) {
+                  _classCallCheck(this, Tooltip2)
+                  var _this = _possibleConstructorReturn(
+                    this,
+                    (Tooltip2.__proto__ || Object.getPrototypeOf(Tooltip2)).call(this, props)
+                  )
+                  _this.initTippy = _this._initTippy.bind(_this)
+                  _this.destroyTippy = _this._destroyTippy.bind(_this)
+                  _this.updateTippy = _this._updateTippy.bind(_this)
+                  _this.updateReactDom = _this._updateReactDom.bind(_this)
+                  _this.showTooltip = _this._showTooltip.bind(_this)
+                  _this.hideTooltip = _this._hideTooltip.bind(_this)
+                  _this.updateSettings = _this._updateSettings.bind(_this)
+                  _this.state = {
+                    reactDOMValue: null,
+                  }
+                  return _this
+                }
+                _createClass(Tooltip2, [
+                  {
+                    key: 'componentDidMount',
+                    value: function componentDidMount() {
+                      if (typeof window === 'undefined' || typeof document === 'undefined') {
+                        return
+                      }
+                      this.initTippy()
+                    },
+                  },
+                  {
+                    key: 'componentWillUnmount',
+                    value: function componentWillUnmount() {
+                      if (typeof window === 'undefined' || typeof document === 'undefined') {
+                        return
+                      }
+                      this.destroyTippy()
+                    },
+                  },
+                  {
+                    key: 'componentDidUpdate',
+                    value: function componentDidUpdate(prevProps) {
+                      var _this2 = this
+                      if (typeof window === 'undefined' || typeof document === 'undefined') {
+                        return
+                      }
+                      if (this.props.disabled === false && prevProps.disabled === true) {
+                        this.updateSettings('disabled', false)
+                        this.destroyTippy()
+                        this.initTippy()
+                        return
+                      }
+                      if (this.props.disabled === true && prevProps.disabled === false) {
+                        this.updateSettings('disabled', true)
+                        this.destroyTippy()
+                        return
+                      }
+                      if (this.props.open === true && !prevProps.open) {
+                        this.updateSettings('open', true)
+                        setTimeout(function () {
+                          _this2.showTooltip()
+                        }, 0)
+                      }
+                      if (this.props.open === false && prevProps.open === true) {
+                        this.updateSettings('open', false)
+                        this.hideTooltip()
+                      }
+                      if (this.props.html !== prevProps.html) {
+                        this.updateReactDom()
+                      }
+                      if (this.props.title !== prevProps.title) {
+                        this.updateTippy()
+                      }
+                      var propChanges = detectPropsChanged(this.props, prevProps)
+                      propChanges.forEach(function (key) {
+                        _this2.updateSettings(key, _this2.props[key])
+                      })
+                    },
+                  },
+                  {
+                    key: '_showTooltip',
+                    value: function _showTooltip() {
+                      if (typeof window === 'undefined' || typeof document === 'undefined') {
+                        return
+                      }
+                      if (this.tippy) {
+                        var popper = this.tippy.getPopperElement(this.tooltipDOM)
+                        this.tippy.show(popper, this.props.duration)
+                      }
+                    },
+                  },
+                  {
+                    key: '_hideTooltip',
+                    value: function _hideTooltip() {
+                      if (typeof window === 'undefined' || typeof document === 'undefined') {
+                        return
+                      }
+                      if (this.tippy) {
+                        var popper = this.tippy.getPopperElement(this.tooltipDOM)
+                        this.tippy.hide(popper, this.props.hideDuration)
+                      }
+                    },
+                  },
+                  {
+                    key: '_updateSettings',
+                    value: function _updateSettings(name, value) {
+                      if (typeof window === 'undefined' || typeof document === 'undefined') {
+                        return
+                      }
+                      if (this.tippy) {
+                        var popper = this.tippy.getPopperElement(this.tooltipDOM)
+                        this.tippy.updateSettings(popper, name, value)
+                      }
+                    },
+                  },
+                  {
+                    key: '_updateReactDom',
+                    value: function _updateReactDom() {
+                      if (typeof window === 'undefined' || typeof document === 'undefined') {
+                        return
+                      }
+                      if (this.tippy) {
+                        this.updateSettings('reactDOM', this.props.html)
+                        var popper = this.tippy.getPopperElement(this.tooltipDOM)
+                        var isVisible = popper.style.visibility === 'visible' || this.props.open
+                        if (isVisible) {
+                          this.tippy.updateForReact(popper, this.props.html)
+                        }
+                      }
+                    },
+                  },
+                  {
+                    key: '_updateTippy',
+                    value: function _updateTippy() {
+                      if (typeof window === 'undefined' || typeof document === 'undefined') {
+                        return
+                      }
+                      if (this.tippy) {
+                        var popper = this.tippy.getPopperElement(this.tooltipDOM)
+                        this.tippy.update(popper)
+                      }
+                    },
+                  },
+                  {
+                    key: '_initTippy',
+                    value: function _initTippy() {
+                      var _this3 = this
+                      if (
+                        typeof window === 'undefined' ||
+                        typeof document === 'undefined' ||
+                        !_globals.Browser.SUPPORTED
+                      ) {
+                        return
+                      }
+                      if (!this.props.disabled) {
+                        if (this.props.title) {
+                          this.tooltipDOM.setAttribute('title', this.props.title)
+                        }
+                        this.tippy = (0, _tippy2.default)(this.tooltipDOM, {
+                          disabled: this.props.disabled,
+                          position: this.props.position,
+                          animation: this.props.animation,
+                          animateFill: this.props.animateFill,
+                          arrow: this.props.arrow,
+                          arrowSize: this.props.arrowSize,
+                          delay: this.props.delay,
+                          hideDelay: this.props.hideDelay,
+                          trigger: this.props.trigger,
+                          duration: this.props.duration,
+                          hideDuration: this.props.hideDuration,
+                          interactive: this.props.interactive,
+                          interactiveBorder: this.props.interactiveBorder,
+                          theme: this.props.theme,
+                          offset: this.props.offset,
+                          hideOnClick: this.props.hideOnClick,
+                          multiple: this.props.multiple,
+                          size: this.props.size,
+                          followCursor: this.props.followCursor,
+                          inertia: this.props.inertia,
+                          popperOptions: this.props.popperOptions,
+                          onShow: this.props.onShow,
+                          onShown: this.props.onShown,
+                          onHide: this.props.onHide,
+                          onHidden: this.props.onHidden,
+                          distance: this.props.distance,
+                          reactDOM: this.props.html,
+                          setReactDOMValue: function setReactDOMValue(newReactDOM) {
+                            return _this3.setState({ reactDOMValue: newReactDOM })
+                          },
+                          unmountHTMLWhenHide: this.props.unmountHTMLWhenHide,
+                          open: this.props.open,
+                          sticky: this.props.sticky,
+                          stickyDuration: this.props.stickyDuration,
+                          tag: this.props.tag,
+                          touchHold: this.props.touchHold,
+                          onRequestClose: this.props.onRequestClose,
+                          useContext: this.props.useContext,
+                          reactInstance: this.props.useContext ? this : void 0,
+                          performance: true,
+                          html: this.props.rawTemplate ? this.props.rawTemplate : void 0,
+                          zIndex: this.props.zIndex,
+                        })
+                        if (this.props.open) {
+                          this.showTooltip()
+                        }
+                      } else {
+                        this.tippy = null
+                      }
+                    },
+                  },
+                  {
+                    key: '_destroyTippy',
+                    value: function _destroyTippy() {
+                      if (typeof window === 'undefined' || typeof document === 'undefined') {
+                        return
+                      }
+                      if (this.tippy) {
+                        var popper = this.tippy.getPopperElement(this.tooltipDOM)
+                        this.updateSettings('open', false)
+                        this.tippy.hide(popper, 0)
+                        this.tippy.destroy(popper)
+                        this.tippy = null
+                      }
+                    },
+                  },
+                  {
+                    key: 'render',
+                    value: function render() {
+                      var _this4 = this
+                      var Tag = this.props.tag
+                      return _react2.default.createElement(
+                        _react2.default.Fragment,
+                        null,
+                        _react2.default.createElement(
+                          Tag,
+                          {
+                            ref: function ref(tooltip) {
+                              _this4.tooltipDOM = tooltip
+                            },
+                            title: this.props.title,
+                            className: this.props.className,
+                            tabIndex: this.props.tabIndex,
+                            style: _extends(
+                              {
+                                display: 'inline',
+                              },
+                              this.props.style
+                            ),
+                          },
+                          this.props.children
+                        ),
+                        this.state.reactDOMValue &&
+                          _react2.default.createElement(
+                            'div',
+                            {
+                              onClick: stopPortalEvent,
+                              onContextMenu: stopPortalEvent,
+                              onDoubleClick: stopPortalEvent,
+                              onDrag: stopPortalEvent,
+                              onDragEnd: stopPortalEvent,
+                              onDragEnter: stopPortalEvent,
+                              onDragExit: stopPortalEvent,
+                              onDragLeave: stopPortalEvent,
+                              onDragOver: stopPortalEvent,
+                              onDragStart: stopPortalEvent,
+                              onDrop: stopPortalEvent,
+                              onMouseDown: stopPortalEvent,
+                              onMouseEnter: stopPortalEvent,
+                              onMouseLeave: stopPortalEvent,
+                              onMouseMove: stopPortalEvent,
+                              onMouseOver: stopPortalEvent,
+                              onMouseOut: stopPortalEvent,
+                              onMouseUp: stopPortalEvent,
+                              onKeyDown: stopPortalEvent,
+                              onKeyPress: stopPortalEvent,
+                              onKeyUp: stopPortalEvent,
+                              onFocus: stopPortalEvent,
+                              onBlur: stopPortalEvent,
+                              onChange: stopPortalEvent,
+                              onInput: stopPortalEvent,
+                              onInvalid: stopPortalEvent,
+                              onSubmit: stopPortalEvent,
+                            },
+                            this.state.reactDOMValue
+                          )
+                      )
+                    },
+                  },
+                ])
+                return Tooltip2
+              })(_react.Component)
+              Tooltip.defaultProps = defaultProps
+              exports2.default = Tooltip
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = followCursorHandler
+              var _globals = __webpack_require__(0)
+              var _getCorePlacement = __webpack_require__(3)
+              var _getCorePlacement2 = _interopRequireDefault(_getCorePlacement)
+              var _find = __webpack_require__(2)
+              var _find2 = _interopRequireDefault(_find)
+              var _prefix = __webpack_require__(1)
+              var _prefix2 = _interopRequireDefault(_prefix)
+              var _closest = __webpack_require__(4)
+              var _closest2 = _interopRequireDefault(_closest)
+              function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { default: obj }
+              }
+              function followCursorHandler(e) {
+                var _this = this
+                var refData = (0, _find2.default)(_globals.Store, function (refData2) {
+                  return refData2.el === _this
+                })
+                if (!refData) return
+                var popper = refData.popper,
+                  offset = refData.settings.offset
+                var position = (0, _getCorePlacement2.default)(popper.getAttribute('x-placement'))
+                var halfPopperWidth = Math.round(popper.offsetWidth / 2)
+                var halfPopperHeight = Math.round(popper.offsetHeight / 2)
+                var viewportPadding = 5
+                var pageWidth = document.documentElement.offsetWidth || document.body.offsetWidth
+                var pageX = e.pageX,
+                  pageY = e.pageY
+                var x = void 0,
+                  y = void 0
+                switch (position) {
+                  case 'top':
+                    x = pageX - halfPopperWidth + offset
+                    y = pageY - 2.25 * halfPopperHeight
+                    break
+                  case 'left':
+                    x = pageX - 2 * halfPopperWidth - 10
+                    y = pageY - halfPopperHeight + offset
+                    break
+                  case 'right':
+                    x = pageX + halfPopperHeight
+                    y = pageY - halfPopperHeight + offset
+                    break
+                  case 'bottom':
+                    x = pageX - halfPopperWidth + offset
+                    y = pageY + halfPopperHeight / 1.5
+                    break
+                }
+                var isRightOverflowing = pageX + viewportPadding + halfPopperWidth + offset > pageWidth
+                var isLeftOverflowing = pageX - viewportPadding - halfPopperWidth + offset < 0
+                if (position === 'top' || position === 'bottom') {
+                  if (isRightOverflowing) {
+                    x = pageWidth - viewportPadding - 2 * halfPopperWidth
+                  }
+                  if (isLeftOverflowing) {
+                    x = viewportPadding
+                  }
+                }
+                popper.style[(0, _prefix2.default)('transform')] = 'translate3d(' + x + 'px, ' + y + 'px, 0)'
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = getOffsetDistanceInPx
+              var _globals = __webpack_require__(0)
+              function getOffsetDistanceInPx(distance) {
+                return -(distance - _globals.Defaults.distance) + 'px'
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = removeTitle
+              function removeTitle(el) {
+                var title = el.getAttribute('title')
+                if (title) {
+                  el.setAttribute('data-original-title', title)
+                }
+                el.removeAttribute('title')
+              }
+            },
+            function (module2, exports2) {
+              module2.exports = __WEBPACK_EXTERNAL_MODULE_13__
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              var _react = __webpack_require__(13)
+              var _react2 = _interopRequireDefault(_react)
+              var _component = __webpack_require__(9)
+              var _component2 = _interopRequireDefault(_component)
+              function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { default: obj }
+              }
+              function _objectWithoutProperties(obj, keys) {
+                var target = {}
+                for (var i in obj) {
+                  if (keys.indexOf(i) >= 0) continue
+                  if (!Object.prototype.hasOwnProperty.call(obj, i)) continue
+                  target[i] = obj[i]
+                }
+                return target
+              }
+              var withTooltip = function withTooltip2(Component) {
+                var options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}
+                return function (_ref) {
+                  var props = _objectWithoutProperties(_ref, [])
+                  return _react2.default.createElement(
+                    _component2.default,
+                    options,
+                    _react2.default.createElement(Component, props)
+                  )
+                }
+              }
+              exports2.default = withTooltip
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.withTooltip = exports2.Tooltip = void 0
+              var _component = __webpack_require__(9)
+              var _component2 = _interopRequireDefault(_component)
+              var _hoc = __webpack_require__(14)
+              var _hoc2 = _interopRequireDefault(_hoc)
+              function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { default: obj }
+              }
+              exports2.Tooltip = _component2.default
+              exports2.withTooltip = _hoc2.default
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = bindEventListeners
+              var _globals = __webpack_require__(0)
+              var _hideAllPoppers = __webpack_require__(25)
+              var _hideAllPoppers2 = _interopRequireDefault(_hideAllPoppers)
+              var _closest = __webpack_require__(4)
+              var _closest2 = _interopRequireDefault(_closest)
+              var _find = __webpack_require__(2)
+              var _find2 = _interopRequireDefault(_find)
+              var _matches = __webpack_require__(8)
+              function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { default: obj }
+              }
+              function bindEventListeners() {
+                var touchHandler = function touchHandler2() {
+                  _globals.Browser.touch = true
+                  if (_globals.Browser.iOS()) {
+                    document.body.classList.add('tippy-touch')
+                  }
+                  if (_globals.Browser.dynamicInputDetection && window.performance) {
+                    document.addEventListener('mousemove', mousemoveHandler)
+                  }
+                }
+                var mousemoveHandler = (function () {
+                  var time = void 0
+                  return function () {
+                    var now = performance.now()
+                    if (now - time < 20) {
+                      _globals.Browser.touch = false
+                      document.removeEventListener('mousemove', mousemoveHandler)
+                      if (!_globals.Browser.iOS()) {
+                        document.body.classList.remove('tippy-touch')
+                      }
+                    }
+                    time = now
+                  }
+                })()
+                var clickHandler = function clickHandler2(event) {
+                  if (!(event.target instanceof Element)) {
+                    return (0, _hideAllPoppers2.default)()
+                  }
+                  var el = (0, _closest2.default)(event.target, _globals.Selectors.TOOLTIPPED_EL)
+                  var popper = (0, _closest2.default)(event.target, _globals.Selectors.POPPER)
+                  if (popper) {
+                    var ref = (0, _find2.default)(_globals.Store, function (ref2) {
+                      return ref2.popper === popper
+                    })
+                    if (!ref) return
+                    var interactive = ref.settings.interactive
+                    if (interactive) return
+                  }
+                  if (el) {
+                    var _ref = (0, _find2.default)(_globals.Store, function (ref2) {
+                      return ref2.el === el
+                    })
+                    if (!_ref) return
+                    var _ref$settings = _ref.settings,
+                      hideOnClick = _ref$settings.hideOnClick,
+                      multiple = _ref$settings.multiple,
+                      trigger = _ref$settings.trigger
+                    if ((!multiple && _globals.Browser.touch) || (!multiple && trigger.indexOf('click') !== -1)) {
+                      return (0, _hideAllPoppers2.default)(_ref)
+                    }
+                    if (hideOnClick !== true || trigger.indexOf('click') !== -1) return
+                  }
+                  if (
+                    (0, _closest2.default)(event.target, _globals.Selectors.CONTROLLER) ||
+                    !document.querySelector(_globals.Selectors.POPPER)
+                  )
+                    return
+                  ;(0, _hideAllPoppers2.default)()
+                }
+                var blurHandler = function blurHandler2(event) {
+                  var _document = document,
+                    el = _document.activeElement
+                  if (el && el.blur && _matches.matches.call(el, _globals.Selectors.TOOLTIPPED_EL)) {
+                    el.blur()
+                  }
+                }
+                document.addEventListener('click', clickHandler)
+                document.addEventListener('touchstart', touchHandler)
+                window.addEventListener('blur', blurHandler)
+                if (
+                  !_globals.Browser.SUPPORTS_TOUCH &&
+                  (navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0)
+                ) {
+                  document.addEventListener('pointerdown', touchHandler)
+                }
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = createPopperElement
+              var _getCorePlacement = __webpack_require__(3)
+              var _getCorePlacement2 = _interopRequireDefault(_getCorePlacement)
+              var _getOffsetDistanceInPx = __webpack_require__(11)
+              var _getOffsetDistanceInPx2 = _interopRequireDefault(_getOffsetDistanceInPx)
+              function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { default: obj }
+              }
+              function createPopperElement(id, title, settings) {
+                var position = settings.position,
+                  distance = settings.distance,
+                  arrow = settings.arrow,
+                  animateFill = settings.animateFill,
+                  inertia = settings.inertia,
+                  animation = settings.animation,
+                  arrowSize = settings.arrowSize,
+                  size = settings.size,
+                  theme = settings.theme,
+                  html = settings.html,
+                  zIndex = settings.zIndex,
+                  interactive = settings.interactive
+                var popper = document.createElement('div')
+                popper.setAttribute('class', 'tippy-popper')
+                popper.setAttribute('role', 'tooltip')
+                popper.setAttribute('aria-hidden', 'true')
+                popper.setAttribute('id', 'tippy-tooltip-' + id)
+                popper.style.zIndex = zIndex
+                var tooltip = document.createElement('div')
+                tooltip.setAttribute('class', 'tippy-tooltip tippy-tooltip--' + size + ' leave')
+                tooltip.setAttribute('data-animation', animation)
+                theme.split(' ').forEach(function (t) {
+                  tooltip.classList.add(t + '-theme')
+                })
+                if (arrow) {
+                  var _arrow = document.createElement('div')
+                  _arrow.setAttribute('class', 'arrow-' + arrowSize)
+                  _arrow.setAttribute('x-arrow', '')
+                  tooltip.appendChild(_arrow)
+                }
+                if (animateFill) {
+                  tooltip.setAttribute('data-animatefill', '')
+                  var circle = document.createElement('div')
+                  circle.setAttribute('class', 'leave')
+                  circle.setAttribute('x-circle', '')
+                  tooltip.appendChild(circle)
+                }
+                if (inertia) {
+                  tooltip.setAttribute('data-inertia', '')
+                }
+                if (interactive) {
+                  tooltip.setAttribute('data-interactive', '')
+                }
+                var content = document.createElement('div')
+                content.setAttribute('class', 'tippy-tooltip-content')
+                if (html) {
+                  var templateId = void 0
+                  if (html instanceof Element) {
+                    content.appendChild(html)
+                    templateId = '#' + html.id || 'tippy-html-template'
+                  } else {
+                    content.innerHTML = document.getElementById(html.replace('#', '')).innerHTML
+                    templateId = html
+                  }
+                  popper.classList.add('html-template')
+                  interactive && popper.setAttribute('tabindex', '-1')
+                  tooltip.setAttribute('data-template-id', templateId)
+                } else {
+                  content.innerHTML = title
+                }
+                tooltip.style[(0, _getCorePlacement2.default)(position)] = (0, _getOffsetDistanceInPx2.default)(
+                  distance
+                )
+                tooltip.appendChild(content)
+                popper.appendChild(tooltip)
+                return popper
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              var _extends =
+                Object.assign ||
+                function (target) {
+                  for (var i = 1; i < arguments.length; i++) {
+                    var source = arguments[i]
+                    for (var key in source) {
+                      if (Object.prototype.hasOwnProperty.call(source, key)) {
+                        target[key] = source[key]
+                      }
+                    }
+                  }
+                  return target
+                }
+              exports2.default = createPopperInstance
+              var _popper = __webpack_require__(38)
+              var _popper2 = _interopRequireDefault(_popper)
+              var _defer = __webpack_require__(5)
+              var _defer2 = _interopRequireDefault(_defer)
+              var _prefix = __webpack_require__(1)
+              var _prefix2 = _interopRequireDefault(_prefix)
+              var _getCorePlacement = __webpack_require__(3)
+              var _getCorePlacement2 = _interopRequireDefault(_getCorePlacement)
+              var _getInnerElements2 = __webpack_require__(6)
+              var _getInnerElements3 = _interopRequireDefault(_getInnerElements2)
+              var _getOffsetDistanceInPx = __webpack_require__(11)
+              var _getOffsetDistanceInPx2 = _interopRequireDefault(_getOffsetDistanceInPx)
+              function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { default: obj }
+              }
+              function createPopperInstance(data) {
+                var el = data.el,
+                  popper = data.popper,
+                  _data$settings = data.settings,
+                  position = _data$settings.position,
+                  popperOptions = _data$settings.popperOptions,
+                  offset = _data$settings.offset,
+                  distance = _data$settings.distance,
+                  flipDuration = _data$settings.flipDuration
+                var _getInnerElements = (0, _getInnerElements3.default)(popper),
+                  tooltip = _getInnerElements.tooltip
+                var config = _extends(
+                  {
+                    placement: position,
+                  },
+                  popperOptions || {},
+                  {
+                    modifiers: _extends({}, popperOptions ? popperOptions.modifiers : {}, {
+                      flip: _extends(
+                        {
+                          padding: distance + 5,
+                        },
+                        popperOptions && popperOptions.modifiers ? popperOptions.modifiers.flip : {}
+                      ),
+                      offset: _extends(
+                        {
+                          offset,
+                        },
+                        popperOptions && popperOptions.modifiers ? popperOptions.modifiers.offset : {}
+                      ),
+                    }),
+                    onUpdate: function onUpdate() {
+                      var styles2 = tooltip.style
+                      styles2.top = ''
+                      styles2.bottom = ''
+                      styles2.left = ''
+                      styles2.right = ''
+                      styles2[(0, _getCorePlacement2.default)(popper.getAttribute('x-placement'))] = (0,
+                      _getOffsetDistanceInPx2.default)(distance)
+                    },
+                  }
+                )
+                if (window.MutationObserver) {
+                  var styles = popper.style
+                  var observer = new MutationObserver(function () {
+                    styles[(0, _prefix2.default)('transitionDuration')] = '0ms'
+                    data.popperInstance.update()
+                    ;(0, _defer2.default)(function () {
+                      styles[(0, _prefix2.default)('transitionDuration')] = flipDuration + 'ms'
+                    })
+                  })
+                  observer.observe(popper, {
+                    childList: true,
+                    subtree: true,
+                    characterData: true,
+                  })
+                  data._mutationObserver = observer
+                }
+                return new _popper2.default(el, popper, config)
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = createTooltips
+              var _getIndividualSettings = __webpack_require__(24)
+              var _getIndividualSettings2 = _interopRequireDefault(_getIndividualSettings)
+              var _createPopperElement = __webpack_require__(17)
+              var _createPopperElement2 = _interopRequireDefault(_createPopperElement)
+              var _createTrigger = __webpack_require__(20)
+              var _createTrigger2 = _interopRequireDefault(_createTrigger)
+              var _getEventListenerHandlers = __webpack_require__(23)
+              var _getEventListenerHandlers2 = _interopRequireDefault(_getEventListenerHandlers)
+              var _evaluateSettings = __webpack_require__(21)
+              var _evaluateSettings2 = _interopRequireDefault(_evaluateSettings)
+              var _removeTitle = __webpack_require__(12)
+              var _removeTitle2 = _interopRequireDefault(_removeTitle)
+              var _globals = __webpack_require__(0)
+              function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { default: obj }
+              }
+              var idCounter = 1
+              function createTooltips(els) {
+                var _this = this
+                return els.reduce(function (a, el) {
+                  var id = idCounter
+                  var settings = (0, _evaluateSettings2.default)(
+                    _this.settings.performance
+                      ? _this.settings
+                      : (0, _getIndividualSettings2.default)(el, _this.settings)
+                  )
+                  var html = settings.html,
+                    reactDOM = settings.reactDOM,
+                    trigger = settings.trigger,
+                    touchHold = settings.touchHold
+                  var title = el.getAttribute('title')
+                  if (!title && !html && !reactDOM) return a
+                  el.setAttribute('data-tooltipped', '')
+                  el.setAttribute('aria-describedby', 'tippy-tooltip-' + id)
+                  ;(0, _removeTitle2.default)(el)
+                  var popper = (0, _createPopperElement2.default)(id, title, settings)
+                  var handlers = _getEventListenerHandlers2.default.call(_this, el, popper, settings)
+                  var listeners = []
+                  trigger
+                    .trim()
+                    .split(' ')
+                    .forEach(function (event) {
+                      return (listeners = listeners.concat(
+                        (0, _createTrigger2.default)(event, el, handlers, touchHold)
+                      ))
+                    })
+                  a.push({
+                    id,
+                    el,
+                    popper,
+                    settings,
+                    listeners,
+                    tippyInstance: _this,
+                  })
+                  idCounter++
+                  return a
+                }, [])
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = createTrigger
+              var _globals = __webpack_require__(0)
+              function createTrigger(event, el, handlers, touchHold) {
+                var listeners = []
+                if (event === 'manual') return listeners
+                el.addEventListener(event, handlers.handleTrigger)
+                listeners.push({
+                  event,
+                  handler: handlers.handleTrigger,
+                })
+                if (event === 'mouseenter') {
+                  if (_globals.Browser.SUPPORTS_TOUCH && touchHold) {
+                    el.addEventListener('touchstart', handlers.handleTrigger)
+                    listeners.push({
+                      event: 'touchstart',
+                      handler: handlers.handleTrigger,
+                    })
+                    el.addEventListener('touchend', handlers.handleMouseleave)
+                    listeners.push({
+                      event: 'touchend',
+                      handler: handlers.handleMouseleave,
+                    })
+                  }
+                  el.addEventListener('mouseleave', handlers.handleMouseleave)
+                  listeners.push({
+                    event: 'mouseleave',
+                    handler: handlers.handleMouseleave,
+                  })
+                }
+                if (event === 'focus') {
+                  el.addEventListener('blur', handlers.handleBlur)
+                  listeners.push({
+                    event: 'blur',
+                    handler: handlers.handleBlur,
+                  })
+                }
+                return listeners
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = evaluateSettings
+              function evaluateSettings(settings) {
+                if (settings.arrow) {
+                  settings.animateFill = false
+                }
+                if (settings.appendTo && typeof settings.appendTo === 'function') {
+                  settings.appendTo = settings.appendTo()
+                }
+                return settings
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = getArrayOfElements
+              function getArrayOfElements(selector) {
+                if (selector instanceof Element) {
+                  return [selector]
+                }
+                if (Array.isArray(selector)) {
+                  return selector
+                }
+                return [].slice.call(document.querySelectorAll(selector))
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = getEventListenerHandlers
+              var _globals = __webpack_require__(0)
+              var _isVisible = __webpack_require__(7)
+              var _isVisible2 = _interopRequireDefault(_isVisible)
+              var _closest = __webpack_require__(4)
+              var _closest2 = _interopRequireDefault(_closest)
+              var _cursorIsOutsideInteractiveBorder = __webpack_require__(32)
+              var _cursorIsOutsideInteractiveBorder2 = _interopRequireDefault(_cursorIsOutsideInteractiveBorder)
+              function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { default: obj }
+              }
+              function getEventListenerHandlers(el, popper, settings) {
+                var _this = this
+                var position = settings.position,
+                  delay = settings.delay,
+                  duration = settings.duration,
+                  interactive = settings.interactive,
+                  interactiveBorder = settings.interactiveBorder,
+                  distance = settings.distance,
+                  hideOnClick = settings.hideOnClick,
+                  trigger = settings.trigger,
+                  touchHold = settings.touchHold,
+                  touchWait = settings.touchWait
+                var showDelay = void 0,
+                  hideDelay = void 0
+                var clearTimeouts = function clearTimeouts2() {
+                  clearTimeout(showDelay)
+                  clearTimeout(hideDelay)
+                }
+                var _show = function _show2() {
+                  clearTimeouts()
+                  if ((0, _isVisible2.default)(popper)) return
+                  var _delay = Array.isArray(delay) ? delay[0] : delay
+                  if (delay) {
+                    showDelay = setTimeout(function () {
+                      return _this.show(popper)
+                    }, _delay)
+                  } else {
+                    _this.show(popper)
+                  }
+                }
+                var show = function show2(event) {
+                  return _this.callbacks.wait ? _this.callbacks.wait.call(popper, _show, event) : _show()
+                }
+                var hide = function hide2() {
+                  clearTimeouts()
+                  var _delay = Array.isArray(delay) ? delay[1] : delay
+                  if (delay) {
+                    hideDelay = setTimeout(function () {
+                      return _this.hide(popper)
+                    }, _delay)
+                  } else {
+                    _this.hide(popper)
+                  }
+                }
+                var handleTrigger = function handleTrigger2(event) {
+                  var mouseenterTouch =
+                    event.type === 'mouseenter' && _globals.Browser.SUPPORTS_TOUCH && _globals.Browser.touch
+                  if (mouseenterTouch && touchHold) return
+                  var isClick = event.type === 'click'
+                  var isNotPersistent = hideOnClick !== 'persistent'
+                  isClick && (0, _isVisible2.default)(popper) && isNotPersistent ? hide() : show(event)
+                  if (mouseenterTouch && _globals.Browser.iOS() && el.click) {
+                    el.click()
+                  }
+                }
+                var handleMouseleave = function handleMouseleave2(event) {
+                  if (
+                    event.type === 'mouseleave' &&
+                    _globals.Browser.SUPPORTS_TOUCH &&
+                    _globals.Browser.touch &&
+                    touchHold
+                  ) {
+                    return
+                  }
+                  if (interactive) {
+                    var handleMousemove = function handleMousemove2(event2) {
+                      var triggerHide = function triggerHide2() {
+                        document.body.removeEventListener('mouseleave', hide)
+                        document.removeEventListener('mousemove', handleMousemove2)
+                        hide()
+                      }
+                      var closestTooltippedEl = (0, _closest2.default)(event2.target, _globals.Selectors.TOOLTIPPED_EL)
+                      var isOverPopper = (0, _closest2.default)(event2.target, _globals.Selectors.POPPER) === popper
+                      var isOverEl = closestTooltippedEl === el
+                      var isClickTriggered = trigger.indexOf('click') !== -1
+                      var isOverOtherTooltippedEl = closestTooltippedEl && closestTooltippedEl !== el
+                      if (isOverOtherTooltippedEl) {
+                        return triggerHide()
+                      }
+                      if (isOverPopper || isOverEl || isClickTriggered) return
+                      if ((0, _cursorIsOutsideInteractiveBorder2.default)(event2, popper, settings)) {
+                        triggerHide()
+                      }
+                    }
+                    document.body.addEventListener('mouseleave', hide)
+                    document.addEventListener('mousemove', handleMousemove)
+                    return
+                  }
+                  hide()
+                }
+                var handleBlur = function handleBlur2(event) {
+                  if (!event.relatedTarget || _globals.Browser.touch) return
+                  if ((0, _closest2.default)(event.relatedTarget, _globals.Selectors.POPPER)) return
+                  hide()
+                }
+                return {
+                  handleTrigger,
+                  handleMouseleave,
+                  handleBlur,
+                }
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = getIndividualSettings
+              var _globals = __webpack_require__(0)
+              function getIndividualSettings(el, instanceSettings) {
+                var settings = _globals.DefaultsKeys.reduce(function (acc, key) {
+                  var val = el.getAttribute('data-' + key.toLowerCase()) || instanceSettings[key]
+                  if (val === 'false') val = false
+                  if (val === 'true') val = true
+                  if (isFinite(val) && !isNaN(parseFloat(val))) {
+                    val = parseFloat(val)
+                  }
+                  if (typeof val === 'string' && val.trim().charAt(0) === '[') {
+                    val = JSON.parse(val)
+                  }
+                  acc[key] = val
+                  return acc
+                }, {})
+                return Object.assign({}, instanceSettings, settings)
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = hideAllPoppers
+              var _globals = __webpack_require__(0)
+              function hideAllPoppers(exclude) {
+                _globals.Store.forEach(function (refData) {
+                  var popper = refData.popper,
+                    tippyInstance = refData.tippyInstance,
+                    _refData$settings = refData.settings,
+                    appendTo = _refData$settings.appendTo,
+                    hideOnClick = _refData$settings.hideOnClick,
+                    trigger = _refData$settings.trigger
+                  if (!appendTo.contains(popper)) return
+                  var isHideOnClick = hideOnClick === true || trigger.indexOf('focus') !== -1
+                  var isNotCurrentRef = !exclude || popper !== exclude.popper
+                  if (isHideOnClick && isNotCurrentRef) {
+                    refData.settings.onRequestClose()
+                    tippyInstance.hide(popper)
+                  }
+                })
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = init
+              var _bindEventListeners = __webpack_require__(16)
+              var _bindEventListeners2 = _interopRequireDefault(_bindEventListeners)
+              function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { default: obj }
+              }
+              function init() {
+                if (init.done) return false
+                init.done = true
+                ;(0, _bindEventListeners2.default)()
+                return true
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = makeSticky
+              var _defer = __webpack_require__(5)
+              var _defer2 = _interopRequireDefault(_defer)
+              var _prefix = __webpack_require__(1)
+              var _prefix2 = _interopRequireDefault(_prefix)
+              var _isVisible = __webpack_require__(7)
+              var _isVisible2 = _interopRequireDefault(_isVisible)
+              function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { default: obj }
+              }
+              function makeSticky(refData) {
+                var popper = refData.popper,
+                  popperInstance = refData.popperInstance,
+                  stickyDuration = refData.settings.stickyDuration
+                var applyTransitionDuration = function applyTransitionDuration2() {
+                  return (popper.style[(0, _prefix2.default)('transitionDuration')] = stickyDuration + 'ms')
+                }
+                var removeTransitionDuration = function removeTransitionDuration2() {
+                  return (popper.style[(0, _prefix2.default)('transitionDuration')] = '')
+                }
+                var updatePosition = function updatePosition2() {
+                  popperInstance && popperInstance.scheduleUpdate()
+                  applyTransitionDuration()
+                  ;(0, _isVisible2.default)(popper)
+                    ? window.requestAnimationFrame(updatePosition2)
+                    : removeTransitionDuration()
+                }
+                ;(0, _defer2.default)(updatePosition)
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = mountPopper
+              var _globals = __webpack_require__(0)
+              var _followCursorHandler = __webpack_require__(10)
+              var _followCursorHandler2 = _interopRequireDefault(_followCursorHandler)
+              var _createPopperInstance = __webpack_require__(18)
+              var _createPopperInstance2 = _interopRequireDefault(_createPopperInstance)
+              var _prefix = __webpack_require__(1)
+              var _prefix2 = _interopRequireDefault(_prefix)
+              function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { default: obj }
+              }
+              function mountPopper(data) {
+                var el = data.el,
+                  popper = data.popper,
+                  _data$settings = data.settings,
+                  appendTo = _data$settings.appendTo,
+                  followCursor = _data$settings.followCursor
+                if (appendTo.contains(popper)) return
+                appendTo.appendChild(popper)
+                if (!data.popperInstance) {
+                  data.popperInstance = (0, _createPopperInstance2.default)(data)
+                } else {
+                  data.popperInstance.update()
+                  if (!followCursor || _globals.Browser.touch) {
+                    data.popperInstance.enableEventListeners()
+                  }
+                }
+                if (followCursor && !_globals.Browser.touch) {
+                  el.addEventListener('mousemove', _followCursorHandler2.default)
+                  data.popperInstance.disableEventListeners()
+                }
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = onTransitionEnd
+              var _globals = __webpack_require__(0)
+              var _getInnerElements2 = __webpack_require__(6)
+              var _getInnerElements3 = _interopRequireDefault(_getInnerElements2)
+              function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { default: obj }
+              }
+              function onTransitionEnd(data, duration, callback) {
+                if (!duration) {
+                  return callback()
+                }
+                var _getInnerElements = (0, _getInnerElements3.default)(data.popper),
+                  tooltip = _getInnerElements.tooltip
+                var transitionendFired = false
+                var listenerCallback = function listenerCallback2(e) {
+                  if (e.target === tooltip && !transitionendFired) {
+                    transitionendFired = true
+                    callback()
+                  }
+                }
+                tooltip.addEventListener('webkitTransitionEnd', listenerCallback)
+                tooltip.addEventListener('transitionend', listenerCallback)
+                clearTimeout(data._transitionendTimeout)
+                data._transitionendTimeout = setTimeout(function () {
+                  if (!transitionendFired) {
+                    callback()
+                  }
+                }, duration)
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              var _extends =
+                Object.assign ||
+                function (target) {
+                  for (var i = 1; i < arguments.length; i++) {
+                    var source = arguments[i]
+                    for (var key in source) {
+                      if (Object.prototype.hasOwnProperty.call(source, key)) {
+                        target[key] = source[key]
+                      }
+                    }
+                  }
+                  return target
+                }
+              var _createClass = (function () {
+                function defineProperties(target, props) {
+                  for (var i = 0; i < props.length; i++) {
+                    var descriptor = props[i]
+                    descriptor.enumerable = descriptor.enumerable || false
+                    descriptor.configurable = true
+                    if ('value' in descriptor) descriptor.writable = true
+                    Object.defineProperty(target, descriptor.key, descriptor)
+                  }
+                }
+                return function (Constructor, protoProps, staticProps) {
+                  if (protoProps) defineProperties(Constructor.prototype, protoProps)
+                  if (staticProps) defineProperties(Constructor, staticProps)
+                  return Constructor
+                }
+              })()
+              var _globals = __webpack_require__(0)
+              var _reactDom = __webpack_require__(39)
+              var _reactDom2 = _interopRequireDefault(_reactDom)
+              var _init = __webpack_require__(26)
+              var _init2 = _interopRequireDefault(_init)
+              var _defer = __webpack_require__(5)
+              var _defer2 = _interopRequireDefault(_defer)
+              var _prefix = __webpack_require__(1)
+              var _prefix2 = _interopRequireDefault(_prefix)
+              var _find = __webpack_require__(2)
+              var _find2 = _interopRequireDefault(_find)
+              var _findIndex = __webpack_require__(34)
+              var _findIndex2 = _interopRequireDefault(_findIndex)
+              var _removeTitle = __webpack_require__(12)
+              var _removeTitle2 = _interopRequireDefault(_removeTitle)
+              var _elementIsInViewport = __webpack_require__(33)
+              var _elementIsInViewport2 = _interopRequireDefault(_elementIsInViewport)
+              var _triggerReflow = __webpack_require__(37)
+              var _triggerReflow2 = _interopRequireDefault(_triggerReflow)
+              var _modifyClassList = __webpack_require__(35)
+              var _modifyClassList2 = _interopRequireDefault(_modifyClassList)
+              var _getInnerElements4 = __webpack_require__(6)
+              var _getInnerElements5 = _interopRequireDefault(_getInnerElements4)
+              var _applyTransitionDuration = __webpack_require__(31)
+              var _applyTransitionDuration2 = _interopRequireDefault(_applyTransitionDuration)
+              var _isVisible = __webpack_require__(7)
+              var _isVisible2 = _interopRequireDefault(_isVisible)
+              var _noop = __webpack_require__(36)
+              var _noop2 = _interopRequireDefault(_noop)
+              var _followCursorHandler = __webpack_require__(10)
+              var _followCursorHandler2 = _interopRequireDefault(_followCursorHandler)
+              var _getArrayOfElements = __webpack_require__(22)
+              var _getArrayOfElements2 = _interopRequireDefault(_getArrayOfElements)
+              var _onTransitionEnd = __webpack_require__(29)
+              var _onTransitionEnd2 = _interopRequireDefault(_onTransitionEnd)
+              var _mountPopper = __webpack_require__(28)
+              var _mountPopper2 = _interopRequireDefault(_mountPopper)
+              var _makeSticky = __webpack_require__(27)
+              var _makeSticky2 = _interopRequireDefault(_makeSticky)
+              var _createTooltips = __webpack_require__(19)
+              var _createTooltips2 = _interopRequireDefault(_createTooltips)
+              function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { default: obj }
+              }
+              function _defineProperty(obj, key, value) {
+                if (key in obj) {
+                  Object.defineProperty(obj, key, { value, enumerable: true, configurable: true, writable: true })
+                } else {
+                  obj[key] = value
+                }
+                return obj
+              }
+              function _classCallCheck(instance, Constructor) {
+                if (!(instance instanceof Constructor)) {
+                  throw new TypeError('Cannot call a class as a function')
+                }
+              }
+              var Tippy2 = (function () {
+                function Tippy3(selector) {
+                  var settings = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}
+                  _classCallCheck(this, Tippy3)
+                  if (!_globals.Browser.SUPPORTED) return
+                  ;(0, _init2.default)()
+                  this.state = {
+                    destroyed: false,
+                  }
+                  this.selector = selector
+                  this.settings = _extends({}, _globals.Defaults, settings)
+                  if (settings.show || settings.shown || settings.hide || settings.hidden) {
+                    console.warn(
+                      'Callbacks without the `on` prefix are deprecated (with the exception of `wait`). Use onShow, onShown, onHide, and onHidden instead.'
+                    )
+                  }
+                  this.callbacks = {
+                    wait: settings.wait,
+                    show: settings.onShow || settings.show || _noop2.default,
+                    shown: settings.onShown || settings.shown || _noop2.default,
+                    hide: settings.onHide || settings.hide || _noop2.default,
+                    hidden: settings.onHidden || settings.hidden || _noop2.default,
+                  }
+                  this.store = _createTooltips2.default.call(this, (0, _getArrayOfElements2.default)(selector))
+                  _globals.Store.push.apply(_globals.Store, this.store)
+                }
+                _createClass(Tippy3, [
+                  {
+                    key: 'getPopperElement',
+                    value: function getPopperElement(el) {
+                      try {
+                        return (0, _find2.default)(this.store, function (data) {
+                          return data.el === el
+                        }).popper
+                      } catch (e) {
+                        console.error(
+                          '[getPopperElement]: Element passed as the argument does not exist in the instance'
+                        )
+                      }
+                    },
+                  },
+                  {
+                    key: 'getReferenceElement',
+                    value: function getReferenceElement(popper) {
+                      try {
+                        return (0, _find2.default)(this.store, function (data) {
+                          return data.popper === popper
+                        }).el
+                      } catch (e) {
+                        console.error(
+                          '[getReferenceElement]: Popper passed as the argument does not exist in the instance'
+                        )
+                      }
+                    },
+                  },
+                  {
+                    key: 'getReferenceData',
+                    value: function getReferenceData(x) {
+                      return (0, _find2.default)(this.store, function (data) {
+                        return data.el === x || data.popper === x
+                      })
+                    },
+                  },
+                  {
+                    key: 'updateSettings',
+                    value: function updateSettings(popper, name, value) {
+                      var data = (0, _find2.default)(this.store, function (data2) {
+                        return data2.popper === popper
+                      })
+                      if (!data) return
+                      var newSettings = _extends({}, data.settings, _defineProperty({}, name, value))
+                      data.settings = newSettings
+                    },
+                  },
+                  {
+                    key: 'updateForReact',
+                    value: function updateForReact(popper, updatedContent) {
+                      var tooltipContent = popper.querySelector(_globals.Selectors.CONTENT)
+                      var data = (0, _find2.default)(this.store, function (data2) {
+                        return data2.popper === popper
+                      })
+                      if (!data) return
+                      var _data$settings = data.settings,
+                        useContext2 = _data$settings.useContext,
+                        setReactDOMValue = _data$settings.setReactDOMValue
+                      if (useContext2) {
+                        setReactDOMValue(_reactDom2.default.createPortal(updatedContent, tooltipContent))
+                      } else {
+                        _reactDom2.default.render(updatedContent, tooltipContent)
+                      }
+                    },
+                  },
+                  {
+                    key: 'show',
+                    value: function show(popper, customDuration) {
+                      var _this = this
+                      if (this.state.destroyed) return
+                      var data = (0, _find2.default)(this.store, function (data2) {
+                        return data2.popper === popper
+                      })
+                      if (!data) return
+                      var _getInnerElements = (0, _getInnerElements5.default)(popper),
+                        tooltip = _getInnerElements.tooltip,
+                        circle = _getInnerElements.circle,
+                        content = _getInnerElements.content
+                      if (!document.body.contains(data.el)) {
+                        this.destroy(popper)
+                        return
+                      }
+                      this.callbacks.show.call(popper)
+                      if (data.settings && data.settings.open === false) {
+                        return
+                      }
+                      if (data.settings.reactDOM) {
+                        this.updateForReact(popper, data.settings.reactDOM)
+                      }
+                      var el = data.el,
+                        _data$settings2 = data.settings,
+                        appendTo = _data$settings2.appendTo,
+                        sticky = _data$settings2.sticky,
+                        interactive = _data$settings2.interactive,
+                        followCursor = _data$settings2.followCursor,
+                        flipDuration = _data$settings2.flipDuration,
+                        duration = _data$settings2.duration,
+                        dynamicTitle = _data$settings2.dynamicTitle
+                      if (dynamicTitle) {
+                        var title = el.getAttribute('title')
+                        if (title) {
+                          content.innerHTML = title
+                          ;(0, _removeTitle2.default)(el)
+                        }
+                      }
+                      var _duration =
+                        customDuration !== void 0 ? customDuration : Array.isArray(duration) ? duration[0] : duration
+                      ;(0, _applyTransitionDuration2.default)([popper, tooltip, circle], 0)
+                      ;(0, _mountPopper2.default)(data)
+                      popper.style.visibility = 'visible'
+                      popper.setAttribute('aria-hidden', 'false')
+                      ;(0, _defer2.default)(function () {
+                        if (!followCursor || _globals.Browser.touch) {
+                          data.popperInstance.update()
+                          ;(0, _applyTransitionDuration2.default)([popper], flipDuration)
+                        }
+                        ;(0, _applyTransitionDuration2.default)([tooltip, circle], _duration)
+                        if (circle) content.style.opacity = 1
+                        interactive && el.classList.add('active')
+                        sticky && (0, _makeSticky2.default)(data)
+                        ;(0, _triggerReflow2.default)(tooltip, circle)
+                        ;(0, _modifyClassList2.default)([tooltip, circle], function (list) {
+                          list.contains('tippy-notransition') && list.remove('tippy-notransition')
+                          list.remove('leave')
+                          list.add('enter')
+                        })
+                        ;(0, _onTransitionEnd2.default)(data, _duration, function () {
+                          if (!(0, _isVisible2.default)(popper) || data._onShownFired) return
+                          interactive && popper.focus()
+                          tooltip.classList.add('tippy-notransition')
+                          data._onShownFired = true
+                          _this.callbacks.shown.call(popper)
+                        })
+                      })
+                    },
+                  },
+                  {
+                    key: 'hide',
+                    value: function hide(popper, customDuration) {
+                      var _this2 = this
+                      if (this.state.destroyed) return
+                      this.callbacks.hide.call(popper)
+                      var data = (0, _find2.default)(this.store, function (data2) {
+                        return data2.popper === popper
+                      })
+                      if (!data) return
+                      var _getInnerElements2 = (0, _getInnerElements5.default)(popper),
+                        tooltip = _getInnerElements2.tooltip,
+                        circle = _getInnerElements2.circle,
+                        content = _getInnerElements2.content
+                      if (data.settings.disabled === false && data && data.settings.open) {
+                        return
+                      }
+                      var isUnmount =
+                        data && data.settings && data.settings.unmountHTMLWhenHide && data.settings.reactDOM
+                      var el = data.el,
+                        _data$settings3 = data.settings,
+                        appendTo = _data$settings3.appendTo,
+                        sticky = _data$settings3.sticky,
+                        interactive = _data$settings3.interactive,
+                        followCursor = _data$settings3.followCursor,
+                        html = _data$settings3.html,
+                        trigger = _data$settings3.trigger,
+                        duration = _data$settings3.duration
+                      var _duration =
+                        customDuration !== void 0 ? customDuration : Array.isArray(duration) ? duration[1] : duration
+                      data._onShownFired = false
+                      interactive && el.classList.remove('active')
+                      popper.style.visibility = 'hidden'
+                      popper.setAttribute('aria-hidden', 'true')
+                      ;(0, _applyTransitionDuration2.default)([tooltip, circle, circle ? content : null], _duration)
+                      if (circle) content.style.opacity = 0
+                      ;(0, _modifyClassList2.default)([tooltip, circle], function (list) {
+                        list.contains('tippy-tooltip') && list.remove('tippy-notransition')
+                        list.remove('enter')
+                        list.add('leave')
+                      })
+                      if (html && trigger.indexOf('click') !== -1 && (0, _elementIsInViewport2.default)(el)) {
+                        el.focus()
+                      }
+                      ;(0, _onTransitionEnd2.default)(data, _duration, function () {
+                        if (
+                          (0, _isVisible2.default)(popper) ||
+                          !appendTo.contains(popper) ||
+                          getComputedStyle(tooltip).opacity === '1'
+                        )
+                          return
+                        el.removeEventListener('mousemove', _followCursorHandler2.default)
+                        data.popperInstance.disableEventListeners()
+                        appendTo.removeChild(popper)
+                        _this2.callbacks.hidden.call(popper)
+                        if (isUnmount) {
+                          _reactDom2.default.unmountComponentAtNode(content)
+                        }
+                      })
+                    },
+                  },
+                  {
+                    key: 'update',
+                    value: function update(popper) {
+                      if (this.state.destroyed) return
+                      var data = (0, _find2.default)(this.store, function (data2) {
+                        return data2.popper === popper
+                      })
+                      if (!data) return
+                      var _getInnerElements3 = (0, _getInnerElements5.default)(popper),
+                        content = _getInnerElements3.content
+                      var el = data.el,
+                        html = data.settings.html
+                      if (html instanceof Element) {
+                        console.warn('Aborted: update() should not be used if `html` is a DOM element')
+                        return
+                      }
+                      content.innerHTML = html
+                        ? document.getElementById(html.replace('#', '')).innerHTML
+                        : el.getAttribute('title') || el.getAttribute('data-original-title')
+                      if (!html) (0, _removeTitle2.default)(el)
+                    },
+                  },
+                  {
+                    key: 'destroy',
+                    value: function destroy(popper, _isLast) {
+                      var _this3 = this
+                      if (this.state.destroyed) return
+                      var data = (0, _find2.default)(this.store, function (data2) {
+                        return data2.popper === popper
+                      })
+                      if (!data) return
+                      var el = data.el,
+                        popperInstance = data.popperInstance,
+                        listeners = data.listeners,
+                        _mutationObserver = data._mutationObserver
+                      if ((0, _isVisible2.default)(popper)) {
+                        this.hide(popper, 0)
+                      }
+                      listeners.forEach(function (listener) {
+                        return el.removeEventListener(listener.event, listener.handler)
+                      })
+                      el.setAttribute('title', el.getAttribute('data-original-title'))
+                      el.removeAttribute('data-original-title')
+                      el.removeAttribute('data-tooltipped')
+                      el.removeAttribute('aria-describedby')
+                      popperInstance && popperInstance.destroy()
+                      _mutationObserver && _mutationObserver.disconnect()
+                      _globals.Store.splice(
+                        (0, _findIndex2.default)(_globals.Store, function (data2) {
+                          return data2.popper === popper
+                        }),
+                        1
+                      )
+                      if (_isLast === void 0 || _isLast) {
+                        this.store = _globals.Store.filter(function (data2) {
+                          return data2.tippyInstance === _this3
+                        })
+                      }
+                    },
+                  },
+                  {
+                    key: 'destroyAll',
+                    value: function destroyAll() {
+                      var _this4 = this
+                      if (this.state.destroyed) return
+                      var storeLength = this.store.length
+                      this.store.forEach(function (_ref, index) {
+                        var popper = _ref.popper
+                        _this4.destroy(popper, index === storeLength - 1)
+                      })
+                      this.store = null
+                      this.state.destroyed = true
+                    },
+                  },
+                ])
+                return Tippy3
+              })()
+              function tippy(selector, settings) {
+                return new Tippy2(selector, settings)
+              }
+              tippy.Browser = _globals.Browser
+              tippy.Defaults = _globals.Defaults
+              tippy.disableDynamicInputDetection = function () {
+                return (_globals.Browser.dynamicInputDetection = false)
+              }
+              tippy.enableDynamicInputDetection = function () {
+                return (_globals.Browser.dynamicInputDetection = true)
+              }
+              exports2.default = tippy
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = applyTransitionDuration
+              var _globals = __webpack_require__(0)
+              var _prefix = __webpack_require__(1)
+              var _prefix2 = _interopRequireDefault(_prefix)
+              var _matches = __webpack_require__(8)
+              function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { default: obj }
+              }
+              function applyTransitionDuration(els, duration) {
+                els.forEach(function (el) {
+                  if (!el) return
+                  var isContent = _matches.matches.call(el, _globals.Selectors.CONTENT)
+                  var _duration = isContent ? Math.round(duration / 1.3) : duration
+                  el.style[(0, _prefix2.default)('transitionDuration')] = _duration + 'ms'
+                })
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = cursorIsOutsideInteractiveBorder
+              var _getCorePlacement = __webpack_require__(3)
+              var _getCorePlacement2 = _interopRequireDefault(_getCorePlacement)
+              function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { default: obj }
+              }
+              function cursorIsOutsideInteractiveBorder(event, popper, settings) {
+                if (!popper.getAttribute('x-placement')) return true
+                var x = event.clientX,
+                  y = event.clientY
+                var interactiveBorder = settings.interactiveBorder,
+                  distance = settings.distance
+                var rect = popper.getBoundingClientRect()
+                var corePosition = (0, _getCorePlacement2.default)(popper.getAttribute('x-placement'))
+                var borderWithDistance = interactiveBorder + distance
+                var exceeds = {
+                  top: rect.top - y > interactiveBorder,
+                  bottom: y - rect.bottom > interactiveBorder,
+                  left: rect.left - x > interactiveBorder,
+                  right: x - rect.right > interactiveBorder,
+                }
+                switch (corePosition) {
+                  case 'top':
+                    exceeds.top = rect.top - y > borderWithDistance
+                    break
+                  case 'bottom':
+                    exceeds.bottom = y - rect.bottom > borderWithDistance
+                    break
+                  case 'left':
+                    exceeds.left = rect.left - x > borderWithDistance
+                    break
+                  case 'right':
+                    exceeds.right = x - rect.right > borderWithDistance
+                    break
+                }
+                return exceeds.top || exceeds.bottom || exceeds.left || exceeds.right
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = elementIsInViewport
+              function elementIsInViewport(el) {
+                var rect = el.getBoundingClientRect()
+                return (
+                  rect.top >= 0 &&
+                  rect.left >= 0 &&
+                  rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                  rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                )
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = findIndex
+              var _find = __webpack_require__(2)
+              var _find2 = _interopRequireDefault(_find)
+              function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { default: obj }
+              }
+              function findIndex(arr, checkFn) {
+                if (Array.prototype.findIndex) {
+                  return arr.findIndex(checkFn)
+                }
+                return arr.indexOf((0, _find2.default)(arr, checkFn))
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = modifyClassList
+              function modifyClassList(els, callback) {
+                els.forEach(function (el) {
+                  if (!el) return
+                  callback(el.classList)
+                })
+              }
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = noop
+              function noop() {}
+            },
+            function (module2, exports2, __webpack_require__) {
+              'use strict'
+              Object.defineProperty(exports2, '__esModule', {
+                value: true,
+              })
+              exports2.default = triggerReflow
+              var _prefix = __webpack_require__(1)
+              var _prefix2 = _interopRequireDefault(_prefix)
+              function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : { default: obj }
+              }
+              function triggerReflow(tooltip, circle) {
+                circle
+                  ? window.getComputedStyle(circle)[(0, _prefix2.default)('transform')]
+                  : window.getComputedStyle(tooltip).opacity
+              }
+            },
+            function (module2, exports2) {
+              module2.exports = __WEBPACK_EXTERNAL_MODULE_38__
+            },
+            function (module2, exports2) {
+              module2.exports = __WEBPACK_EXTERNAL_MODULE_39__
+            },
+          ])
+        }
+      )
     },
   })
 
   // src/mounts/panel.tsx
-  var import_react4 = __toModule(require_react())
+  var import_react3 = __toModule(require_react())
   var import_react_dom = __toModule(require_react_dom())
 
   // src/pages/panel.tsx
-  var import_react3 = __toModule(require_react())
-
-  // node_modules/react-tooltip/dist/index.es.js
-  var import_react = __toModule(require_react())
-  var import_prop_types = __toModule(require_prop_types())
-
-  // node_modules/uuid/dist/esm-browser/rng.js
-  var getRandomValues =
-    (typeof crypto != 'undefined' && crypto.getRandomValues && crypto.getRandomValues.bind(crypto)) ||
-    (typeof msCrypto != 'undefined' &&
-      typeof msCrypto.getRandomValues == 'function' &&
-      msCrypto.getRandomValues.bind(msCrypto))
-  var rnds8 = new Uint8Array(16)
-  function rng() {
-    if (!getRandomValues) {
-      throw new Error(
-        'crypto.getRandomValues() not supported. See https://github.com/uuidjs/uuid#getrandomvalues-not-supported'
-      )
-    }
-    return getRandomValues(rnds8)
-  }
-
-  // node_modules/uuid/dist/esm-browser/bytesToUuid.js
-  var byteToHex = []
-  for (var i = 0; i < 256; ++i) {
-    byteToHex[i] = (i + 256).toString(16).substr(1)
-  }
-  function bytesToUuid(buf, offset) {
-    var i = offset || 0
-    var bth = byteToHex
-    return [
-      bth[buf[i++]],
-      bth[buf[i++]],
-      bth[buf[i++]],
-      bth[buf[i++]],
-      '-',
-      bth[buf[i++]],
-      bth[buf[i++]],
-      '-',
-      bth[buf[i++]],
-      bth[buf[i++]],
-      '-',
-      bth[buf[i++]],
-      bth[buf[i++]],
-      '-',
-      bth[buf[i++]],
-      bth[buf[i++]],
-      bth[buf[i++]],
-      bth[buf[i++]],
-      bth[buf[i++]],
-      bth[buf[i++]],
-    ].join('')
-  }
-  var bytesToUuid_default = bytesToUuid
-
-  // node_modules/uuid/dist/esm-browser/v4.js
-  function v4(options, buf, offset) {
-    var i = (buf && offset) || 0
-    if (typeof options == 'string') {
-      buf = options === 'binary' ? new Array(16) : null
-      options = null
-    }
-    options = options || {}
-    var rnds = options.random || (options.rng || rng)()
-    rnds[6] = (rnds[6] & 15) | 64
-    rnds[8] = (rnds[8] & 63) | 128
-    if (buf) {
-      for (var ii = 0; ii < 16; ++ii) {
-        buf[i + ii] = rnds[ii]
-      }
-    }
-    return buf || bytesToUuid_default(rnds)
-  }
-  var v4_default = v4
-
-  // node_modules/react-tooltip/dist/index.es.js
-  function _classCallCheck(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-      throw new TypeError('Cannot call a class as a function')
-    }
-  }
-  function _defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i]
-      descriptor.enumerable = descriptor.enumerable || false
-      descriptor.configurable = true
-      if ('value' in descriptor) descriptor.writable = true
-      Object.defineProperty(target, descriptor.key, descriptor)
-    }
-  }
-  function _createClass(Constructor, protoProps, staticProps) {
-    if (protoProps) _defineProperties(Constructor.prototype, protoProps)
-    if (staticProps) _defineProperties(Constructor, staticProps)
-    return Constructor
-  }
-  function _defineProperty(obj, key, value) {
-    if (key in obj) {
-      Object.defineProperty(obj, key, {
-        value,
-        enumerable: true,
-        configurable: true,
-        writable: true,
-      })
-    } else {
-      obj[key] = value
-    }
-    return obj
-  }
-  function _extends() {
-    _extends =
-      Object.assign ||
-      function (target) {
-        for (var i = 1; i < arguments.length; i++) {
-          var source = arguments[i]
-          for (var key in source) {
-            if (Object.prototype.hasOwnProperty.call(source, key)) {
-              target[key] = source[key]
-            }
-          }
-        }
-        return target
-      }
-    return _extends.apply(this, arguments)
-  }
-  function ownKeys(object, enumerableOnly) {
-    var keys3 = Object.keys(object)
-    if (Object.getOwnPropertySymbols) {
-      var symbols = Object.getOwnPropertySymbols(object)
-      if (enumerableOnly)
-        symbols = symbols.filter(function (sym) {
-          return Object.getOwnPropertyDescriptor(object, sym).enumerable
-        })
-      keys3.push.apply(keys3, symbols)
-    }
-    return keys3
-  }
-  function _objectSpread2(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i] != null ? arguments[i] : {}
-      if (i % 2) {
-        ownKeys(Object(source), true).forEach(function (key) {
-          _defineProperty(target, key, source[key])
-        })
-      } else if (Object.getOwnPropertyDescriptors) {
-        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source))
-      } else {
-        ownKeys(Object(source)).forEach(function (key) {
-          Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key))
-        })
-      }
-    }
-    return target
-  }
-  function _inherits(subClass, superClass) {
-    if (typeof superClass !== 'function' && superClass !== null) {
-      throw new TypeError('Super expression must either be null or a function')
-    }
-    subClass.prototype = Object.create(superClass && superClass.prototype, {
-      constructor: {
-        value: subClass,
-        writable: true,
-        configurable: true,
-      },
-    })
-    if (superClass) _setPrototypeOf(subClass, superClass)
-  }
-  function _getPrototypeOf(o) {
-    _getPrototypeOf = Object.setPrototypeOf
-      ? Object.getPrototypeOf
-      : function _getPrototypeOf2(o2) {
-          return o2.__proto__ || Object.getPrototypeOf(o2)
-        }
-    return _getPrototypeOf(o)
-  }
-  function _setPrototypeOf(o, p) {
-    _setPrototypeOf =
-      Object.setPrototypeOf ||
-      function _setPrototypeOf2(o2, p2) {
-        o2.__proto__ = p2
-        return o2
-      }
-    return _setPrototypeOf(o, p)
-  }
-  function _assertThisInitialized(self2) {
-    if (self2 === void 0) {
-      throw new ReferenceError("this hasn't been initialised - super() hasn't been called")
-    }
-    return self2
-  }
-  function _possibleConstructorReturn(self2, call) {
-    if (call && (typeof call === 'object' || typeof call === 'function')) {
-      return call
-    }
-    return _assertThisInitialized(self2)
-  }
-  var CONSTANT = {
-    GLOBAL: {
-      HIDE: '__react_tooltip_hide_event',
-      REBUILD: '__react_tooltip_rebuild_event',
-      SHOW: '__react_tooltip_show_event',
-    },
-  }
-  var dispatchGlobalEvent = function dispatchGlobalEvent2(eventName, opts) {
-    var event
-    if (typeof window.CustomEvent === 'function') {
-      event = new window.CustomEvent(eventName, {
-        detail: opts,
-      })
-    } else {
-      event = document.createEvent('Event')
-      event.initEvent(eventName, false, true, opts)
-    }
-    window.dispatchEvent(event)
-  }
-  function staticMethods(target) {
-    target.hide = function (target2) {
-      dispatchGlobalEvent(CONSTANT.GLOBAL.HIDE, {
-        target: target2,
-      })
-    }
-    target.rebuild = function () {
-      dispatchGlobalEvent(CONSTANT.GLOBAL.REBUILD)
-    }
-    target.show = function (target2) {
-      dispatchGlobalEvent(CONSTANT.GLOBAL.SHOW, {
-        target: target2,
-      })
-    }
-    target.prototype.globalRebuild = function () {
-      if (this.mount) {
-        this.unbindListener()
-        this.bindListener()
-      }
-    }
-    target.prototype.globalShow = function (event) {
-      if (this.mount) {
-        var hasTarget = (event && event.detail && event.detail.target && true) || false
-        this.showTooltip(
-          {
-            currentTarget: hasTarget && event.detail.target,
-          },
-          true
-        )
-      }
-    }
-    target.prototype.globalHide = function (event) {
-      if (this.mount) {
-        var hasTarget = (event && event.detail && event.detail.target && true) || false
-        this.hideTooltip(
-          {
-            currentTarget: hasTarget && event.detail.target,
-          },
-          hasTarget
-        )
-      }
-    }
-  }
-  function windowListener(target) {
-    target.prototype.bindWindowEvents = function (resizeHide) {
-      window.removeEventListener(CONSTANT.GLOBAL.HIDE, this.globalHide)
-      window.addEventListener(CONSTANT.GLOBAL.HIDE, this.globalHide, false)
-      window.removeEventListener(CONSTANT.GLOBAL.REBUILD, this.globalRebuild)
-      window.addEventListener(CONSTANT.GLOBAL.REBUILD, this.globalRebuild, false)
-      window.removeEventListener(CONSTANT.GLOBAL.SHOW, this.globalShow)
-      window.addEventListener(CONSTANT.GLOBAL.SHOW, this.globalShow, false)
-      if (resizeHide) {
-        window.removeEventListener('resize', this.onWindowResize)
-        window.addEventListener('resize', this.onWindowResize, false)
-      }
-    }
-    target.prototype.unbindWindowEvents = function () {
-      window.removeEventListener(CONSTANT.GLOBAL.HIDE, this.globalHide)
-      window.removeEventListener(CONSTANT.GLOBAL.REBUILD, this.globalRebuild)
-      window.removeEventListener(CONSTANT.GLOBAL.SHOW, this.globalShow)
-      window.removeEventListener('resize', this.onWindowResize)
-    }
-    target.prototype.onWindowResize = function () {
-      if (!this.mount) return
-      this.hideTooltip()
-    }
-  }
-  var checkStatus = function checkStatus2(dataEventOff, e) {
-    var show = this.state.show
-    var id2 = this.props.id
-    var isCapture2 = this.isCapture(e.currentTarget)
-    var currentItem = e.currentTarget.getAttribute('currentItem')
-    if (!isCapture2) e.stopPropagation()
-    if (show && currentItem === 'true') {
-      if (!dataEventOff) this.hideTooltip(e)
-    } else {
-      e.currentTarget.setAttribute('currentItem', 'true')
-      setUntargetItems(e.currentTarget, this.getTargetArray(id2))
-      this.showTooltip(e)
-    }
-  }
-  var setUntargetItems = function setUntargetItems2(currentTarget, targetArray) {
-    for (var i = 0; i < targetArray.length; i++) {
-      if (currentTarget !== targetArray[i]) {
-        targetArray[i].setAttribute('currentItem', 'false')
-      } else {
-        targetArray[i].setAttribute('currentItem', 'true')
-      }
-    }
-  }
-  var customListeners = {
-    id: '9b69f92e-d3fe-498b-b1b4-c5e63a51b0cf',
-    set: function set(target, event, listener) {
-      if (this.id in target) {
-        var map = target[this.id]
-        map[event] = listener
-      } else {
-        Object.defineProperty(target, this.id, {
-          configurable: true,
-          value: _defineProperty({}, event, listener),
-        })
-      }
-    },
-    get: function get(target, event) {
-      var map = target[this.id]
-      if (map !== void 0) {
-        return map[event]
-      }
-    },
-  }
-  function customEvent(target) {
-    target.prototype.isCustomEvent = function (ele) {
-      var event = this.state.event
-      return event || !!ele.getAttribute('data-event')
-    }
-    target.prototype.customBindListener = function (ele) {
-      var _this = this
-      var _this$state = this.state,
-        event = _this$state.event,
-        eventOff = _this$state.eventOff
-      var dataEvent = ele.getAttribute('data-event') || event
-      var dataEventOff = ele.getAttribute('data-event-off') || eventOff
-      dataEvent.split(' ').forEach(function (event2) {
-        ele.removeEventListener(event2, customListeners.get(ele, event2))
-        var customListener = checkStatus.bind(_this, dataEventOff)
-        customListeners.set(ele, event2, customListener)
-        ele.addEventListener(event2, customListener, false)
-      })
-      if (dataEventOff) {
-        dataEventOff.split(' ').forEach(function (event2) {
-          ele.removeEventListener(event2, _this.hideTooltip)
-          ele.addEventListener(event2, _this.hideTooltip, false)
-        })
-      }
-    }
-    target.prototype.customUnbindListener = function (ele) {
-      var _this$state2 = this.state,
-        event = _this$state2.event,
-        eventOff = _this$state2.eventOff
-      var dataEvent = event || ele.getAttribute('data-event')
-      var dataEventOff = eventOff || ele.getAttribute('data-event-off')
-      ele.removeEventListener(dataEvent, customListeners.get(ele, event))
-      if (dataEventOff) ele.removeEventListener(dataEventOff, this.hideTooltip)
-    }
-  }
-  function isCapture(target) {
-    target.prototype.isCapture = function (currentTarget) {
-      return (currentTarget && currentTarget.getAttribute('data-iscapture') === 'true') || this.props.isCapture || false
-    }
-  }
-  function getEffect(target) {
-    target.prototype.getEffect = function (currentTarget) {
-      var dataEffect = currentTarget.getAttribute('data-effect')
-      return dataEffect || this.props.effect || 'float'
-    }
-  }
-  var makeProxy = function makeProxy2(e) {
-    var proxy = {}
-    for (var key in e) {
-      if (typeof e[key] === 'function') {
-        proxy[key] = e[key].bind(e)
-      } else {
-        proxy[key] = e[key]
-      }
-    }
-    return proxy
-  }
-  var bodyListener = function bodyListener2(callback, options, e) {
-    var _options$respectEffec = options.respectEffect,
-      respectEffect = _options$respectEffec === void 0 ? false : _options$respectEffec,
-      _options$customEvent = options.customEvent,
-      customEvent2 = _options$customEvent === void 0 ? false : _options$customEvent
-    var id2 = this.props.id
-    var tip = e.target.getAttribute('data-tip') || null
-    var forId = e.target.getAttribute('data-for') || null
-    var target = e.target
-    if (this.isCustomEvent(target) && !customEvent2) {
-      return
-    }
-    var isTargetBelongsToTooltip = (id2 == null && forId == null) || forId === id2
-    if (tip != null && (!respectEffect || this.getEffect(target) === 'float') && isTargetBelongsToTooltip) {
-      var proxy = makeProxy(e)
-      proxy.currentTarget = target
-      callback(proxy)
-    }
-  }
-  var findCustomEvents = function findCustomEvents2(targetArray, dataAttribute) {
-    var events = {}
-    targetArray.forEach(function (target) {
-      var event = target.getAttribute(dataAttribute)
-      if (event)
-        event.split(' ').forEach(function (event2) {
-          return (events[event2] = true)
-        })
-    })
-    return events
-  }
-  var getBody = function getBody2() {
-    return document.getElementsByTagName('body')[0]
-  }
-  function bodyMode(target) {
-    target.prototype.isBodyMode = function () {
-      return !!this.props.bodyMode
-    }
-    target.prototype.bindBodyListener = function (targetArray) {
-      var _this = this
-      var _this$state = this.state,
-        event = _this$state.event,
-        eventOff = _this$state.eventOff,
-        possibleCustomEvents = _this$state.possibleCustomEvents,
-        possibleCustomEventsOff = _this$state.possibleCustomEventsOff
-      var body = getBody()
-      var customEvents = findCustomEvents(targetArray, 'data-event')
-      var customEventsOff = findCustomEvents(targetArray, 'data-event-off')
-      if (event != null) customEvents[event] = true
-      if (eventOff != null) customEventsOff[eventOff] = true
-      possibleCustomEvents.split(' ').forEach(function (event2) {
-        return (customEvents[event2] = true)
-      })
-      possibleCustomEventsOff.split(' ').forEach(function (event2) {
-        return (customEventsOff[event2] = true)
-      })
-      this.unbindBodyListener(body)
-      var listeners = (this.bodyModeListeners = {})
-      if (event == null) {
-        listeners.mouseover = bodyListener.bind(this, this.showTooltip, {})
-        listeners.mousemove = bodyListener.bind(this, this.updateTooltip, {
-          respectEffect: true,
-        })
-        listeners.mouseout = bodyListener.bind(this, this.hideTooltip, {})
-      }
-      for (var _event in customEvents) {
-        listeners[_event] = bodyListener.bind(
-          this,
-          function (e) {
-            var targetEventOff = e.currentTarget.getAttribute('data-event-off') || eventOff
-            checkStatus.call(_this, targetEventOff, e)
-          },
-          {
-            customEvent: true,
-          }
-        )
-      }
-      for (var _event2 in customEventsOff) {
-        listeners[_event2] = bodyListener.bind(this, this.hideTooltip, {
-          customEvent: true,
-        })
-      }
-      for (var _event3 in listeners) {
-        body.addEventListener(_event3, listeners[_event3])
-      }
-    }
-    target.prototype.unbindBodyListener = function (body) {
-      body = body || getBody()
-      var listeners = this.bodyModeListeners
-      for (var event in listeners) {
-        body.removeEventListener(event, listeners[event])
-      }
-    }
-  }
-  var getMutationObserverClass = function getMutationObserverClass2() {
-    return window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver
-  }
-  function trackRemoval(target) {
-    target.prototype.bindRemovalTracker = function () {
-      var _this = this
-      var MutationObserver = getMutationObserverClass()
-      if (MutationObserver == null) return
-      var observer = new MutationObserver(function (mutations) {
-        for (var m1 = 0; m1 < mutations.length; m1++) {
-          var mutation = mutations[m1]
-          for (var m2 = 0; m2 < mutation.removedNodes.length; m2++) {
-            var element = mutation.removedNodes[m2]
-            if (element === _this.state.currentTarget) {
-              _this.hideTooltip()
-              return
-            }
-          }
-        }
-      })
-      observer.observe(window.document, {
-        childList: true,
-        subtree: true,
-      })
-      this.removalTracker = observer
-    }
-    target.prototype.unbindRemovalTracker = function () {
-      if (this.removalTracker) {
-        this.removalTracker.disconnect()
-        this.removalTracker = null
-      }
-    }
-  }
-  function getPosition(e, target, node, place, desiredPlace, effect, offset) {
-    var _getDimensions = getDimensions(node),
-      tipWidth = _getDimensions.width,
-      tipHeight = _getDimensions.height
-    var _getDimensions2 = getDimensions(target),
-      targetWidth = _getDimensions2.width,
-      targetHeight = _getDimensions2.height
-    var _getCurrentOffset = getCurrentOffset(e, target, effect),
-      mouseX = _getCurrentOffset.mouseX,
-      mouseY = _getCurrentOffset.mouseY
-    var defaultOffset = getDefaultPosition(effect, targetWidth, targetHeight, tipWidth, tipHeight)
-    var _calculateOffset = calculateOffset(offset),
-      extraOffsetX = _calculateOffset.extraOffsetX,
-      extraOffsetY = _calculateOffset.extraOffsetY
-    var windowWidth = window.innerWidth
-    var windowHeight = window.innerHeight
-    var _getParent = getParent(node),
-      parentTop = _getParent.parentTop,
-      parentLeft = _getParent.parentLeft
-    var getTipOffsetLeft = function getTipOffsetLeft2(place2) {
-      var offsetX = defaultOffset[place2].l
-      return mouseX + offsetX + extraOffsetX
-    }
-    var getTipOffsetRight = function getTipOffsetRight2(place2) {
-      var offsetX = defaultOffset[place2].r
-      return mouseX + offsetX + extraOffsetX
-    }
-    var getTipOffsetTop = function getTipOffsetTop2(place2) {
-      var offsetY = defaultOffset[place2].t
-      return mouseY + offsetY + extraOffsetY
-    }
-    var getTipOffsetBottom = function getTipOffsetBottom2(place2) {
-      var offsetY = defaultOffset[place2].b
-      return mouseY + offsetY + extraOffsetY
-    }
-    var outsideLeft = function outsideLeft2(p2) {
-      return getTipOffsetLeft(p2) < 0
-    }
-    var outsideRight = function outsideRight2(p2) {
-      return getTipOffsetRight(p2) > windowWidth
-    }
-    var outsideTop = function outsideTop2(p2) {
-      return getTipOffsetTop(p2) < 0
-    }
-    var outsideBottom = function outsideBottom2(p2) {
-      return getTipOffsetBottom(p2) > windowHeight
-    }
-    var outside = function outside2(p2) {
-      return outsideLeft(p2) || outsideRight(p2) || outsideTop(p2) || outsideBottom(p2)
-    }
-    var inside = function inside2(p2) {
-      return !outside(p2)
-    }
-    var placesList = ['top', 'bottom', 'left', 'right']
-    var insideList = []
-    for (var i = 0; i < 4; i++) {
-      var p = placesList[i]
-      if (inside(p)) {
-        insideList.push(p)
-      }
-    }
-    var isNewState = false
-    var newPlace
-    var shouldUpdatePlace = desiredPlace !== place
-    if (inside(desiredPlace) && shouldUpdatePlace) {
-      isNewState = true
-      newPlace = desiredPlace
-    } else if (insideList.length > 0 && outside(desiredPlace) && outside(place)) {
-      isNewState = true
-      newPlace = insideList[0]
-    }
-    if (isNewState) {
-      return {
-        isNewState: true,
-        newState: {
-          place: newPlace,
-        },
-      }
-    }
-    return {
-      isNewState: false,
-      position: {
-        left: parseInt(getTipOffsetLeft(place) - parentLeft, 10),
-        top: parseInt(getTipOffsetTop(place) - parentTop, 10),
-      },
-    }
-  }
-  var getDimensions = function getDimensions2(node) {
-    var _node$getBoundingClie = node.getBoundingClientRect(),
-      height = _node$getBoundingClie.height,
-      width = _node$getBoundingClie.width
-    return {
-      height: parseInt(height, 10),
-      width: parseInt(width, 10),
-    }
-  }
-  var getCurrentOffset = function getCurrentOffset2(e, currentTarget, effect) {
-    var boundingClientRect = currentTarget.getBoundingClientRect()
-    var targetTop = boundingClientRect.top
-    var targetLeft = boundingClientRect.left
-    var _getDimensions3 = getDimensions(currentTarget),
-      targetWidth = _getDimensions3.width,
-      targetHeight = _getDimensions3.height
-    if (effect === 'float') {
-      return {
-        mouseX: e.clientX,
-        mouseY: e.clientY,
-      }
-    }
-    return {
-      mouseX: targetLeft + targetWidth / 2,
-      mouseY: targetTop + targetHeight / 2,
-    }
-  }
-  var getDefaultPosition = function getDefaultPosition2(effect, targetWidth, targetHeight, tipWidth, tipHeight) {
-    var top
-    var right
-    var bottom
-    var left
-    var disToMouse = 3
-    var triangleHeight = 2
-    var cursorHeight = 12
-    if (effect === 'float') {
-      top = {
-        l: -(tipWidth / 2),
-        r: tipWidth / 2,
-        t: -(tipHeight + disToMouse + triangleHeight),
-        b: -disToMouse,
-      }
-      bottom = {
-        l: -(tipWidth / 2),
-        r: tipWidth / 2,
-        t: disToMouse + cursorHeight,
-        b: tipHeight + disToMouse + triangleHeight + cursorHeight,
-      }
-      left = {
-        l: -(tipWidth + disToMouse + triangleHeight),
-        r: -disToMouse,
-        t: -(tipHeight / 2),
-        b: tipHeight / 2,
-      }
-      right = {
-        l: disToMouse,
-        r: tipWidth + disToMouse + triangleHeight,
-        t: -(tipHeight / 2),
-        b: tipHeight / 2,
-      }
-    } else if (effect === 'solid') {
-      top = {
-        l: -(tipWidth / 2),
-        r: tipWidth / 2,
-        t: -(targetHeight / 2 + tipHeight + triangleHeight),
-        b: -(targetHeight / 2),
-      }
-      bottom = {
-        l: -(tipWidth / 2),
-        r: tipWidth / 2,
-        t: targetHeight / 2,
-        b: targetHeight / 2 + tipHeight + triangleHeight,
-      }
-      left = {
-        l: -(tipWidth + targetWidth / 2 + triangleHeight),
-        r: -(targetWidth / 2),
-        t: -(tipHeight / 2),
-        b: tipHeight / 2,
-      }
-      right = {
-        l: targetWidth / 2,
-        r: tipWidth + targetWidth / 2 + triangleHeight,
-        t: -(tipHeight / 2),
-        b: tipHeight / 2,
-      }
-    }
-    return {
-      top,
-      bottom,
-      left,
-      right,
-    }
-  }
-  var calculateOffset = function calculateOffset2(offset) {
-    var extraOffsetX = 0
-    var extraOffsetY = 0
-    if (Object.prototype.toString.apply(offset) === '[object String]') {
-      offset = JSON.parse(offset.toString().replace(/'/g, '"'))
-    }
-    for (var key in offset) {
-      if (key === 'top') {
-        extraOffsetY -= parseInt(offset[key], 10)
-      } else if (key === 'bottom') {
-        extraOffsetY += parseInt(offset[key], 10)
-      } else if (key === 'left') {
-        extraOffsetX -= parseInt(offset[key], 10)
-      } else if (key === 'right') {
-        extraOffsetX += parseInt(offset[key], 10)
-      }
-    }
-    return {
-      extraOffsetX,
-      extraOffsetY,
-    }
-  }
-  var getParent = function getParent2(currentTarget) {
-    var currentParent = currentTarget
-    while (currentParent) {
-      var computedStyle = window.getComputedStyle(currentParent)
-      if (
-        computedStyle.getPropertyValue('transform') !== 'none' ||
-        computedStyle.getPropertyValue('will-change') === 'transform'
-      )
-        break
-      currentParent = currentParent.parentElement
-    }
-    var parentTop = (currentParent && currentParent.getBoundingClientRect().top) || 0
-    var parentLeft = (currentParent && currentParent.getBoundingClientRect().left) || 0
-    return {
-      parentTop,
-      parentLeft,
-    }
-  }
-  function getTipContent(tip, children, getContent, multiline) {
-    if (children) return children
-    if (getContent !== void 0 && getContent !== null) return getContent
-    if (getContent === null) return null
-    var regexp = /<br\s*\/?>/
-    if (!multiline || multiline === 'false' || !regexp.test(tip)) {
-      return tip
-    }
-    return tip.split(regexp).map(function (d, i) {
-      return import_react.default.createElement(
-        'span',
-        {
-          key: i,
-          className: 'multi-line',
-        },
-        d
-      )
-    })
-  }
-  function parseAria(props) {
-    var ariaObj = {}
-    Object.keys(props)
-      .filter(function (prop) {
-        return /(^aria-\w+$|^role$)/.test(prop)
-      })
-      .forEach(function (prop) {
-        ariaObj[prop] = props[prop]
-      })
-    return ariaObj
-  }
-  function nodeListToArray(nodeList) {
-    var length = nodeList.length
-    if (nodeList.hasOwnProperty) {
-      return Array.prototype.slice.call(nodeList)
-    }
-    return new Array(length).fill().map(function (index) {
-      return nodeList[index]
-    })
-  }
-  function generateUUID() {
-    return 't' + v4_default()
-  }
-  var baseCss =
-    '.__react_component_tooltip {\n  border-radius: 3px;\n  display: inline-block;\n  font-size: 13px;\n  left: -999em;\n  opacity: 0;\n  padding: 8px 21px;\n  position: fixed;\n  pointer-events: none;\n  transition: opacity 0.3s ease-out;\n  top: -999em;\n  visibility: hidden;\n  z-index: 999;\n}\n.__react_component_tooltip.allow_hover, .__react_component_tooltip.allow_click {\n  pointer-events: auto;\n}\n.__react_component_tooltip::before, .__react_component_tooltip::after {\n  content: "";\n  width: 0;\n  height: 0;\n  position: absolute;\n}\n.__react_component_tooltip.show {\n  opacity: 0.9;\n  margin-top: 0;\n  margin-left: 0;\n  visibility: visible;\n}\n.__react_component_tooltip.place-top::before {\n  border-left: 10px solid transparent;\n  border-right: 10px solid transparent;\n  bottom: -8px;\n  left: 50%;\n  margin-left: -10px;\n}\n.__react_component_tooltip.place-bottom::before {\n  border-left: 10px solid transparent;\n  border-right: 10px solid transparent;\n  top: -8px;\n  left: 50%;\n  margin-left: -10px;\n}\n.__react_component_tooltip.place-left::before {\n  border-top: 6px solid transparent;\n  border-bottom: 6px solid transparent;\n  right: -8px;\n  top: 50%;\n  margin-top: -5px;\n}\n.__react_component_tooltip.place-right::before {\n  border-top: 6px solid transparent;\n  border-bottom: 6px solid transparent;\n  left: -8px;\n  top: 50%;\n  margin-top: -5px;\n}\n.__react_component_tooltip .multi-line {\n  display: block;\n  padding: 2px 0;\n  text-align: center;\n}'
-  var defaultColors = {
-    dark: {
-      text: '#fff',
-      background: '#222',
-      border: 'transparent',
-      arrow: '#222',
-    },
-    success: {
-      text: '#fff',
-      background: '#8DC572',
-      border: 'transparent',
-      arrow: '#8DC572',
-    },
-    warning: {
-      text: '#fff',
-      background: '#F0AD4E',
-      border: 'transparent',
-      arrow: '#F0AD4E',
-    },
-    error: {
-      text: '#fff',
-      background: '#BE6464',
-      border: 'transparent',
-      arrow: '#BE6464',
-    },
-    info: {
-      text: '#fff',
-      background: '#337AB7',
-      border: 'transparent',
-      arrow: '#337AB7',
-    },
-    light: {
-      text: '#222',
-      background: '#fff',
-      border: 'transparent',
-      arrow: '#fff',
-    },
-  }
-  function getDefaultPopupColors(type) {
-    return defaultColors[type] ? _objectSpread2({}, defaultColors[type]) : void 0
-  }
-  function generateTooltipStyle(uuid, customColors, type, hasBorder) {
-    return generateStyle(uuid, getPopupColors(customColors, type, hasBorder))
-  }
-  function generateStyle(uuid, colors) {
-    var textColor = colors.text
-    var backgroundColor = colors.background
-    var borderColor = colors.border
-    var arrowColor = colors.arrow
-    return '\n  	.'
-      .concat(uuid, ' {\n	    color: ')
-      .concat(textColor, ';\n	    background: ')
-      .concat(backgroundColor, ';\n	    border: 1px solid ')
-      .concat(borderColor, ';\n  	}\n\n  	.')
-      .concat(uuid, '.place-top {\n        margin-top: -10px;\n    }\n    .')
-      .concat(uuid, '.place-top::before {\n        border-top: 8px solid ')
-      .concat(borderColor, ';\n    }\n    .')
-      .concat(
-        uuid,
-        '.place-top::after {\n        border-left: 8px solid transparent;\n        border-right: 8px solid transparent;\n        bottom: -6px;\n        left: 50%;\n        margin-left: -8px;\n        border-top-color: '
-      )
-      .concat(arrowColor, ';\n        border-top-style: solid;\n        border-top-width: 6px;\n    }\n\n    .')
-      .concat(uuid, '.place-bottom {\n        margin-top: 10px;\n    }\n    .')
-      .concat(uuid, '.place-bottom::before {\n        border-bottom: 8px solid ')
-      .concat(borderColor, ';\n    }\n    .')
-      .concat(
-        uuid,
-        '.place-bottom::after {\n        border-left: 8px solid transparent;\n        border-right: 8px solid transparent;\n        top: -6px;\n        left: 50%;\n        margin-left: -8px;\n        border-bottom-color: '
-      )
-      .concat(arrowColor, ';\n        border-bottom-style: solid;\n        border-bottom-width: 6px;\n    }\n\n    .')
-      .concat(uuid, '.place-left {\n        margin-left: -10px;\n    }\n    .')
-      .concat(uuid, '.place-left::before {\n        border-left: 8px solid ')
-      .concat(borderColor, ';\n    }\n    .')
-      .concat(
-        uuid,
-        '.place-left::after {\n        border-top: 5px solid transparent;\n        border-bottom: 5px solid transparent;\n        right: -6px;\n        top: 50%;\n        margin-top: -4px;\n        border-left-color: '
-      )
-      .concat(arrowColor, ';\n        border-left-style: solid;\n        border-left-width: 6px;\n    }\n\n    .')
-      .concat(uuid, '.place-right {\n        margin-left: 10px;\n    }\n    .')
-      .concat(uuid, '.place-right::before {\n        border-right: 8px solid ')
-      .concat(borderColor, ';\n    }\n    .')
-      .concat(
-        uuid,
-        '.place-right::after {\n        border-top: 5px solid transparent;\n        border-bottom: 5px solid transparent;\n        left: -6px;\n        top: 50%;\n        margin-top: -4px;\n        border-right-color: '
-      )
-      .concat(arrowColor, ';\n        border-right-style: solid;\n        border-right-width: 6px;\n    }\n  ')
-  }
-  function getPopupColors(customColors, type, hasBorder) {
-    var textColor = customColors.text
-    var backgroundColor = customColors.background
-    var borderColor = customColors.border
-    var arrowColor = customColors.arrow ? customColors.arrow : customColors.background
-    var colors = getDefaultPopupColors(type)
-    if (textColor) {
-      colors.text = textColor
-    }
-    if (backgroundColor) {
-      colors.background = backgroundColor
-    }
-    if (hasBorder) {
-      if (borderColor) {
-        colors.border = borderColor
-      } else {
-        colors.border = type === 'light' ? 'black' : 'white'
-      }
-    }
-    if (arrowColor) {
-      colors.arrow = arrowColor
-    }
-    return colors
-  }
-  var commonjsGlobal =
-    typeof globalThis !== 'undefined'
-      ? globalThis
-      : typeof window !== 'undefined'
-      ? window
-      : typeof global !== 'undefined'
-      ? global
-      : typeof self !== 'undefined'
-      ? self
-      : {}
-  function createCommonjsModule(fn, module) {
-    return (module = { exports: {} }), fn(module, module.exports), module.exports
-  }
-  var check = function (it) {
-    return it && it.Math == Math && it
-  }
-  var global_1 =
-    check(typeof globalThis == 'object' && globalThis) ||
-    check(typeof window == 'object' && window) ||
-    check(typeof self == 'object' && self) ||
-    check(typeof commonjsGlobal == 'object' && commonjsGlobal) ||
-    (function () {
-      return this
-    })() ||
-    Function('return this')()
-  var fails = function (exec) {
-    try {
-      return !!exec()
-    } catch (error) {
-      return true
-    }
-  }
-  var descriptors = !fails(function () {
-    return (
-      Object.defineProperty({}, 1, {
-        get: function () {
-          return 7
-        },
-      })[1] != 7
-    )
-  })
-  var $propertyIsEnumerable = {}.propertyIsEnumerable
-  var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor
-  var NASHORN_BUG = getOwnPropertyDescriptor && !$propertyIsEnumerable.call({ 1: 2 }, 1)
-  var f = NASHORN_BUG
-    ? function propertyIsEnumerable(V) {
-        var descriptor = getOwnPropertyDescriptor(this, V)
-        return !!descriptor && descriptor.enumerable
-      }
-    : $propertyIsEnumerable
-  var objectPropertyIsEnumerable = {
-    f,
-  }
-  var createPropertyDescriptor = function (bitmap, value) {
-    return {
-      enumerable: !(bitmap & 1),
-      configurable: !(bitmap & 2),
-      writable: !(bitmap & 4),
-      value,
-    }
-  }
-  var toString = {}.toString
-  var classofRaw = function (it) {
-    return toString.call(it).slice(8, -1)
-  }
-  var split = ''.split
-  var indexedObject = fails(function () {
-    return !Object('z').propertyIsEnumerable(0)
-  })
-    ? function (it) {
-        return classofRaw(it) == 'String' ? split.call(it, '') : Object(it)
-      }
-    : Object
-  var requireObjectCoercible = function (it) {
-    if (it == void 0) throw TypeError("Can't call method on " + it)
-    return it
-  }
-  var toIndexedObject = function (it) {
-    return indexedObject(requireObjectCoercible(it))
-  }
-  var isObject = function (it) {
-    return typeof it === 'object' ? it !== null : typeof it === 'function'
-  }
-  var toPrimitive = function (input, PREFERRED_STRING) {
-    if (!isObject(input)) return input
-    var fn, val
-    if (PREFERRED_STRING && typeof (fn = input.toString) == 'function' && !isObject((val = fn.call(input)))) return val
-    if (typeof (fn = input.valueOf) == 'function' && !isObject((val = fn.call(input)))) return val
-    if (!PREFERRED_STRING && typeof (fn = input.toString) == 'function' && !isObject((val = fn.call(input)))) return val
-    throw TypeError("Can't convert object to primitive value")
-  }
-  var toObject = function (argument) {
-    return Object(requireObjectCoercible(argument))
-  }
-  var hasOwnProperty = {}.hasOwnProperty
-  var has = function hasOwn(it, key) {
-    return hasOwnProperty.call(toObject(it), key)
-  }
-  var document$1 = global_1.document
-  var EXISTS = isObject(document$1) && isObject(document$1.createElement)
-  var documentCreateElement = function (it) {
-    return EXISTS ? document$1.createElement(it) : {}
-  }
-  var ie8DomDefine =
-    !descriptors &&
-    !fails(function () {
-      return (
-        Object.defineProperty(documentCreateElement('div'), 'a', {
-          get: function () {
-            return 7
-          },
-        }).a != 7
-      )
-    })
-  var $getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor
-  var f$1 = descriptors
-    ? $getOwnPropertyDescriptor
-    : function getOwnPropertyDescriptor2(O, P) {
-        O = toIndexedObject(O)
-        P = toPrimitive(P, true)
-        if (ie8DomDefine)
-          try {
-            return $getOwnPropertyDescriptor(O, P)
-          } catch (error) {}
-        if (has(O, P)) return createPropertyDescriptor(!objectPropertyIsEnumerable.f.call(O, P), O[P])
-      }
-  var objectGetOwnPropertyDescriptor = {
-    f: f$1,
-  }
-  var anObject = function (it) {
-    if (!isObject(it)) {
-      throw TypeError(String(it) + ' is not an object')
-    }
-    return it
-  }
-  var $defineProperty = Object.defineProperty
-  var f$2 = descriptors
-    ? $defineProperty
-    : function defineProperty(O, P, Attributes) {
-        anObject(O)
-        P = toPrimitive(P, true)
-        anObject(Attributes)
-        if (ie8DomDefine)
-          try {
-            return $defineProperty(O, P, Attributes)
-          } catch (error) {}
-        if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported')
-        if ('value' in Attributes) O[P] = Attributes.value
-        return O
-      }
-  var objectDefineProperty = {
-    f: f$2,
-  }
-  var createNonEnumerableProperty = descriptors
-    ? function (object, key, value) {
-        return objectDefineProperty.f(object, key, createPropertyDescriptor(1, value))
-      }
-    : function (object, key, value) {
-        object[key] = value
-        return object
-      }
-  var setGlobal = function (key, value) {
-    try {
-      createNonEnumerableProperty(global_1, key, value)
-    } catch (error) {
-      global_1[key] = value
-    }
-    return value
-  }
-  var SHARED = '__core-js_shared__'
-  var store = global_1[SHARED] || setGlobal(SHARED, {})
-  var sharedStore = store
-  var functionToString = Function.toString
-  if (typeof sharedStore.inspectSource != 'function') {
-    sharedStore.inspectSource = function (it) {
-      return functionToString.call(it)
-    }
-  }
-  var inspectSource = sharedStore.inspectSource
-  var WeakMap2 = global_1.WeakMap
-  var nativeWeakMap = typeof WeakMap2 === 'function' && /native code/.test(inspectSource(WeakMap2))
-  var shared = createCommonjsModule(function (module) {
-    ;(module.exports = function (key, value) {
-      return sharedStore[key] || (sharedStore[key] = value !== void 0 ? value : {})
-    })('versions', []).push({
-      version: '3.12.1',
-      mode: 'global',
-      copyright: '\xA9 2021 Denis Pushkarev (zloirock.ru)',
-    })
-  })
-  var id = 0
-  var postfix = Math.random()
-  var uid = function (key) {
-    return 'Symbol(' + String(key === void 0 ? '' : key) + ')_' + (++id + postfix).toString(36)
-  }
-  var keys = shared('keys')
-  var sharedKey = function (key) {
-    return keys[key] || (keys[key] = uid(key))
-  }
-  var hiddenKeys = {}
-  var OBJECT_ALREADY_INITIALIZED = 'Object already initialized'
-  var WeakMap$1 = global_1.WeakMap
-  var set2
-  var get2
-  var has$1
-  var enforce = function (it) {
-    return has$1(it) ? get2(it) : set2(it, {})
-  }
-  var getterFor = function (TYPE) {
-    return function (it) {
-      var state
-      if (!isObject(it) || (state = get2(it)).type !== TYPE) {
-        throw TypeError('Incompatible receiver, ' + TYPE + ' required')
-      }
-      return state
-    }
-  }
-  if (nativeWeakMap || sharedStore.state) {
-    store$1 = sharedStore.state || (sharedStore.state = new WeakMap$1())
-    wmget = store$1.get
-    wmhas = store$1.has
-    wmset = store$1.set
-    set2 = function (it, metadata) {
-      if (wmhas.call(store$1, it)) throw new TypeError(OBJECT_ALREADY_INITIALIZED)
-      metadata.facade = it
-      wmset.call(store$1, it, metadata)
-      return metadata
-    }
-    get2 = function (it) {
-      return wmget.call(store$1, it) || {}
-    }
-    has$1 = function (it) {
-      return wmhas.call(store$1, it)
-    }
-  } else {
-    STATE = sharedKey('state')
-    hiddenKeys[STATE] = true
-    set2 = function (it, metadata) {
-      if (has(it, STATE)) throw new TypeError(OBJECT_ALREADY_INITIALIZED)
-      metadata.facade = it
-      createNonEnumerableProperty(it, STATE, metadata)
-      return metadata
-    }
-    get2 = function (it) {
-      return has(it, STATE) ? it[STATE] : {}
-    }
-    has$1 = function (it) {
-      return has(it, STATE)
-    }
-  }
-  var store$1
-  var wmget
-  var wmhas
-  var wmset
-  var STATE
-  var internalState = {
-    set: set2,
-    get: get2,
-    has: has$1,
-    enforce,
-    getterFor,
-  }
-  var redefine = createCommonjsModule(function (module) {
-    var getInternalState = internalState.get
-    var enforceInternalState = internalState.enforce
-    var TEMPLATE = String(String).split('String')
-    ;(module.exports = function (O, key, value, options) {
-      var unsafe = options ? !!options.unsafe : false
-      var simple = options ? !!options.enumerable : false
-      var noTargetGet = options ? !!options.noTargetGet : false
-      var state
-      if (typeof value == 'function') {
-        if (typeof key == 'string' && !has(value, 'name')) {
-          createNonEnumerableProperty(value, 'name', key)
-        }
-        state = enforceInternalState(value)
-        if (!state.source) {
-          state.source = TEMPLATE.join(typeof key == 'string' ? key : '')
-        }
-      }
-      if (O === global_1) {
-        if (simple) O[key] = value
-        else setGlobal(key, value)
-        return
-      } else if (!unsafe) {
-        delete O[key]
-      } else if (!noTargetGet && O[key]) {
-        simple = true
-      }
-      if (simple) O[key] = value
-      else createNonEnumerableProperty(O, key, value)
-    })(Function.prototype, 'toString', function toString2() {
-      return (typeof this == 'function' && getInternalState(this).source) || inspectSource(this)
-    })
-  })
-  var path = global_1
-  var aFunction = function (variable) {
-    return typeof variable == 'function' ? variable : void 0
-  }
-  var getBuiltIn = function (namespace, method) {
-    return arguments.length < 2
-      ? aFunction(path[namespace]) || aFunction(global_1[namespace])
-      : (path[namespace] && path[namespace][method]) || (global_1[namespace] && global_1[namespace][method])
-  }
-  var ceil = Math.ceil
-  var floor = Math.floor
-  var toInteger = function (argument) {
-    return isNaN((argument = +argument)) ? 0 : (argument > 0 ? floor : ceil)(argument)
-  }
-  var min = Math.min
-  var toLength = function (argument) {
-    return argument > 0 ? min(toInteger(argument), 9007199254740991) : 0
-  }
-  var max = Math.max
-  var min$1 = Math.min
-  var toAbsoluteIndex = function (index, length) {
-    var integer = toInteger(index)
-    return integer < 0 ? max(integer + length, 0) : min$1(integer, length)
-  }
-  var createMethod = function (IS_INCLUDES) {
-    return function ($this, el, fromIndex) {
-      var O = toIndexedObject($this)
-      var length = toLength(O.length)
-      var index = toAbsoluteIndex(fromIndex, length)
-      var value
-      if (IS_INCLUDES && el != el)
-        while (length > index) {
-          value = O[index++]
-          if (value != value) return true
-        }
-      else
-        for (; length > index; index++) {
-          if ((IS_INCLUDES || index in O) && O[index] === el) return IS_INCLUDES || index || 0
-        }
-      return !IS_INCLUDES && -1
-    }
-  }
-  var arrayIncludes = {
-    includes: createMethod(true),
-    indexOf: createMethod(false),
-  }
-  var indexOf = arrayIncludes.indexOf
-  var objectKeysInternal = function (object, names) {
-    var O = toIndexedObject(object)
-    var i = 0
-    var result = []
-    var key
-    for (key in O) !has(hiddenKeys, key) && has(O, key) && result.push(key)
-    while (names.length > i)
-      if (has(O, (key = names[i++]))) {
-        ~indexOf(result, key) || result.push(key)
-      }
-    return result
-  }
-  var enumBugKeys = [
-    'constructor',
-    'hasOwnProperty',
-    'isPrototypeOf',
-    'propertyIsEnumerable',
-    'toLocaleString',
-    'toString',
-    'valueOf',
-  ]
-  var hiddenKeys$1 = enumBugKeys.concat('length', 'prototype')
-  var f$3 =
-    Object.getOwnPropertyNames ||
-    function getOwnPropertyNames(O) {
-      return objectKeysInternal(O, hiddenKeys$1)
-    }
-  var objectGetOwnPropertyNames = {
-    f: f$3,
-  }
-  var f$4 = Object.getOwnPropertySymbols
-  var objectGetOwnPropertySymbols = {
-    f: f$4,
-  }
-  var ownKeys$1 =
-    getBuiltIn('Reflect', 'ownKeys') ||
-    function ownKeys2(it) {
-      var keys3 = objectGetOwnPropertyNames.f(anObject(it))
-      var getOwnPropertySymbols = objectGetOwnPropertySymbols.f
-      return getOwnPropertySymbols ? keys3.concat(getOwnPropertySymbols(it)) : keys3
-    }
-  var copyConstructorProperties = function (target, source) {
-    var keys3 = ownKeys$1(source)
-    var defineProperty2 = objectDefineProperty.f
-    var getOwnPropertyDescriptor3 = objectGetOwnPropertyDescriptor.f
-    for (var i = 0; i < keys3.length; i++) {
-      var key = keys3[i]
-      if (!has(target, key)) defineProperty2(target, key, getOwnPropertyDescriptor3(source, key))
-    }
-  }
-  var replacement = /#|\.prototype\./
-  var isForced = function (feature, detection) {
-    var value = data[normalize(feature)]
-    return value == POLYFILL
-      ? true
-      : value == NATIVE
-      ? false
-      : typeof detection == 'function'
-      ? fails(detection)
-      : !!detection
-  }
-  var normalize = (isForced.normalize = function (string) {
-    return String(string).replace(replacement, '.').toLowerCase()
-  })
-  var data = (isForced.data = {})
-  var NATIVE = (isForced.NATIVE = 'N')
-  var POLYFILL = (isForced.POLYFILL = 'P')
-  var isForced_1 = isForced
-  var getOwnPropertyDescriptor$1 = objectGetOwnPropertyDescriptor.f
-  var _export = function (options, source) {
-    var TARGET = options.target
-    var GLOBAL = options.global
-    var STATIC = options.stat
-    var FORCED, target, key, targetProperty, sourceProperty, descriptor
-    if (GLOBAL) {
-      target = global_1
-    } else if (STATIC) {
-      target = global_1[TARGET] || setGlobal(TARGET, {})
-    } else {
-      target = (global_1[TARGET] || {}).prototype
-    }
-    if (target)
-      for (key in source) {
-        sourceProperty = source[key]
-        if (options.noTargetGet) {
-          descriptor = getOwnPropertyDescriptor$1(target, key)
-          targetProperty = descriptor && descriptor.value
-        } else targetProperty = target[key]
-        FORCED = isForced_1(GLOBAL ? key : TARGET + (STATIC ? '.' : '#') + key, options.forced)
-        if (!FORCED && targetProperty !== void 0) {
-          if (typeof sourceProperty === typeof targetProperty) continue
-          copyConstructorProperties(sourceProperty, targetProperty)
-        }
-        if (options.sham || (targetProperty && targetProperty.sham)) {
-          createNonEnumerableProperty(sourceProperty, 'sham', true)
-        }
-        redefine(target, key, sourceProperty, options)
-      }
-  }
-  var aFunction$1 = function (it) {
-    if (typeof it != 'function') {
-      throw TypeError(String(it) + ' is not a function')
-    }
-    return it
-  }
-  var functionBindContext = function (fn, that, length) {
-    aFunction$1(fn)
-    if (that === void 0) return fn
-    switch (length) {
-      case 0:
-        return function () {
-          return fn.call(that)
-        }
-      case 1:
-        return function (a) {
-          return fn.call(that, a)
-        }
-      case 2:
-        return function (a, b) {
-          return fn.call(that, a, b)
-        }
-      case 3:
-        return function (a, b, c) {
-          return fn.call(that, a, b, c)
-        }
-    }
-    return function () {
-      return fn.apply(that, arguments)
-    }
-  }
-  var isArray =
-    Array.isArray ||
-    function isArray2(arg) {
-      return classofRaw(arg) == 'Array'
-    }
-  var engineUserAgent = getBuiltIn('navigator', 'userAgent') || ''
-  var process2 = global_1.process
-  var versions = process2 && process2.versions
-  var v8 = versions && versions.v8
-  var match
-  var version
-  if (v8) {
-    match = v8.split('.')
-    version = match[0] < 4 ? 1 : match[0] + match[1]
-  } else if (engineUserAgent) {
-    match = engineUserAgent.match(/Edge\/(\d+)/)
-    if (!match || match[1] >= 74) {
-      match = engineUserAgent.match(/Chrome\/(\d+)/)
-      if (match) version = match[1]
-    }
-  }
-  var engineV8Version = version && +version
-  var nativeSymbol =
-    !!Object.getOwnPropertySymbols &&
-    !fails(function () {
-      return !String(Symbol()) || (!Symbol.sham && engineV8Version && engineV8Version < 41)
-    })
-  var useSymbolAsUid = nativeSymbol && !Symbol.sham && typeof Symbol.iterator == 'symbol'
-  var WellKnownSymbolsStore = shared('wks')
-  var Symbol$1 = global_1.Symbol
-  var createWellKnownSymbol = useSymbolAsUid ? Symbol$1 : (Symbol$1 && Symbol$1.withoutSetter) || uid
-  var wellKnownSymbol = function (name) {
-    if (!has(WellKnownSymbolsStore, name) || !(nativeSymbol || typeof WellKnownSymbolsStore[name] == 'string')) {
-      if (nativeSymbol && has(Symbol$1, name)) {
-        WellKnownSymbolsStore[name] = Symbol$1[name]
-      } else {
-        WellKnownSymbolsStore[name] = createWellKnownSymbol('Symbol.' + name)
-      }
-    }
-    return WellKnownSymbolsStore[name]
-  }
-  var SPECIES = wellKnownSymbol('species')
-  var arraySpeciesCreate = function (originalArray, length) {
-    var C
-    if (isArray(originalArray)) {
-      C = originalArray.constructor
-      if (typeof C == 'function' && (C === Array || isArray(C.prototype))) C = void 0
-      else if (isObject(C)) {
-        C = C[SPECIES]
-        if (C === null) C = void 0
-      }
-    }
-    return new (C === void 0 ? Array : C)(length === 0 ? 0 : length)
-  }
-  var push = [].push
-  var createMethod$1 = function (TYPE) {
-    var IS_MAP = TYPE == 1
-    var IS_FILTER = TYPE == 2
-    var IS_SOME = TYPE == 3
-    var IS_EVERY = TYPE == 4
-    var IS_FIND_INDEX = TYPE == 6
-    var IS_FILTER_OUT = TYPE == 7
-    var NO_HOLES = TYPE == 5 || IS_FIND_INDEX
-    return function ($this, callbackfn, that, specificCreate) {
-      var O = toObject($this)
-      var self2 = indexedObject(O)
-      var boundFunction = functionBindContext(callbackfn, that, 3)
-      var length = toLength(self2.length)
-      var index = 0
-      var create2 = specificCreate || arraySpeciesCreate
-      var target = IS_MAP ? create2($this, length) : IS_FILTER || IS_FILTER_OUT ? create2($this, 0) : void 0
-      var value, result
-      for (; length > index; index++)
-        if (NO_HOLES || index in self2) {
-          value = self2[index]
-          result = boundFunction(value, index, O)
-          if (TYPE) {
-            if (IS_MAP) target[index] = result
-            else if (result)
-              switch (TYPE) {
-                case 3:
-                  return true
-                case 5:
-                  return value
-                case 6:
-                  return index
-                case 2:
-                  push.call(target, value)
-              }
-            else
-              switch (TYPE) {
-                case 4:
-                  return false
-                case 7:
-                  push.call(target, value)
-              }
-          }
-        }
-      return IS_FIND_INDEX ? -1 : IS_SOME || IS_EVERY ? IS_EVERY : target
-    }
-  }
-  var arrayIteration = {
-    forEach: createMethod$1(0),
-    map: createMethod$1(1),
-    filter: createMethod$1(2),
-    some: createMethod$1(3),
-    every: createMethod$1(4),
-    find: createMethod$1(5),
-    findIndex: createMethod$1(6),
-    filterOut: createMethod$1(7),
-  }
-  var objectKeys =
-    Object.keys ||
-    function keys2(O) {
-      return objectKeysInternal(O, enumBugKeys)
-    }
-  var objectDefineProperties = descriptors
-    ? Object.defineProperties
-    : function defineProperties(O, Properties) {
-        anObject(O)
-        var keys3 = objectKeys(Properties)
-        var length = keys3.length
-        var index = 0
-        var key
-        while (length > index) objectDefineProperty.f(O, (key = keys3[index++]), Properties[key])
-        return O
-      }
-  var html = getBuiltIn('document', 'documentElement')
-  var GT = '>'
-  var LT = '<'
-  var PROTOTYPE = 'prototype'
-  var SCRIPT = 'script'
-  var IE_PROTO = sharedKey('IE_PROTO')
-  var EmptyConstructor = function () {}
-  var scriptTag = function (content) {
-    return LT + SCRIPT + GT + content + LT + '/' + SCRIPT + GT
-  }
-  var NullProtoObjectViaActiveX = function (activeXDocument2) {
-    activeXDocument2.write(scriptTag(''))
-    activeXDocument2.close()
-    var temp = activeXDocument2.parentWindow.Object
-    activeXDocument2 = null
-    return temp
-  }
-  var NullProtoObjectViaIFrame = function () {
-    var iframe = documentCreateElement('iframe')
-    var JS = 'java' + SCRIPT + ':'
-    var iframeDocument
-    iframe.style.display = 'none'
-    html.appendChild(iframe)
-    iframe.src = String(JS)
-    iframeDocument = iframe.contentWindow.document
-    iframeDocument.open()
-    iframeDocument.write(scriptTag('document.F=Object'))
-    iframeDocument.close()
-    return iframeDocument.F
-  }
-  var activeXDocument
-  var NullProtoObject = function () {
-    try {
-      activeXDocument = document.domain && new ActiveXObject('htmlfile')
-    } catch (error) {}
-    NullProtoObject = activeXDocument ? NullProtoObjectViaActiveX(activeXDocument) : NullProtoObjectViaIFrame()
-    var length = enumBugKeys.length
-    while (length--) delete NullProtoObject[PROTOTYPE][enumBugKeys[length]]
-    return NullProtoObject()
-  }
-  hiddenKeys[IE_PROTO] = true
-  var objectCreate =
-    Object.create ||
-    function create(O, Properties) {
-      var result
-      if (O !== null) {
-        EmptyConstructor[PROTOTYPE] = anObject(O)
-        result = new EmptyConstructor()
-        EmptyConstructor[PROTOTYPE] = null
-        result[IE_PROTO] = O
-      } else result = NullProtoObject()
-      return Properties === void 0 ? result : objectDefineProperties(result, Properties)
-    }
-  var UNSCOPABLES = wellKnownSymbol('unscopables')
-  var ArrayPrototype = Array.prototype
-  if (ArrayPrototype[UNSCOPABLES] == void 0) {
-    objectDefineProperty.f(ArrayPrototype, UNSCOPABLES, {
-      configurable: true,
-      value: objectCreate(null),
-    })
-  }
-  var addToUnscopables = function (key) {
-    ArrayPrototype[UNSCOPABLES][key] = true
-  }
-  var $find = arrayIteration.find
-  var FIND = 'find'
-  var SKIPS_HOLES = true
-  if (FIND in [])
-    Array(1)[FIND](function () {
-      SKIPS_HOLES = false
-    })
-  _export(
-    { target: 'Array', proto: true, forced: SKIPS_HOLES },
-    {
-      find: function find(callbackfn) {
-        return $find(this, callbackfn, arguments.length > 1 ? arguments[1] : void 0)
-      },
-    }
-  )
-  addToUnscopables(FIND)
-  var _class
-  var _class2
-  var _temp
-  var ReactTooltip =
-    staticMethods(
-      (_class =
-        windowListener(
-          (_class =
-            customEvent(
-              (_class =
-                isCapture(
-                  (_class =
-                    getEffect(
-                      (_class =
-                        bodyMode(
-                          (_class =
-                            trackRemoval(
-                              (_class =
-                                ((_temp = _class2 =
-                                  /* @__PURE__ */ (function (_React$Component) {
-                                    _inherits(ReactTooltip2, _React$Component)
-                                    _createClass(ReactTooltip2, null, [
-                                      {
-                                        key: 'propTypes',
-                                        get: function get3() {
-                                          return {
-                                            uuid: import_prop_types.default.string,
-                                            children: import_prop_types.default.any,
-                                            place: import_prop_types.default.string,
-                                            type: import_prop_types.default.string,
-                                            effect: import_prop_types.default.string,
-                                            offset: import_prop_types.default.object,
-                                            multiline: import_prop_types.default.bool,
-                                            border: import_prop_types.default.bool,
-                                            textColor: import_prop_types.default.string,
-                                            backgroundColor: import_prop_types.default.string,
-                                            borderColor: import_prop_types.default.string,
-                                            arrowColor: import_prop_types.default.string,
-                                            insecure: import_prop_types.default.bool,
-                                            class: import_prop_types.default.string,
-                                            className: import_prop_types.default.string,
-                                            id: import_prop_types.default.string,
-                                            html: import_prop_types.default.bool,
-                                            delayHide: import_prop_types.default.number,
-                                            delayUpdate: import_prop_types.default.number,
-                                            delayShow: import_prop_types.default.number,
-                                            event: import_prop_types.default.string,
-                                            eventOff: import_prop_types.default.string,
-                                            isCapture: import_prop_types.default.bool,
-                                            globalEventOff: import_prop_types.default.string,
-                                            getContent: import_prop_types.default.any,
-                                            afterShow: import_prop_types.default.func,
-                                            afterHide: import_prop_types.default.func,
-                                            overridePosition: import_prop_types.default.func,
-                                            disable: import_prop_types.default.bool,
-                                            scrollHide: import_prop_types.default.bool,
-                                            resizeHide: import_prop_types.default.bool,
-                                            wrapper: import_prop_types.default.string,
-                                            bodyMode: import_prop_types.default.bool,
-                                            possibleCustomEvents: import_prop_types.default.string,
-                                            possibleCustomEventsOff: import_prop_types.default.string,
-                                            clickable: import_prop_types.default.bool,
-                                          }
-                                        },
-                                      },
-                                    ])
-                                    function ReactTooltip2(props) {
-                                      var _this
-                                      _classCallCheck(this, ReactTooltip2)
-                                      _this = _possibleConstructorReturn(
-                                        this,
-                                        _getPrototypeOf(ReactTooltip2).call(this, props)
-                                      )
-                                      _this.state = {
-                                        uuid: props.uuid || generateUUID(),
-                                        place: props.place || 'top',
-                                        desiredPlace: props.place || 'top',
-                                        type: 'dark',
-                                        effect: 'float',
-                                        show: false,
-                                        border: false,
-                                        customColors: {},
-                                        offset: {},
-                                        extraClass: '',
-                                        html: false,
-                                        delayHide: 0,
-                                        delayShow: 0,
-                                        event: props.event || null,
-                                        eventOff: props.eventOff || null,
-                                        currentEvent: null,
-                                        currentTarget: null,
-                                        ariaProps: parseAria(props),
-                                        isEmptyTip: false,
-                                        disable: false,
-                                        possibleCustomEvents: props.possibleCustomEvents || '',
-                                        possibleCustomEventsOff: props.possibleCustomEventsOff || '',
-                                        originTooltip: null,
-                                        isMultiline: false,
-                                      }
-                                      _this.bind([
-                                        'showTooltip',
-                                        'updateTooltip',
-                                        'hideTooltip',
-                                        'hideTooltipOnScroll',
-                                        'getTooltipContent',
-                                        'globalRebuild',
-                                        'globalShow',
-                                        'globalHide',
-                                        'onWindowResize',
-                                        'mouseOnToolTip',
-                                      ])
-                                      _this.mount = true
-                                      _this.delayShowLoop = null
-                                      _this.delayHideLoop = null
-                                      _this.delayReshow = null
-                                      _this.intervalUpdateContent = null
-                                      return _this
-                                    }
-                                    _createClass(
-                                      ReactTooltip2,
-                                      [
-                                        {
-                                          key: 'bind',
-                                          value: function bind(methodArray) {
-                                            var _this2 = this
-                                            methodArray.forEach(function (method) {
-                                              _this2[method] = _this2[method].bind(_this2)
-                                            })
-                                          },
-                                        },
-                                        {
-                                          key: 'componentDidMount',
-                                          value: function componentDidMount() {
-                                            var _this$props = this.props,
-                                              insecure = _this$props.insecure,
-                                              resizeHide = _this$props.resizeHide
-                                            this.bindListener()
-                                            this.bindWindowEvents(resizeHide)
-                                            this.injectStyles()
-                                          },
-                                        },
-                                        {
-                                          key: 'componentWillUnmount',
-                                          value: function componentWillUnmount() {
-                                            this.mount = false
-                                            this.clearTimer()
-                                            this.unbindListener()
-                                            this.removeScrollListener(this.state.currentTarget)
-                                            this.unbindWindowEvents()
-                                          },
-                                        },
-                                        {
-                                          key: 'injectStyles',
-                                          value: function injectStyles() {
-                                            var tooltipRef = this.tooltipRef
-                                            if (!tooltipRef) {
-                                              return
-                                            }
-                                            var parentNode = tooltipRef.parentNode
-                                            while (parentNode.parentNode) {
-                                              parentNode = parentNode.parentNode
-                                            }
-                                            var domRoot
-                                            switch (parentNode.constructor.name) {
-                                              case 'Document':
-                                              case 'HTMLDocument':
-                                              case void 0:
-                                                domRoot = parentNode.head
-                                                break
-                                              case 'ShadowRoot':
-                                              default:
-                                                domRoot = parentNode
-                                                break
-                                            }
-                                            if (!domRoot.querySelector('style[data-react-tooltip]')) {
-                                              var style = document.createElement('style')
-                                              style.textContent = baseCss
-                                              style.setAttribute('data-react-tooltip', 'true')
-                                              domRoot.appendChild(style)
-                                            }
-                                          },
-                                        },
-                                        {
-                                          key: 'mouseOnToolTip',
-                                          value: function mouseOnToolTip() {
-                                            var show = this.state.show
-                                            if (show && this.tooltipRef) {
-                                              if (!this.tooltipRef.matches) {
-                                                if (this.tooltipRef.msMatchesSelector) {
-                                                  this.tooltipRef.matches = this.tooltipRef.msMatchesSelector
-                                                } else {
-                                                  this.tooltipRef.matches = this.tooltipRef.mozMatchesSelector
-                                                }
-                                              }
-                                              return this.tooltipRef.matches(':hover')
-                                            }
-                                            return false
-                                          },
-                                        },
-                                        {
-                                          key: 'getTargetArray',
-                                          value: function getTargetArray(id2) {
-                                            var targetArray = []
-                                            var selector
-                                            if (!id2) {
-                                              selector = '[data-tip]:not([data-for])'
-                                            } else {
-                                              var escaped = id2.replace(/\\/g, '\\\\').replace(/"/g, '\\"')
-                                              selector = '[data-tip][data-for="'.concat(escaped, '"]')
-                                            }
-                                            nodeListToArray(document.getElementsByTagName('*'))
-                                              .filter(function (element) {
-                                                return element.shadowRoot
-                                              })
-                                              .forEach(function (element) {
-                                                targetArray = targetArray.concat(
-                                                  nodeListToArray(element.shadowRoot.querySelectorAll(selector))
-                                                )
-                                              })
-                                            return targetArray.concat(
-                                              nodeListToArray(document.querySelectorAll(selector))
-                                            )
-                                          },
-                                        },
-                                        {
-                                          key: 'bindListener',
-                                          value: function bindListener() {
-                                            var _this3 = this
-                                            var _this$props2 = this.props,
-                                              id2 = _this$props2.id,
-                                              globalEventOff = _this$props2.globalEventOff,
-                                              isCapture2 = _this$props2.isCapture
-                                            var targetArray = this.getTargetArray(id2)
-                                            targetArray.forEach(function (target) {
-                                              if (target.getAttribute('currentItem') === null) {
-                                                target.setAttribute('currentItem', 'false')
-                                              }
-                                              _this3.unbindBasicListener(target)
-                                              if (_this3.isCustomEvent(target)) {
-                                                _this3.customUnbindListener(target)
-                                              }
-                                            })
-                                            if (this.isBodyMode()) {
-                                              this.bindBodyListener(targetArray)
-                                            } else {
-                                              targetArray.forEach(function (target) {
-                                                var isCaptureMode = _this3.isCapture(target)
-                                                var effect = _this3.getEffect(target)
-                                                if (_this3.isCustomEvent(target)) {
-                                                  _this3.customBindListener(target)
-                                                  return
-                                                }
-                                                target.addEventListener('mouseenter', _this3.showTooltip, isCaptureMode)
-                                                target.addEventListener('focus', _this3.showTooltip, isCaptureMode)
-                                                if (effect === 'float') {
-                                                  target.addEventListener(
-                                                    'mousemove',
-                                                    _this3.updateTooltip,
-                                                    isCaptureMode
-                                                  )
-                                                }
-                                                target.addEventListener('mouseleave', _this3.hideTooltip, isCaptureMode)
-                                                target.addEventListener('blur', _this3.hideTooltip, isCaptureMode)
-                                              })
-                                            }
-                                            if (globalEventOff) {
-                                              window.removeEventListener(globalEventOff, this.hideTooltip)
-                                              window.addEventListener(globalEventOff, this.hideTooltip, isCapture2)
-                                            }
-                                            this.bindRemovalTracker()
-                                          },
-                                        },
-                                        {
-                                          key: 'unbindListener',
-                                          value: function unbindListener() {
-                                            var _this4 = this
-                                            var _this$props3 = this.props,
-                                              id2 = _this$props3.id,
-                                              globalEventOff = _this$props3.globalEventOff
-                                            if (this.isBodyMode()) {
-                                              this.unbindBodyListener()
-                                            } else {
-                                              var targetArray = this.getTargetArray(id2)
-                                              targetArray.forEach(function (target) {
-                                                _this4.unbindBasicListener(target)
-                                                if (_this4.isCustomEvent(target)) _this4.customUnbindListener(target)
-                                              })
-                                            }
-                                            if (globalEventOff)
-                                              window.removeEventListener(globalEventOff, this.hideTooltip)
-                                            this.unbindRemovalTracker()
-                                          },
-                                        },
-                                        {
-                                          key: 'unbindBasicListener',
-                                          value: function unbindBasicListener(target) {
-                                            var isCaptureMode = this.isCapture(target)
-                                            target.removeEventListener('mouseenter', this.showTooltip, isCaptureMode)
-                                            target.removeEventListener('mousemove', this.updateTooltip, isCaptureMode)
-                                            target.removeEventListener('mouseleave', this.hideTooltip, isCaptureMode)
-                                          },
-                                        },
-                                        {
-                                          key: 'getTooltipContent',
-                                          value: function getTooltipContent() {
-                                            var _this$props4 = this.props,
-                                              getContent = _this$props4.getContent,
-                                              children = _this$props4.children
-                                            var content
-                                            if (getContent) {
-                                              if (Array.isArray(getContent)) {
-                                                content = getContent[0] && getContent[0](this.state.originTooltip)
-                                              } else {
-                                                content = getContent(this.state.originTooltip)
-                                              }
-                                            }
-                                            return getTipContent(
-                                              this.state.originTooltip,
-                                              children,
-                                              content,
-                                              this.state.isMultiline
-                                            )
-                                          },
-                                        },
-                                        {
-                                          key: 'isEmptyTip',
-                                          value: function isEmptyTip(placeholder) {
-                                            return (
-                                              (typeof placeholder === 'string' && placeholder === '') ||
-                                              placeholder === null
-                                            )
-                                          },
-                                        },
-                                        {
-                                          key: 'showTooltip',
-                                          value: function showTooltip(e, isGlobalCall) {
-                                            if (!this.tooltipRef) {
-                                              return
-                                            }
-                                            if (isGlobalCall) {
-                                              var targetArray = this.getTargetArray(this.props.id)
-                                              var isMyElement = targetArray.some(function (ele) {
-                                                return ele === e.currentTarget
-                                              })
-                                              if (!isMyElement) return
-                                            }
-                                            var _this$props5 = this.props,
-                                              multiline = _this$props5.multiline,
-                                              getContent = _this$props5.getContent
-                                            var originTooltip = e.currentTarget.getAttribute('data-tip')
-                                            var isMultiline =
-                                              e.currentTarget.getAttribute('data-multiline') || multiline || false
-                                            var switchToSolid = e instanceof window.FocusEvent || isGlobalCall
-                                            var scrollHide = true
-                                            if (e.currentTarget.getAttribute('data-scroll-hide')) {
-                                              scrollHide = e.currentTarget.getAttribute('data-scroll-hide') === 'true'
-                                            } else if (this.props.scrollHide != null) {
-                                              scrollHide = this.props.scrollHide
-                                            }
-                                            if (e && e.currentTarget && e.currentTarget.setAttribute) {
-                                              e.currentTarget.setAttribute('aria-describedby', this.state.uuid)
-                                            }
-                                            var desiredPlace =
-                                              e.currentTarget.getAttribute('data-place') || this.props.place || 'top'
-                                            var effect = (switchToSolid && 'solid') || this.getEffect(e.currentTarget)
-                                            var offset =
-                                              e.currentTarget.getAttribute('data-offset') || this.props.offset || {}
-                                            var result = getPosition(
-                                              e,
-                                              e.currentTarget,
-                                              this.tooltipRef,
-                                              desiredPlace,
-                                              desiredPlace,
-                                              effect,
-                                              offset
-                                            )
-                                            if (result.position && this.props.overridePosition) {
-                                              result.position = this.props.overridePosition(
-                                                result.position,
-                                                e,
-                                                e.currentTarget,
-                                                this.tooltipRef,
-                                                desiredPlace,
-                                                desiredPlace,
-                                                effect,
-                                                offset
-                                              )
-                                            }
-                                            var place = result.isNewState ? result.newState.place : desiredPlace
-                                            this.clearTimer()
-                                            var target = e.currentTarget
-                                            var reshowDelay = this.state.show
-                                              ? target.getAttribute('data-delay-update') || this.props.delayUpdate
-                                              : 0
-                                            var self2 = this
-                                            var updateState = function updateState2() {
-                                              self2.setState(
-                                                {
-                                                  originTooltip,
-                                                  isMultiline,
-                                                  desiredPlace,
-                                                  place,
-                                                  type: target.getAttribute('data-type') || self2.props.type || 'dark',
-                                                  customColors: {
-                                                    text:
-                                                      target.getAttribute('data-text-color') ||
-                                                      self2.props.textColor ||
-                                                      null,
-                                                    background:
-                                                      target.getAttribute('data-background-color') ||
-                                                      self2.props.backgroundColor ||
-                                                      null,
-                                                    border:
-                                                      target.getAttribute('data-border-color') ||
-                                                      self2.props.borderColor ||
-                                                      null,
-                                                    arrow:
-                                                      target.getAttribute('data-arrow-color') ||
-                                                      self2.props.arrowColor ||
-                                                      null,
-                                                  },
-                                                  effect,
-                                                  offset,
-                                                  html:
-                                                    (target.getAttribute('data-html')
-                                                      ? target.getAttribute('data-html') === 'true'
-                                                      : self2.props.html) || false,
-                                                  delayShow:
-                                                    target.getAttribute('data-delay-show') ||
-                                                    self2.props.delayShow ||
-                                                    0,
-                                                  delayHide:
-                                                    target.getAttribute('data-delay-hide') ||
-                                                    self2.props.delayHide ||
-                                                    0,
-                                                  delayUpdate:
-                                                    target.getAttribute('data-delay-update') ||
-                                                    self2.props.delayUpdate ||
-                                                    0,
-                                                  border:
-                                                    (target.getAttribute('data-border')
-                                                      ? target.getAttribute('data-border') === 'true'
-                                                      : self2.props.border) || false,
-                                                  extraClass:
-                                                    target.getAttribute('data-class') ||
-                                                    self2.props['class'] ||
-                                                    self2.props.className ||
-                                                    '',
-                                                  disable:
-                                                    (target.getAttribute('data-tip-disable')
-                                                      ? target.getAttribute('data-tip-disable') === 'true'
-                                                      : self2.props.disable) || false,
-                                                  currentTarget: target,
-                                                },
-                                                function () {
-                                                  if (scrollHide) {
-                                                    self2.addScrollListener(self2.state.currentTarget)
-                                                  }
-                                                  self2.updateTooltip(e)
-                                                  if (getContent && Array.isArray(getContent)) {
-                                                    self2.intervalUpdateContent = setInterval(function () {
-                                                      if (self2.mount) {
-                                                        var _getContent = self2.props.getContent
-                                                        var placeholder = getTipContent(
-                                                          originTooltip,
-                                                          '',
-                                                          _getContent[0](),
-                                                          isMultiline
-                                                        )
-                                                        var isEmptyTip = self2.isEmptyTip(placeholder)
-                                                        self2.setState({
-                                                          isEmptyTip,
-                                                        })
-                                                        self2.updatePosition()
-                                                      }
-                                                    }, getContent[1])
-                                                  }
-                                                }
-                                              )
-                                            }
-                                            if (reshowDelay) {
-                                              this.delayReshow = setTimeout(updateState, reshowDelay)
-                                            } else {
-                                              updateState()
-                                            }
-                                          },
-                                        },
-                                        {
-                                          key: 'updateTooltip',
-                                          value: function updateTooltip(e) {
-                                            var _this5 = this
-                                            var _this$state = this.state,
-                                              delayShow = _this$state.delayShow,
-                                              disable = _this$state.disable
-                                            var afterShow = this.props.afterShow
-                                            var placeholder = this.getTooltipContent()
-                                            var eventTarget = e.currentTarget || e.target
-                                            if (this.mouseOnToolTip()) {
-                                              return
-                                            }
-                                            if (this.isEmptyTip(placeholder) || disable) {
-                                              return
-                                            }
-                                            var delayTime = !this.state.show ? parseInt(delayShow, 10) : 0
-                                            var updateState = function updateState2() {
-                                              if (
-                                                (Array.isArray(placeholder) && placeholder.length > 0) ||
-                                                placeholder
-                                              ) {
-                                                var isInvisible = !_this5.state.show
-                                                _this5.setState(
-                                                  {
-                                                    currentEvent: e,
-                                                    currentTarget: eventTarget,
-                                                    show: true,
-                                                  },
-                                                  function () {
-                                                    _this5.updatePosition()
-                                                    if (isInvisible && afterShow) {
-                                                      afterShow(e)
-                                                    }
-                                                  }
-                                                )
-                                              }
-                                            }
-                                            clearTimeout(this.delayShowLoop)
-                                            if (delayTime) {
-                                              this.delayShowLoop = setTimeout(updateState, delayTime)
-                                            } else {
-                                              updateState()
-                                            }
-                                          },
-                                        },
-                                        {
-                                          key: 'listenForTooltipExit',
-                                          value: function listenForTooltipExit() {
-                                            var show = this.state.show
-                                            if (show && this.tooltipRef) {
-                                              this.tooltipRef.addEventListener('mouseleave', this.hideTooltip)
-                                            }
-                                          },
-                                        },
-                                        {
-                                          key: 'removeListenerForTooltipExit',
-                                          value: function removeListenerForTooltipExit() {
-                                            var show = this.state.show
-                                            if (show && this.tooltipRef) {
-                                              this.tooltipRef.removeEventListener('mouseleave', this.hideTooltip)
-                                            }
-                                          },
-                                        },
-                                        {
-                                          key: 'hideTooltip',
-                                          value: function hideTooltip(e, hasTarget) {
-                                            var _this6 = this
-                                            var options =
-                                              arguments.length > 2 && arguments[2] !== void 0
-                                                ? arguments[2]
-                                                : {
-                                                    isScroll: false,
-                                                  }
-                                            var disable = this.state.disable
-                                            var isScroll = options.isScroll
-                                            var delayHide = isScroll ? 0 : this.state.delayHide
-                                            var afterHide = this.props.afterHide
-                                            var placeholder = this.getTooltipContent()
-                                            if (!this.mount) return
-                                            if (this.isEmptyTip(placeholder) || disable) return
-                                            if (hasTarget) {
-                                              var targetArray = this.getTargetArray(this.props.id)
-                                              var isMyElement = targetArray.some(function (ele) {
-                                                return ele === e.currentTarget
-                                              })
-                                              if (!isMyElement || !this.state.show) return
-                                            }
-                                            if (e && e.currentTarget && e.currentTarget.removeAttribute) {
-                                              e.currentTarget.removeAttribute('aria-describedby')
-                                            }
-                                            var resetState = function resetState2() {
-                                              var isVisible = _this6.state.show
-                                              if (_this6.mouseOnToolTip()) {
-                                                _this6.listenForTooltipExit()
-                                                return
-                                              }
-                                              _this6.removeListenerForTooltipExit()
-                                              _this6.setState(
-                                                {
-                                                  show: false,
-                                                },
-                                                function () {
-                                                  _this6.removeScrollListener(_this6.state.currentTarget)
-                                                  if (isVisible && afterHide) {
-                                                    afterHide(e)
-                                                  }
-                                                }
-                                              )
-                                            }
-                                            this.clearTimer()
-                                            if (delayHide) {
-                                              this.delayHideLoop = setTimeout(resetState, parseInt(delayHide, 10))
-                                            } else {
-                                              resetState()
-                                            }
-                                          },
-                                        },
-                                        {
-                                          key: 'hideTooltipOnScroll',
-                                          value: function hideTooltipOnScroll(event, hasTarget) {
-                                            this.hideTooltip(event, hasTarget, {
-                                              isScroll: true,
-                                            })
-                                          },
-                                        },
-                                        {
-                                          key: 'addScrollListener',
-                                          value: function addScrollListener(currentTarget) {
-                                            var isCaptureMode = this.isCapture(currentTarget)
-                                            window.addEventListener('scroll', this.hideTooltipOnScroll, isCaptureMode)
-                                          },
-                                        },
-                                        {
-                                          key: 'removeScrollListener',
-                                          value: function removeScrollListener(currentTarget) {
-                                            var isCaptureMode = this.isCapture(currentTarget)
-                                            window.removeEventListener(
-                                              'scroll',
-                                              this.hideTooltipOnScroll,
-                                              isCaptureMode
-                                            )
-                                          },
-                                        },
-                                        {
-                                          key: 'updatePosition',
-                                          value: function updatePosition() {
-                                            var _this7 = this
-                                            var _this$state2 = this.state,
-                                              currentEvent = _this$state2.currentEvent,
-                                              currentTarget = _this$state2.currentTarget,
-                                              place = _this$state2.place,
-                                              desiredPlace = _this$state2.desiredPlace,
-                                              effect = _this$state2.effect,
-                                              offset = _this$state2.offset
-                                            var node = this.tooltipRef
-                                            var result = getPosition(
-                                              currentEvent,
-                                              currentTarget,
-                                              node,
-                                              place,
-                                              desiredPlace,
-                                              effect,
-                                              offset
-                                            )
-                                            if (result.position && this.props.overridePosition) {
-                                              result.position = this.props.overridePosition(
-                                                result.position,
-                                                currentEvent,
-                                                currentTarget,
-                                                node,
-                                                place,
-                                                desiredPlace,
-                                                effect,
-                                                offset
-                                              )
-                                            }
-                                            if (result.isNewState) {
-                                              return this.setState(result.newState, function () {
-                                                _this7.updatePosition()
-                                              })
-                                            }
-                                            node.style.left = result.position.left + 'px'
-                                            node.style.top = result.position.top + 'px'
-                                          },
-                                        },
-                                        {
-                                          key: 'clearTimer',
-                                          value: function clearTimer() {
-                                            clearTimeout(this.delayShowLoop)
-                                            clearTimeout(this.delayHideLoop)
-                                            clearTimeout(this.delayReshow)
-                                            clearInterval(this.intervalUpdateContent)
-                                          },
-                                        },
-                                        {
-                                          key: 'hasCustomColors',
-                                          value: function hasCustomColors() {
-                                            var _this8 = this
-                                            return Boolean(
-                                              Object.keys(this.state.customColors).find(function (color) {
-                                                return color !== 'border' && _this8.state.customColors[color]
-                                              }) ||
-                                                (this.state.border && this.state.customColors['border'])
-                                            )
-                                          },
-                                        },
-                                        {
-                                          key: 'render',
-                                          value: function render() {
-                                            var _this9 = this
-                                            var _this$state3 = this.state,
-                                              extraClass = _this$state3.extraClass,
-                                              html2 = _this$state3.html,
-                                              ariaProps = _this$state3.ariaProps,
-                                              disable = _this$state3.disable,
-                                              uuid = _this$state3.uuid
-                                            var content = this.getTooltipContent()
-                                            var isEmptyTip = this.isEmptyTip(content)
-                                            var style = generateTooltipStyle(
-                                              this.state.uuid,
-                                              this.state.customColors,
-                                              this.state.type,
-                                              this.state.border
-                                            )
-                                            var tooltipClass =
-                                              '__react_component_tooltip' +
-                                              ' '.concat(this.state.uuid) +
-                                              (this.state.show && !disable && !isEmptyTip ? ' show' : '') +
-                                              (this.state.border ? ' border' : '') +
-                                              ' place-'.concat(this.state.place) +
-                                              ' type-'.concat(this.hasCustomColors() ? 'custom' : this.state.type) +
-                                              (this.props.delayUpdate ? ' allow_hover' : '') +
-                                              (this.props.clickable ? ' allow_click' : '')
-                                            var Wrapper = this.props.wrapper
-                                            if (ReactTooltip2.supportedWrappers.indexOf(Wrapper) < 0) {
-                                              Wrapper = ReactTooltip2.defaultProps.wrapper
-                                            }
-                                            var wrapperClassName = [tooltipClass, extraClass].filter(Boolean).join(' ')
-                                            if (html2) {
-                                              var htmlContent = ''
-                                                .concat(content, '\n<style aria-hidden="true">')
-                                                .concat(style, '</style>')
-                                              return import_react.default.createElement(
-                                                Wrapper,
-                                                _extends(
-                                                  {
-                                                    className: ''.concat(wrapperClassName),
-                                                    id: this.props.id || uuid,
-                                                    ref: function ref(_ref) {
-                                                      return (_this9.tooltipRef = _ref)
-                                                    },
-                                                  },
-                                                  ariaProps,
-                                                  {
-                                                    'data-id': 'tooltip',
-                                                    dangerouslySetInnerHTML: {
-                                                      __html: htmlContent,
-                                                    },
-                                                  }
-                                                )
-                                              )
-                                            } else {
-                                              return import_react.default.createElement(
-                                                Wrapper,
-                                                _extends(
-                                                  {
-                                                    className: ''.concat(wrapperClassName),
-                                                    id: this.props.id || uuid,
-                                                  },
-                                                  ariaProps,
-                                                  {
-                                                    ref: function ref(_ref2) {
-                                                      return (_this9.tooltipRef = _ref2)
-                                                    },
-                                                    'data-id': 'tooltip',
-                                                  }
-                                                ),
-                                                import_react.default.createElement('style', {
-                                                  dangerouslySetInnerHTML: {
-                                                    __html: style,
-                                                  },
-                                                  'aria-hidden': 'true',
-                                                }),
-                                                content
-                                              )
-                                            }
-                                          },
-                                        },
-                                      ],
-                                      [
-                                        {
-                                          key: 'getDerivedStateFromProps',
-                                          value: function getDerivedStateFromProps(nextProps, prevState) {
-                                            var ariaProps = prevState.ariaProps
-                                            var newAriaProps = parseAria(nextProps)
-                                            var isChanged = Object.keys(newAriaProps).some(function (props) {
-                                              return newAriaProps[props] !== ariaProps[props]
-                                            })
-                                            if (!isChanged) {
-                                              return null
-                                            }
-                                            return _objectSpread2({}, prevState, {
-                                              ariaProps: newAriaProps,
-                                            })
-                                          },
-                                        },
-                                      ]
-                                    )
-                                    return ReactTooltip2
-                                  })(import_react.default.Component)),
-                                _defineProperty(_class2, 'defaultProps', {
-                                  insecure: true,
-                                  resizeHide: true,
-                                  wrapper: 'div',
-                                  clickable: false,
-                                }),
-                                _defineProperty(_class2, 'supportedWrappers', ['div', 'span']),
-                                _defineProperty(_class2, 'displayName', 'ReactTooltip'),
-                                _temp))
-                            ) || _class)
-                        ) || _class)
-                    ) || _class)
-                ) || _class)
-            ) || _class)
-        ) || _class)
-    ) || _class
-  var index_es_default = ReactTooltip
+  var import_react2 = __toModule(require_react())
+  var import_react_tippy = __toModule(require_react_tippy())
 
   // src/components/context/Twitch.tsx
-  var import_react2 = __toModule(require_react())
-  var TwitchContext = (0, import_react2.createContext)({ ctx: {}, auth: {}, config: { broadcaster: {} } })
+  var import_react = __toModule(require_react())
+  var TwitchContext = (0, import_react.createContext)({ ctx: {}, auth: {}, config: { broadcaster: {} } })
   var TwitchContextWrapper = ({ children }) => {
-    const [ctx, setCtx] = (0, import_react2.useState)({})
-    const [auth, setAuth] = (0, import_react2.useState)({})
-    const [config, setConfig] = (0, import_react2.useState)({ broadcaster: {} })
-    const [twitch, setTwitch] = (0, import_react2.useState)()
-    ;(0, import_react2.useEffect)(() => {
+    const [ctx, setCtx] = (0, import_react.useState)({})
+    const [auth, setAuth] = (0, import_react.useState)({})
+    const [config, setConfig] = (0, import_react.useState)({ broadcaster: {} })
+    const [twitch, setTwitch] = (0, import_react.useState)()
+    ;(0, import_react.useEffect)(() => {
       var _a
       const twitch2 = window.Twitch.ext
       if (!twitch2) return
@@ -25951,7 +26168,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
         setCtx(e)
       })
     }, [])
-    return /* @__PURE__ */ import_react2.default.createElement(
+    return /* @__PURE__ */ import_react.default.createElement(
       TwitchContext.Provider,
       {
         value: { ctx, auth, config, twitch },
@@ -25979,14 +26196,16 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
     Legendary: '#4C139D',
   }
   function Index() {
-    const { config, ctx } = (0, import_react3.useContext)(TwitchContext)
-    const [character, setCharacter] = (0, import_react3.useState)()
-    const [equipment, setEquipment] = (0, import_react3.useState)(new Map())
-    const [skills, setSkills] = (0, import_react3.useState)(new Map())
-    const [traits, setTraits] = (0, import_react3.useState)(new Map())
-    const [specializations, setSpecializations] = (0, import_react3.useState)(new Map())
+    var _a, _b, _c, _d, _e, _f, _g
+    const { config } = (0, import_react2.useContext)(TwitchContext)
+    const [character, setCharacter] = (0, import_react2.useState)()
+    const [equipment, setEquipment] = (0, import_react2.useState)(new Map())
+    const [equipmentById, setEquipmentById] = (0, import_react2.useState)(new Map())
+    const [skills, setSkills] = (0, import_react2.useState)(new Map())
+    const [traits, setTraits] = (0, import_react2.useState)(new Map())
+    const [specializations, setSpecializations] = (0, import_react2.useState)(new Map())
     const gamemode = config.broadcaster.gamemode || 'pve'
-    const getData = (0, import_react3.useCallback)(
+    const getData = (0, import_react2.useCallback)(
       (apiKey) =>
         __async(this, null, function* () {
           try {
@@ -25995,14 +26214,14 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
               `https://cachedproxy.xyz/api/gw2-build/${encodeURIComponent(apiKey)}/${config.broadcaster.character}`
             )
             if (res.ok) {
-              const data2 = yield res.json()
-              const characterData = data2.characterData
-              const equipmentData = new Map(data2.equipmentData)
-              const skinData = new Map(data2.skinData)
-              const skillData = new Map(data2.skillData)
-              const traitData = new Map(data2.traitData)
-              const specializationData = new Map(data2.specializationData)
-              const amuletData = data2.amuletData
+              const data = yield res.json()
+              const characterData = data.characterData
+              const equipmentData = new Map(data.equipmentData)
+              const skinData = new Map(data.skinData)
+              const skillData = new Map(data.skillData)
+              const traitData = new Map(data.traitData)
+              const specializationData = new Map(data.specializationData)
+              const amuletData = data.amuletData
               setCharacter(characterData)
               const embellishedEquipment = new Map(
                 characterData.equipment.map((e) => [
@@ -26011,7 +26230,10 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
                 ])
               )
               embellishedEquipment.set('PvP_Amulet', { item: amuletData })
-              embellishedEquipment.set('PvP_Rune', { item: equipmentData.get(characterData.equipment_pvp.rune) })
+              if (characterData.equipment_pvp) {
+                embellishedEquipment.set('PvP_Rune', { item: equipmentData.get(characterData.equipment_pvp.rune) })
+              }
+              setEquipmentById(equipmentData)
               setEquipment(embellishedEquipment)
               setSkills(skillData)
               setTraits(traitData)
@@ -26025,69 +26247,73 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
         }),
       [config.broadcaster.character]
     )
-    ;(0, import_react3.useEffect)(() => {
+    ;(0, import_react2.useEffect)(() => {
       getData(config.broadcaster.apiKey)
     }, [config.broadcaster.apiKey, getData])
     const eliteSpec = [...specializations.values()].find(({ elite }) => elite)
-    ;(0, import_react3.useEffect)(() => {
-      index_es_default.rebuild()
-    }, [equipment, skills, traits])
-    return /* @__PURE__ */ import_react3.default.createElement(
+    return /* @__PURE__ */ import_react2.default.createElement(
       'div',
       {
-        style: { padding: 5, marginTop: -6 },
+        style: { padding: 5, marginTop: -6, overflow: 'hidden' },
       },
       character
-        ? /* @__PURE__ */ import_react3.default.createElement(
-            import_react3.default.Fragment,
+        ? /* @__PURE__ */ import_react2.default.createElement(
+            import_react2.default.Fragment,
             null,
-            /* @__PURE__ */ import_react3.default.createElement(
+            /* @__PURE__ */ import_react2.default.createElement(
               Title,
-              null,
+              {
+                style: { color: `var(--color-${(_a = character.profession) == null ? void 0 : _a.toLowerCase()})` },
+              },
               character.name,
               ' (',
               eliteSpec ? eliteSpec.name : character.profession,
               ')'
             ),
-            /* @__PURE__ */ import_react3.default.createElement(Title, null, 'Equipment'),
-            /* @__PURE__ */ import_react3.default.createElement(
+            /* @__PURE__ */ import_react2.default.createElement(
               'div',
               {
                 style: { display: 'flex', flexDirection: 'row', gap: 15, justifyContent: 'center' },
               },
               gamemode === 'pvp'
                 ? null
-                : /* @__PURE__ */ import_react3.default.createElement(
+                : /* @__PURE__ */ import_react2.default.createElement(
                     'div',
                     {
                       style: { display: 'flex', flexDirection: 'column', gap: 5, alignItems: 'center' },
                     },
-                    /* @__PURE__ */ import_react3.default.createElement(Item, {
+                    /* @__PURE__ */ import_react2.default.createElement(Item, {
                       equipment,
+                      equipmentById,
                       slot: 'Helm',
                     }),
-                    /* @__PURE__ */ import_react3.default.createElement(Item, {
+                    /* @__PURE__ */ import_react2.default.createElement(Item, {
                       equipment,
+                      equipmentById,
                       slot: 'Shoulders',
                     }),
-                    /* @__PURE__ */ import_react3.default.createElement(Item, {
+                    /* @__PURE__ */ import_react2.default.createElement(Item, {
                       equipment,
+                      equipmentById,
                       slot: 'Coat',
                     }),
-                    /* @__PURE__ */ import_react3.default.createElement(Item, {
+                    /* @__PURE__ */ import_react2.default.createElement(Item, {
                       equipment,
+                      equipmentById,
                       slot: 'Gloves',
                     }),
-                    /* @__PURE__ */ import_react3.default.createElement(Item, {
+                    /* @__PURE__ */ import_react2.default.createElement(Item, {
                       equipment,
+                      equipmentById,
                       slot: 'Leggings',
                     }),
-                    /* @__PURE__ */ import_react3.default.createElement(Item, {
+                    /* @__PURE__ */ import_react2.default.createElement(Item, {
                       equipment,
+                      equipmentById,
                       slot: 'Boots',
                     })
                   ),
-              /* @__PURE__ */ import_react3.default.createElement(
+              /* @__PURE__ */ import_react2.default.createElement(
                 'div',
                 {
                   style: {
@@ -26099,403 +26325,538 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
                 },
                 gamemode === 'pvp'
                   ? null
-                  : /* @__PURE__ */ import_react3.default.createElement(
+                  : /* @__PURE__ */ import_react2.default.createElement(
                       'div',
                       {
                         style: { display: 'flex', flexDirection: 'column', gap: 5, alignItems: 'center' },
                       },
-                      /* @__PURE__ */ import_react3.default.createElement(
+                      /* @__PURE__ */ import_react2.default.createElement(
                         'div',
                         {
                           style: { display: 'flex', flexDirection: 'row', gap: 5 },
                         },
-                        /* @__PURE__ */ import_react3.default.createElement(Item, {
+                        /* @__PURE__ */ import_react2.default.createElement(Item, {
                           equipment,
+                          equipmentById,
                           slot: 'Backpack',
                         }),
-                        /* @__PURE__ */ import_react3.default.createElement(Item, {
+                        /* @__PURE__ */ import_react2.default.createElement(Item, {
                           equipment,
+                          equipmentById,
                           slot: 'Accessory1',
                         }),
-                        /* @__PURE__ */ import_react3.default.createElement(Item, {
+                        /* @__PURE__ */ import_react2.default.createElement(Item, {
                           equipment,
+                          equipmentById,
                           slot: 'Accessory2',
                         })
                       ),
-                      /* @__PURE__ */ import_react3.default.createElement(
+                      /* @__PURE__ */ import_react2.default.createElement(
                         'div',
                         {
                           style: { display: 'flex', flexDirection: 'row', gap: 5 },
                         },
-                        /* @__PURE__ */ import_react3.default.createElement(Item, {
+                        /* @__PURE__ */ import_react2.default.createElement(Item, {
                           equipment,
+                          equipmentById,
                           slot: 'Ring1',
                         }),
-                        /* @__PURE__ */ import_react3.default.createElement(Item, {
+                        /* @__PURE__ */ import_react2.default.createElement(Item, {
                           equipment,
+                          equipmentById,
                           slot: 'Ring2',
                         }),
-                        /* @__PURE__ */ import_react3.default.createElement(Item, {
+                        /* @__PURE__ */ import_react2.default.createElement(Item, {
                           equipment,
+                          equipmentById,
                           slot: 'Amulet',
                         })
                       )
                     ),
                 gamemode === 'pvp'
-                  ? /* @__PURE__ */ import_react3.default.createElement(
+                  ? /* @__PURE__ */ import_react2.default.createElement(
                       'div',
                       {
                         style: { display: 'flex', flexDirection: 'row', gap: 5 },
                       },
-                      /* @__PURE__ */ import_react3.default.createElement(Item, {
+                      /* @__PURE__ */ import_react2.default.createElement(Item, {
                         equipment,
+                        equipmentById,
                         slot: 'PvP_Amulet',
                       }),
-                      /* @__PURE__ */ import_react3.default.createElement(Item, {
+                      /* @__PURE__ */ import_react2.default.createElement(Item, {
                         equipment,
+                        equipmentById,
                         slot: 'PvP_Rune',
                       })
                     )
                   : null,
-                /* @__PURE__ */ import_react3.default.createElement(
+                /* @__PURE__ */ import_react2.default.createElement(
                   'div',
                   {
                     style: { display: 'flex', flexDirection: 'row', gap: 5 },
                   },
-                  /* @__PURE__ */ import_react3.default.createElement(Item, {
+                  /* @__PURE__ */ import_react2.default.createElement(Item, {
                     equipment,
+                    equipmentById,
                     slot: 'WeaponA1',
                   }),
-                  /* @__PURE__ */ import_react3.default.createElement(Item, {
+                  /* @__PURE__ */ import_react2.default.createElement(Item, {
                     equipment,
+                    equipmentById,
                     slot: 'WeaponA2',
                   }),
-                  /* @__PURE__ */ import_react3.default.createElement(Item, {
+                  /* @__PURE__ */ import_react2.default.createElement(Item, {
                     equipment,
+                    equipmentById,
                     slot: 'WeaponB1',
                   })
                 )
               )
             ),
-            /* @__PURE__ */ import_react3.default.createElement(Title, null, 'Skills'),
-            /* @__PURE__ */ import_react3.default.createElement(
-              'div',
-              {
-                style: { display: 'flex', flexDirection: 'row', gap: 5, justifyContent: 'center' },
-              },
-              /* @__PURE__ */ import_react3.default.createElement(Skill, {
-                skills,
-                id: character.skills[gamemode].heal,
-              }),
-              /* @__PURE__ */ import_react3.default.createElement(Skill, {
-                skills,
-                id: character.skills[gamemode].utilities[0],
-              }),
-              /* @__PURE__ */ import_react3.default.createElement(Skill, {
-                skills,
-                id: character.skills[gamemode].utilities[1],
-              }),
-              /* @__PURE__ */ import_react3.default.createElement(Skill, {
-                skills,
-                id: character.skills[gamemode].utilities[2],
-              }),
-              /* @__PURE__ */ import_react3.default.createElement(Skill, {
-                skills,
-                id: character.skills[gamemode].elite,
-              })
-            ),
-            /* @__PURE__ */ import_react3.default.createElement(Title, null, 'Traits'),
-            character.specializations[gamemode].map((spec) => {
-              var _a
-              return /* @__PURE__ */ import_react3.default.createElement(
-                'div',
-                {
-                  key: spec.id,
-                },
-                /* @__PURE__ */ import_react3.default.createElement(
-                  'div',
-                  {
-                    style: { display: 'flex', flexDirection: 'row', gap: 5, justifyContent: 'center' },
-                  },
-                  /* @__PURE__ */ import_react3.default.createElement(
+            character.skills
+              ? /* @__PURE__ */ import_react2.default.createElement(
+                  import_react2.default.Fragment,
+                  null,
+                  /* @__PURE__ */ import_react2.default.createElement(Title, null, 'Skills'),
+                  /* @__PURE__ */ import_react2.default.createElement(
                     'div',
                     {
-                      style: { flex: 1 },
+                      style: { display: 'flex', flexDirection: 'row', gap: 5, justifyContent: 'center' },
                     },
-                    (_a = specializations.get(spec.id)) == null ? void 0 : _a.name
-                  ),
-                  /* @__PURE__ */ import_react3.default.createElement(
-                    'div',
-                    {
-                      style: { display: 'flex', flexDirection: 'row', gap: 5, justifyContent: 'center', flex: 2 },
-                    },
-                    spec.traits.map((t) =>
-                      /* @__PURE__ */ import_react3.default.createElement(Trait, {
-                        key: t,
-                        traits,
-                        id: t,
-                      })
-                    )
+                    /* @__PURE__ */ import_react2.default.createElement(Skill, {
+                      skills,
+                      id: (_b = character.skills[gamemode]) == null ? void 0 : _b.heal,
+                    }),
+                    /* @__PURE__ */ import_react2.default.createElement(Skill, {
+                      skills,
+                      id: (_c = character.skills[gamemode]) == null ? void 0 : _c.utilities[0],
+                    }),
+                    /* @__PURE__ */ import_react2.default.createElement(Skill, {
+                      skills,
+                      id: (_d = character.skills[gamemode]) == null ? void 0 : _d.utilities[1],
+                    }),
+                    /* @__PURE__ */ import_react2.default.createElement(Skill, {
+                      skills,
+                      id: (_e = character.skills[gamemode]) == null ? void 0 : _e.utilities[2],
+                    }),
+                    /* @__PURE__ */ import_react2.default.createElement(Skill, {
+                      skills,
+                      id: (_f = character.skills[gamemode]) == null ? void 0 : _f.elite,
+                    })
                   )
                 )
-              )
-            })
-          )
-        : /* @__PURE__ */ import_react3.default.createElement(
-            'div',
-            null,
-            config.broadcaster.apiKey ? 'Loading' : 'Not configured'
-          ),
-      typeof window === 'object'
-        ? /* @__PURE__ */ import_react3.default.createElement(
-            import_react3.default.Fragment,
-            null,
-            /* @__PURE__ */ import_react3.default.createElement(index_es_default, {
-              id: 'skill',
-              effect: 'solid',
-              border: true,
-              type: ctx.theme,
-              getContent: (id2) => {
-                const item = skills.get(Number(id2))
-                return item
-                  ? /* @__PURE__ */ import_react3.default.createElement(
-                      'div',
-                      {
-                        style: { maxWidth: 200 },
-                      },
-                      /* @__PURE__ */ import_react3.default.createElement(
-                        'div',
-                        {
-                          style: { fontWeight: 'bold', marginBottom: '0.5em' },
-                        },
-                        item.name
-                      ),
-                      /* @__PURE__ */ import_react3.default.createElement(
-                        'div',
-                        {
-                          style: { maxWidth: 200 },
-                        },
-                        tidyDescriptions(item.description)
-                      )
-                    )
-                  : null
-              },
-            }),
-            /* @__PURE__ */ import_react3.default.createElement(index_es_default, {
-              id: 'item',
-              effect: 'solid',
-              border: true,
-              type: ctx.theme,
-              getContent: (slot) => {
-                var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j
-                const item = equipment.get(slot)
-                return item
-                  ? /* @__PURE__ */ import_react3.default.createElement(
-                      'div',
-                      {
-                        style: { maxWidth: 200 },
-                      },
-                      /* @__PURE__ */ import_react3.default.createElement(
-                        'div',
-                        {
-                          style: {
-                            fontWeight: 'bold',
-                            marginBottom: '0.5em',
-                            color:
-                              rarityColourMap[(_a = item.item) == null ? void 0 : _a.rarity] || rarityColourMap.Basic,
-                            textShadow: ['Legendary', 'Basic', void 0].includes(
-                              (_b = item.item) == null ? void 0 : _b.rarity
-                            )
-                              ? '0px 0px 10px #ffffff'
-                              : void 0,
+              : null,
+            character.specializations
+              ? /* @__PURE__ */ import_react2.default.createElement(
+                  import_react2.default.Fragment,
+                  null,
+                  /* @__PURE__ */ import_react2.default.createElement(Title, null, 'Traits'),
+                  (_g = character.specializations[gamemode]) == null
+                    ? void 0
+                    : _g.map((spec) => {
+                        var _a2
+                        return /* @__PURE__ */ import_react2.default.createElement(
+                          'div',
+                          {
+                            key: spec.id,
                           },
-                        },
-                        (_c = item.item) == null ? void 0 : _c.name
-                      ),
-                      /* @__PURE__ */ import_react3.default.createElement(
-                        'div',
-                        null,
-                        Object.entries(((_d = item.stats) == null ? void 0 : _d.attributes) || {}).map(([k, v]) =>
-                          /* @__PURE__ */ import_react3.default.createElement(
+                          /* @__PURE__ */ import_react2.default.createElement(
                             'div',
                             {
-                              key: k,
+                              style: { display: 'flex', flexDirection: 'row', gap: 5, justifyContent: 'center' },
                             },
-                            v,
-                            ' ',
-                            modifierMap[k] || k
-                          )
-                        ),
-                        Object.entries(((_e = item.item) == null ? void 0 : _e.attributes) || {}).map(([k, v]) =>
-                          /* @__PURE__ */ import_react3.default.createElement(
-                            'div',
-                            {
-                              key: k,
-                            },
-                            v,
-                            ' ',
-                            modifierMap[k] || k
-                          )
-                        ),
-                        (
-                          ((_h =
-                            (_g = (_f = item.item) == null ? void 0 : _f.details) == null
-                              ? void 0
-                              : _g.infix_upgrade) == null
-                            ? void 0
-                            : _h.attributes) || []
-                        ).map((i) =>
-                          /* @__PURE__ */ import_react3.default.createElement(
-                            'div',
-                            {
-                              key: i.attribute,
-                            },
-                            i.modifier,
-                            ' ',
-                            modifierMap[i.attribute] || i.attribute
-                          )
-                        ),
-                        (
-                          ((_j = (_i = item.item) == null ? void 0 : _i.details) == null ? void 0 : _j.bonuses) || []
-                        ).map((i, j) =>
-                          /* @__PURE__ */ import_react3.default.createElement(
-                            'div',
-                            {
-                              key: j,
-                            },
-                            i
-                          )
-                        )
-                      )
-                    )
-                  : null
-              },
-            }),
-            /* @__PURE__ */ import_react3.default.createElement(index_es_default, {
-              id: 'trait',
-              effect: 'solid',
-              border: true,
-              type: ctx.theme,
-              getContent: (id2) => {
-                const item = traits.get(Number(id2))
-                return item
-                  ? /* @__PURE__ */ import_react3.default.createElement(
-                      'div',
-                      {
-                        style: { maxWidth: 200 },
-                      },
-                      /* @__PURE__ */ import_react3.default.createElement(
-                        'div',
-                        {
-                          style: { fontWeight: 'bold', marginBottom: '0.5em' },
-                        },
-                        item.name
-                      ),
-                      item.description
-                        ? /* @__PURE__ */ import_react3.default.createElement(
-                            'div',
-                            null,
-                            tidyDescriptions(item.description)
-                          )
-                        : /* @__PURE__ */ import_react3.default.createElement(
-                            'div',
-                            null,
-                            item.facts.map((f2, i) =>
-                              /* @__PURE__ */ import_react3.default.createElement(
-                                'div',
-                                {
-                                  key: i,
+                            /* @__PURE__ */ import_react2.default.createElement(
+                              'div',
+                              {
+                                style: { flex: 1 },
+                              },
+                              (_a2 = specializations.get(spec.id)) == null ? void 0 : _a2.name
+                            ),
+                            /* @__PURE__ */ import_react2.default.createElement(
+                              'div',
+                              {
+                                style: {
+                                  display: 'flex',
+                                  flexDirection: 'row',
+                                  gap: 5,
+                                  justifyContent: 'center',
+                                  flex: 2,
                                 },
-                                f2.description || f2.text
+                              },
+                              spec.traits.map((t) =>
+                                /* @__PURE__ */ import_react2.default.createElement(Trait, {
+                                  key: t,
+                                  traits,
+                                  id: t,
+                                })
                               )
                             )
                           )
-                    )
-                  : null
-              },
-            })
+                        )
+                      })
+                )
+              : null
           )
-        : null
+        : /* @__PURE__ */ import_react2.default.createElement(
+            'div',
+            {
+              style: { display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' },
+            },
+            config.broadcaster.apiKey ? 'Loading' : 'Not configured'
+          )
     )
   }
   function tidyDescriptions(d) {
-    return (d || '').replace(/<c.+?>(.+?)<\/c>/g, (_, content) => content).replace(/<br\\>/g, '\n')
+    const tidied = (d || '')
+      .replace(/<c(.+?)>/g, (_match, content) => {
+        return `<span class='description-${content.replace(/^=@/, '').trim()}'>`
+      })
+      .replace(/<\/c>/g, '</span>')
+      .replace(/<c.+?>(.+?)<\/c>/g, (_, content) => content)
+      .replace(/\\n/g, '<br>')
+    return tidied
   }
-  var Title = ({ children }) => {
-    return /* @__PURE__ */ import_react3.default.createElement(
+  var Title = ({ children, style }) => {
+    return /* @__PURE__ */ import_react2.default.createElement(
       'h2',
       {
-        style: {
-          fontSize: '1rem',
-          lineHeight: '1rem',
-          textAlign: 'center',
-          borderBottom: '1px solid var(--color-text)',
-          marginTop: 8,
-          marginBottom: 8,
-        },
+        style: __spreadValues(
+          {
+            fontSize: '1rem',
+            lineHeight: '1rem',
+            textAlign: 'center',
+            marginTop: 10,
+            marginBottom: 8,
+          },
+          style
+        ),
       },
       children
     )
   }
-  function Item({ equipment, slot }) {
+  var Tip = ({ html, children }) => {
+    const { ctx } = (0, import_react2.useContext)(TwitchContext)
+    return /* @__PURE__ */ import_react2.default.createElement(
+      import_react_tippy.Tooltip,
+      {
+        position: 'top',
+        animateFill: false,
+        arrow: true,
+        arrowSize: 'big',
+        duration: 150,
+        animation: 'fade',
+        html,
+        style: { cursor: 'pointer' },
+        theme: ctx.theme,
+      },
+      children
+    )
+  }
+  function Item({ equipment, equipmentById, slot }) {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j
     const item = equipment.get(slot)
-    return item
-      ? /* @__PURE__ */ import_react3.default.createElement(
-          'a',
-          {
-            'data-for': 'item',
-            'data-tip': slot,
+    if (!item) return null
+    const upgrades = (item.upgrades || []).map((i) => equipmentById.get(i))
+    const infusions = (item.infusions || []).map((i) => equipmentById.get(i))
+    const TipHtml = /* @__PURE__ */ import_react2.default.createElement(
+      'div',
+      null,
+      /* @__PURE__ */ import_react2.default.createElement(
+        'div',
+        {
+          style: {
+            fontWeight: 'bold',
+            fontSize: '0.9rem',
+            marginBottom: '0.2em',
+            color: rarityColourMap[(_a = item.item) == null ? void 0 : _a.rarity] || rarityColourMap.Basic,
+            textShadow: ['Legendary', 'Basic', void 0].includes((_b = item.item) == null ? void 0 : _b.rarity)
+              ? '0px 0px 10px #ffffff'
+              : void 0,
           },
-          /* @__PURE__ */ import_react3.default.createElement('img', {
-            src: item == null ? void 0 : item.item.icon,
-            height: 35,
-            width: 40,
-          })
+        },
+        (_c = item.item) == null ? void 0 : _c.name
+      ),
+      /* @__PURE__ */ import_react2.default.createElement(
+        'div',
+        {
+          style: { fontSize: '0.8rem' },
+        },
+        Object.entries(((_d = item.stats) == null ? void 0 : _d.attributes) || {}).map(([k, v]) =>
+          /* @__PURE__ */ import_react2.default.createElement(
+            'div',
+            {
+              key: k,
+            },
+            '+ ',
+            v,
+            ' ',
+            modifierMap[k] || k
+          )
+        ),
+        Object.entries(((_e = item.item) == null ? void 0 : _e.attributes) || {}).map(([k, v]) =>
+          /* @__PURE__ */ import_react2.default.createElement(
+            'div',
+            {
+              key: k,
+            },
+            '+ ',
+            v,
+            ' ',
+            modifierMap[k] || k
+          )
+        ),
+        (
+          ((_h = (_g = (_f = item.item) == null ? void 0 : _f.details) == null ? void 0 : _g.infix_upgrade) == null
+            ? void 0
+            : _h.attributes) || []
+        ).map((i) =>
+          /* @__PURE__ */ import_react2.default.createElement(
+            'div',
+            {
+              key: i.attribute,
+            },
+            '+ ',
+            i.modifier,
+            ' ',
+            modifierMap[i.attribute] || i.attribute
+          )
+        ),
+        (((_j = (_i = item.item) == null ? void 0 : _i.details) == null ? void 0 : _j.bonuses) || []).map((i, j) =>
+          /* @__PURE__ */ import_react2.default.createElement(
+            'div',
+            {
+              key: j,
+            },
+            i
+          )
         )
-      : null
+      ),
+      /* @__PURE__ */ import_react2.default.createElement(
+        'div',
+        {
+          style: { display: 'flex', flexDirection: 'column', gap: 5 },
+        },
+        upgrades.map((u) => {
+          var _a2, _b2, _c2, _d2, _e2
+          return /* @__PURE__ */ import_react2.default.createElement(
+            'div',
+            {
+              key: u.id,
+              style: { color: rarityColourMap[u.rarity] },
+            },
+            /* @__PURE__ */ import_react2.default.createElement('p', null, u.name),
+            /* @__PURE__ */ import_react2.default.createElement('p', {
+              style: { fontSize: '0.8rem' },
+              dangerouslySetInnerHTML: {
+                __html: tidyDescriptions(
+                  (_c2 = (_b2 = (_a2 = u.details) == null ? void 0 : _a2.infix_upgrade) == null ? void 0 : _b2.buff) ==
+                    null
+                    ? void 0
+                    : _c2.description
+                ),
+              },
+            }),
+            /* @__PURE__ */ import_react2.default.createElement('p', {
+              style: { fontSize: '0.7rem' },
+              dangerouslySetInnerHTML: {
+                __html: (_e2 = (_d2 = u.details) == null ? void 0 : _d2.bonuses) == null ? void 0 : _e2.join('<br>'),
+              },
+            })
+          )
+        })
+      ),
+      /* @__PURE__ */ import_react2.default.createElement(
+        'div',
+        {
+          style: { display: 'flex', flexDirection: 'column', gap: 5 },
+        },
+        infusions.map((u) => {
+          var _a2, _b2, _c2, _d2, _e2
+          return /* @__PURE__ */ import_react2.default.createElement(
+            'div',
+            {
+              key: u.id,
+              style: { color: rarityColourMap[u.rarity] },
+            },
+            /* @__PURE__ */ import_react2.default.createElement('p', null, u.name),
+            /* @__PURE__ */ import_react2.default.createElement('p', {
+              style: { fontSize: '0.8rem' },
+              dangerouslySetInnerHTML: {
+                __html: tidyDescriptions(
+                  (_c2 = (_b2 = (_a2 = u.details) == null ? void 0 : _a2.infix_upgrade) == null ? void 0 : _b2.buff) ==
+                    null
+                    ? void 0
+                    : _c2.description
+                ),
+              },
+            }),
+            /* @__PURE__ */ import_react2.default.createElement('p', {
+              style: { fontSize: '0.7rem' },
+              dangerouslySetInnerHTML: {
+                __html: (_e2 = (_d2 = u.details) == null ? void 0 : _d2.bonuses) == null ? void 0 : _e2.join('<br>'),
+              },
+            })
+          )
+        })
+      )
+    )
+    return /* @__PURE__ */ import_react2.default.createElement(
+      Tip,
+      {
+        html: TipHtml,
+      },
+      /* @__PURE__ */ import_react2.default.createElement('img', {
+        src: item == null ? void 0 : item.item.icon,
+        height: 35,
+        width: 40,
+      })
+    )
   }
-  function Skill({ skills, id: id2 }) {
-    const item = skills.get(id2)
-    return item
-      ? /* @__PURE__ */ import_react3.default.createElement(
-          'a',
-          {
-            'data-for': 'skill',
-            'data-tip': id2,
-          },
-          /* @__PURE__ */ import_react3.default.createElement('img', {
-            src: item == null ? void 0 : item.icon,
-            height: 40,
-            width: 40,
-          })
+  function Skill({ skills, id }) {
+    const item = skills.get(id)
+    if (!item) return null
+    const TipHtml = /* @__PURE__ */ import_react2.default.createElement(
+      'div',
+      {
+        style: { display: 'flex', flexDirection: 'column', gap: '0.1rem' },
+      },
+      /* @__PURE__ */ import_react2.default.createElement(
+        'div',
+        {
+          style: { fontWeight: 'bold', color: 'var(--color-tooltip-title)' },
+        },
+        item.name
+      ),
+      /* @__PURE__ */ import_react2.default.createElement('p', {
+        style: { fontSize: '0.8rem' },
+        dangerouslySetInnerHTML: { __html: tidyDescriptions(item.description) },
+      }),
+      /* @__PURE__ */ import_react2.default.createElement(
+        'div',
+        {
+          style: { display: 'flex', flexDirection: 'column', gap: 2 },
+        },
+        item.facts.map((f, i) =>
+          /* @__PURE__ */ import_react2.default.createElement(
+            'div',
+            {
+              key: i,
+              style: { display: 'flex', flexDirection: 'row', gap: 5, alignItems: 'center' },
+            },
+            f.icon
+              ? /* @__PURE__ */ import_react2.default.createElement('img', {
+                  height: 25,
+                  width: 25,
+                  src: f.icon,
+                })
+              : null,
+            /* @__PURE__ */ import_react2.default.createElement(
+              'div',
+              {
+                style: { textAlign: 'left', fontSize: '0.8rem' },
+              },
+              getFactText(f)
+            )
+          )
         )
-      : null
+      )
+    )
+    return /* @__PURE__ */ import_react2.default.createElement(
+      Tip,
+      {
+        html: TipHtml,
+      },
+      /* @__PURE__ */ import_react2.default.createElement('img', {
+        src: item == null ? void 0 : item.icon,
+        height: 40,
+        width: 40,
+      })
+    )
   }
-  function Trait({ traits, id: id2 }) {
-    const item = traits.get(id2)
-    return item
-      ? /* @__PURE__ */ import_react3.default.createElement(
-          'a',
-          {
-            'data-for': 'trait',
-            'data-tip': id2,
-          },
-          /* @__PURE__ */ import_react3.default.createElement('img', {
-            src: item == null ? void 0 : item.icon,
-            height: 30,
-            width: 30,
+  function getFactText(t) {
+    if (t.percent) {
+      return `${t.text}: ${t.percent}%`
+    } else if (t.distance) {
+      return `${t.text}: ${t.distance}`
+    } else if (t.status) {
+      return `${t.status} (${t.duration}s): ${t.description}`
+    } else if (t.type === 'Number' || t.type === 'Recharge') {
+      return `${t.text}: ${t.value}`
+    } else {
+      return t.description || t.text
+    }
+  }
+  function Trait({ traits, id }) {
+    const item = traits.get(id)
+    if (!item) return null
+    const TipHtml = /* @__PURE__ */ import_react2.default.createElement(
+      'div',
+      {
+        style: { display: 'flex', flexDirection: 'column', gap: '0.1rem' },
+      },
+      /* @__PURE__ */ import_react2.default.createElement(
+        'div',
+        {
+          style: { fontWeight: 'bold', color: 'var(--color-tooltip-title)' },
+        },
+        item.name
+      ),
+      item.description
+        ? /* @__PURE__ */ import_react2.default.createElement('p', {
+            style: { fontSize: '0.9rem' },
+            dangerouslySetInnerHTML: { __html: tidyDescriptions(item.description) },
           })
-        )
-      : null
+        : /* @__PURE__ */ import_react2.default.createElement(
+            'div',
+            {
+              style: { display: 'flex', flexDirection: 'column', gap: 2 },
+            },
+            item.facts.map((f, i) =>
+              /* @__PURE__ */ import_react2.default.createElement(
+                'div',
+                {
+                  key: i,
+                  style: { display: 'flex', flexDirection: 'row', gap: 5, alignItems: 'center' },
+                },
+                f.icon
+                  ? /* @__PURE__ */ import_react2.default.createElement('img', {
+                      height: 25,
+                      width: 25,
+                      src: f.icon,
+                    })
+                  : null,
+                /* @__PURE__ */ import_react2.default.createElement(
+                  'div',
+                  {
+                    style: { textAlign: 'left', fontSize: '0.8rem' },
+                  },
+                  getFactText(f)
+                )
+              )
+            )
+          )
+    )
+    return /* @__PURE__ */ import_react2.default.createElement(
+      Tip,
+      {
+        html: TipHtml,
+      },
+      /* @__PURE__ */ import_react2.default.createElement('img', {
+        src: item == null ? void 0 : item.icon,
+        height: 30,
+        width: 30,
+      })
+    )
   }
 
   // src/mounts/panel.tsx
   console.info('[mount] Panel')
   import_react_dom.default.render(
-    /* @__PURE__ */ import_react4.default.createElement(
+    /* @__PURE__ */ import_react3.default.createElement(
       Twitch_default,
       null,
-      /* @__PURE__ */ import_react4.default.createElement(Index, null)
+      /* @__PURE__ */ import_react3.default.createElement(Index, null)
     ),
     document.querySelector('#app')
   )
@@ -26534,14 +26895,6 @@ object-assign
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-/** @license React v16.13.1
- * react-is.development.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
 /** @license React v17.0.2
  * react-dom.development.js
  *
@@ -26557,4 +26910,28 @@ object-assign
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
+ */
+/**!
+ * @fileOverview Kickass library to create and place poppers near their reference elements.
+ * @version 1.16.1
+ * @license
+ * Copyright (c) 2016 Federico Zivolo and contributors
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
