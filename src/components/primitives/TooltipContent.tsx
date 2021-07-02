@@ -14,6 +14,7 @@ export function Item({
 }) {
   const item = equipment.get(slot)
   if (!item) return null
+  const icon = item.skin?.icon || item.item?.icon
   const upgrades = (item.upgrades || []).map((i) => equipmentById.get(i))
   const infusions = (item.infusions || []).map((i) => equipmentById.get(i))
   const TipHtml = (
@@ -22,15 +23,21 @@ export function Item({
         style={{
           fontWeight: 'bold',
           fontSize: '0.9rem',
-          marginBottom: '0.2em',
           color: rarityColourMap[item.item?.rarity] || rarityColourMap.Basic,
-          textShadow: ['Legendary', 'Basic', undefined].includes(item.item?.rarity)
-            ? '0px 0px 10px #ffffff'
-            : undefined,
         }}
       >
         {item.item?.name}
       </div>
+      {item.skin ? (
+        <div
+          style={{
+            fontSize: '0.8rem',
+            marginBottom: '0.2em',
+          }}
+        >
+          Skin: {item.skin.name}
+        </div>
+      ) : null}
       <div style={{ fontSize: '0.8rem' }}>
         {Object.entries(item.stats?.attributes || {}).map(([k, v]) => (
           <div key={k}>
@@ -54,7 +61,7 @@ export function Item({
       <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         {upgrades.map((u) => (
           <div key={u.id} style={{ color: rarityColourMap[u.rarity] }}>
-            <p>{u.name}</p>
+            <p style={{ fontSize: '0.9rem' }}>{u.name}</p>
             <p
               style={{ fontSize: '0.8rem' }}
               dangerouslySetInnerHTML={{ __html: tidyDescriptions(u.details?.infix_upgrade?.buff?.description) }}
@@ -66,7 +73,7 @@ export function Item({
       <div style={{ display: 'flex', flexDirection: 'column', gap: 5 }}>
         {infusions.map((u) => (
           <div key={u.id} style={{ color: rarityColourMap[u.rarity] }}>
-            <p>{u.name}</p>
+            <p style={{ fontSize: '0.9rem' }}>{u.name}</p>
             <p
               style={{ fontSize: '0.8rem' }}
               dangerouslySetInnerHTML={{ __html: tidyDescriptions(u.details?.infix_upgrade?.buff?.description) }}
@@ -79,7 +86,7 @@ export function Item({
   )
   return (
     <Tip html={TipHtml}>
-      <img src={item?.item.icon} height={35} width={40} />
+      <img src={icon} height={35} width={40} />
     </Tip>
   )
 }
