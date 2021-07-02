@@ -35,7 +35,7 @@ export default class Buildtemplate {
 
   specific = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-  constructor(code) {
+  constructor(code?: string) {
     if (code !== undefined) {
       this.parse(code)
     }

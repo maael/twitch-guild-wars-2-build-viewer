@@ -1,14 +1,18 @@
 import React, { useContext } from 'react'
 import { TwitchContext } from '../components/context/Twitch'
 import useBuildData from '../components/hooks/useBuildData'
+import useBuildTemplateString from '../components/hooks/useBuildTemplateString'
+import useCopyToClipboard from '../components/hooks/useCopyToClipboard'
 import Title from '../components/primitives/Title'
 import { Trait, Skill, Item } from '../components/primitives/TooltipContent'
 
 export default function Index() {
   const { config } = useContext(TwitchContext)
   const { character, eliteSpec, equipment, gamemode, equipmentById, skills, specializations, traits } = useBuildData()
+  const buildTemplateString = useBuildTemplateString(character, traits, gamemode)
+  const [copied, copy] = useCopyToClipboard(buildTemplateString)
   return (
-    <div style={{ padding: 5, marginTop: -6, overflow: 'hidden' }}>
+    <div style={{ padding: 5, marginTop: -6, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
       {character ? (
         <>
           <Title style={{ color: `var(--color-${character.profession?.toLowerCase()})` }}>
@@ -94,6 +98,23 @@ export default function Index() {
               ))}
             </>
           ) : null}
+          <button
+            style={{
+              textAlign: 'right',
+              fontSize: '0.7rem',
+              position: 'absolute',
+              bottom: 4,
+              left: '50%',
+              transform: 'translateX(-50%)',
+              opacity: 0.8,
+              cursor: 'copy',
+              padding: '1px 2px',
+              lineHeight: '0.7rem',
+            }}
+            onClick={copy}
+          >
+            {copied ? 'Copied!' : 'Copy Build Template'}
+          </button>
         </>
       ) : (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
