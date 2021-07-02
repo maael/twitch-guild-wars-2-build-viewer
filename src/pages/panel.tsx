@@ -45,9 +45,9 @@ export default function Index() {
                     <Item equipment={equipment} equipmentById={equipmentById} slot="Accessory2" />
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'row', gap: 5 }}>
+                    <Item equipment={equipment} equipmentById={equipmentById} slot="Amulet" />
                     <Item equipment={equipment} equipmentById={equipmentById} slot="Ring1" />
                     <Item equipment={equipment} equipmentById={equipmentById} slot="Ring2" />
-                    <Item equipment={equipment} equipmentById={equipmentById} slot="Amulet" />
                   </div>
                 </div>
               )}
