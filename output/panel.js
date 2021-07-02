@@ -589,7 +589,7 @@
             }
             return element
           }
-          function createElement(type, config, children) {
+          function createElement2(type, config, children) {
             var propName
             var props = {}
             var key = null
@@ -1202,7 +1202,7 @@
             }
             return dispatcher
           }
-          function useContext2(Context, unstable_observedBits) {
+          function useContext4(Context, unstable_observedBits) {
             var dispatcher = resolveDispatcher()
             {
               if (unstable_observedBits !== void 0) {
@@ -1229,7 +1229,7 @@
             }
             return dispatcher.useContext(Context, unstable_observedBits)
           }
-          function useState3(initialState) {
+          function useState4(initialState) {
             var dispatcher = resolveDispatcher()
             return dispatcher.useState(initialState)
           }
@@ -1237,11 +1237,11 @@
             var dispatcher = resolveDispatcher()
             return dispatcher.useReducer(reducer, initialArg, init)
           }
-          function useRef(initialValue) {
+          function useRef2(initialValue) {
             var dispatcher = resolveDispatcher()
             return dispatcher.useRef(initialValue)
           }
-          function useEffect3(create, deps) {
+          function useEffect4(create, deps) {
             var dispatcher = resolveDispatcher()
             return dispatcher.useEffect(create, deps)
           }
@@ -1249,11 +1249,11 @@
             var dispatcher = resolveDispatcher()
             return dispatcher.useLayoutEffect(create, deps)
           }
-          function useCallback2(callback, deps) {
+          function useCallback3(callback, deps) {
             var dispatcher = resolveDispatcher()
             return dispatcher.useCallback(callback, deps)
           }
-          function useMemo(create, deps) {
+          function useMemo2(create, deps) {
             var dispatcher = resolveDispatcher()
             return dispatcher.useMemo(create, deps)
           }
@@ -1779,7 +1779,7 @@
                 )
               }
             }
-            var element = createElement.apply(this, arguments)
+            var element = createElement2.apply(this, arguments)
             if (element == null) {
               return element
             }
@@ -1857,16 +1857,16 @@
           exports.isValidElement = isValidElement
           exports.lazy = lazy
           exports.memo = memo
-          exports.useCallback = useCallback2
-          exports.useContext = useContext2
+          exports.useCallback = useCallback3
+          exports.useContext = useContext4
           exports.useDebugValue = useDebugValue
-          exports.useEffect = useEffect3
+          exports.useEffect = useEffect4
           exports.useImperativeHandle = useImperativeHandle
           exports.useLayoutEffect = useLayoutEffect
-          exports.useMemo = useMemo
+          exports.useMemo = useMemo2
           exports.useReducer = useReducer
-          exports.useRef = useRef
-          exports.useState = useState3
+          exports.useRef = useRef2
+          exports.useState = useState4
           exports.version = ReactVersion
         })()
       }
@@ -2676,11 +2676,11 @@
       if (true) {
         ;(function () {
           'use strict'
-          var React4 = require_react()
+          var React8 = require_react()
           var _assign = require_object_assign()
           var Scheduler = require_scheduler()
           var tracing = require_tracing()
-          var ReactSharedInternals = React4.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+          var ReactSharedInternals = React8.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
           function warn(format) {
             {
               for (
@@ -2720,7 +2720,7 @@
               Function.prototype.apply.call(console[level], console, argsWithFormat)
             }
           }
-          if (!React4) {
+          if (!React8) {
             {
               throw Error(
                 'ReactDOM was loaded before React. Make sure you load the React package before loading ReactDOM.'
@@ -4027,7 +4027,7 @@
           var didWarnInvalidChild = false
           function flattenChildren(children) {
             var content = ''
-            React4.Children.forEach(children, function (child) {
+            React8.Children.forEach(children, function (child) {
               if (child == null) {
                 return
               }
@@ -4038,7 +4038,7 @@
           function validateProps(element, props) {
             {
               if (typeof props.children === 'object' && props.children !== null) {
-                React4.Children.forEach(props.children, function (child) {
+                React8.Children.forEach(props.children, function (child) {
                   if (child == null) {
                     return
                   }
@@ -9436,7 +9436,7 @@
               }
             }
           }
-          function createElement(type, props, rootContainerElement, parentNamespace) {
+          function createElement2(type, props, rootContainerElement, parentNamespace) {
             var isCustomComponentTag
             var ownerDocument = getOwnerDocumentFromRootContainer(rootContainerElement)
             var domElement
@@ -10468,7 +10468,7 @@
               }
               parentNamespace = hostContextDev.namespace
             }
-            var domElement = createElement(type, props, rootContainerInstance, parentNamespace)
+            var domElement = createElement2(type, props, rootContainerInstance, parentNamespace)
             precacheFiberNode(internalInstanceHandle, domElement)
             updateFiberProps(domElement, props)
             return domElement
@@ -12166,7 +12166,7 @@
           }
           var fakeInternalInstance = {}
           var isArray = Array.isArray
-          var emptyRefsObject = new React4.Component().refs
+          var emptyRefsObject = new React8.Component().refs
           var didWarnAboutStateAssignmentForComponent
           var didWarnAboutUninitializedState
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate
@@ -25745,9 +25745,9 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
                       })
                       if (!data) return
                       var _data$settings = data.settings,
-                        useContext2 = _data$settings.useContext,
+                        useContext4 = _data$settings.useContext,
                         setReactDOMValue = _data$settings.setReactDOMValue
-                      if (useContext2) {
+                      if (useContext4) {
                         setReactDOMValue(_reactDom2.default.createPortal(updatedContent, tooltipContent))
                       } else {
                         _reactDom2.default.render(updatedContent, tooltipContent)
@@ -26126,12 +26126,11 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
   })
 
   // src/mounts/panel.tsx
-  var import_react3 = __toModule(require_react())
+  var import_react7 = __toModule(require_react())
   var import_react_dom = __toModule(require_react_dom())
 
   // src/pages/panel.tsx
-  var import_react2 = __toModule(require_react())
-  var import_react_tippy = __toModule(require_react_tippy())
+  var import_react6 = __toModule(require_react())
 
   // src/components/context/Twitch.tsx
   var import_react = __toModule(require_react())
@@ -26178,25 +26177,9 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
   }
   var Twitch_default = TwitchContextWrapper
 
-  // src/pages/panel.tsx
-  var modifierMap = {
-    BoonDuration: 'Concentration',
-    ConditionDamage: 'Condition Damage',
-    ConditionDuration: 'Expertise',
-    CritDamage: 'Ferocity',
-    HealingPower: 'Healing Power',
-  }
-  var rarityColourMap = {
-    Basic: '#000000',
-    Fine: '#62A4DA',
-    Masterwork: '#1a9306',
-    Rare: '#fcd00b',
-    Exotic: '#ffa405',
-    Ascended: '#fb3e8d',
-    Legendary: '#4C139D',
-  }
-  function Index() {
-    var _a, _b, _c, _d, _e, _f, _g
+  // src/components/hooks/useBuildData.ts
+  var import_react2 = __toModule(require_react())
+  function useBuildData() {
     const { config } = (0, import_react2.useContext)(TwitchContext)
     const [character, setCharacter] = (0, import_react2.useState)()
     const [equipment, setEquipment] = (0, import_react2.useState)(new Map())
@@ -26251,274 +26234,227 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
       getData(config.broadcaster.apiKey)
     }, [config.broadcaster.apiKey, getData])
     const eliteSpec = [...specializations.values()].find(({ elite }) => elite)
-    return /* @__PURE__ */ import_react2.default.createElement(
-      'div',
-      {
-        style: { padding: 5, marginTop: -6, overflow: 'hidden' },
+    return {
+      eliteSpec,
+      character,
+      equipment,
+      equipmentById,
+      skills,
+      traits,
+      specializations,
+      gamemode,
+    }
+  }
+
+  // src/components/hooks/useBuildTemplateString.ts
+  var import_react3 = __toModule(require_react())
+
+  // src/util/Buildtemplate.ts
+  var Buildtemplate = class {
+    constructor(code) {
+      this.profession = 1
+      this.specializations = [
+        {
+          id: 0,
+          traits: [0, 0, 0],
+        },
+        {
+          id: 0,
+          traits: [0, 0, 0],
+        },
+        {
+          id: 0,
+          traits: [0, 0, 0],
+        },
+      ]
+      this.skills = {
+        terrestrial: {
+          heal: 0,
+          utilities: [0, 0, 0],
+          elite: 0,
+        },
+        aquatic: {
+          heal: 0,
+          utilities: [0, 0, 0],
+          elite: 0,
+        },
+      }
+      this.specific = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      if (code !== void 0) {
+        this.parse(code)
+      }
+    }
+    parse(code) {
+      const chatCodeRegex = /\[&((?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?)\]/
+      const match = code.match(chatCodeRegex)
+      if (match !== null && match.length === 2) {
+        const byteString = atob(match[1])
+        const bytes = new Array(byteString.length)
+        for (let i = 0; i < byteString.length; i++) {
+          bytes[i] = byteString.charCodeAt(i)
+        }
+        if (bytes.length > 0 && bytes[0] !== 13) {
+          throw 'Wrong header type'
+        } else if (bytes.length >= 44) {
+          this.profession = bytes[1]
+          for (let s = 0; s < 3; s++) {
+            const offset = s * 2
+            this.specializations[s].id = bytes[offset + 2]
+            for (let t = 0; t < 3; t++) {
+              this.specializations[s].traits[t] = (bytes[offset + 3] >> (t * 2)) & 3
+            }
+          }
+          this.skills.terrestrial.heal = bytes[8] + (bytes[9] << 8)
+          this.skills.aquatic.heal = bytes[10] + (bytes[11] << 8)
+          for (let u = 0; u < 3; u++) {
+            const offset = u * 4 + 12
+            this.skills.terrestrial.utilities[u] = bytes[offset] + (bytes[offset + 1] << 8)
+            this.skills.aquatic.utilities[u] = bytes[offset + 2] + (bytes[offset + 3] << 8)
+          }
+          this.skills.terrestrial.elite = bytes[24] + (bytes[25] << 8)
+          this.skills.aquatic.elite = bytes[26] + (bytes[27] << 8)
+          this.specific = bytes.slice(28)
+        } else {
+          throw 'Invalid build template'
+        }
+      } else {
+        throw 'Invalid format'
+      }
+    }
+    toString() {
+      const retval = [13]
+      retval.push(this.profession)
+      for (let s = 0; s < 3; s++) {
+        retval.push(this.specializations[s].id)
+        retval.push(
+          (this.specializations[s].traits[2] << 4) |
+            (this.specializations[s].traits[1] << 2) |
+            this.specializations[s].traits[0]
+        )
+      }
+      retval.push(this.skills.terrestrial.heal & 255, (this.skills.terrestrial.heal >> 8) & 255)
+      retval.push(this.skills.aquatic.heal & 255, (this.skills.aquatic.heal >> 8) & 255)
+      for (let u = 0; u < 3; u++) {
+        retval.push(this.skills.terrestrial.utilities[u] & 255, (this.skills.terrestrial.utilities[u] >> 8) & 255)
+        retval.push(this.skills.aquatic.utilities[u] & 255, (this.skills.aquatic.utilities[u] >> 8) & 255)
+      }
+      retval.push(this.skills.terrestrial.elite & 255, (this.skills.terrestrial.elite >> 8) & 255)
+      retval.push(this.skills.aquatic.elite & 255, (this.skills.aquatic.elite >> 8) & 255)
+      for (let i = 0; i < this.specific.length; i++) {
+        retval.push(this.specific[i])
+      }
+      return '[&' + btoa(String.fromCharCode.apply(null, retval)) + ']'
+    }
+  }
+
+  // src/util/dataMaps.ts
+  var modifierMap = {
+    BoonDuration: 'Concentration',
+    ConditionDamage: 'Condition Damage',
+    ConditionDuration: 'Expertise',
+    CritDamage: 'Ferocity',
+    HealingPower: 'Healing Power',
+  }
+  var rarityColourMap = {
+    Basic: 'var(--color-text)',
+    Fine: '#62A4DA',
+    Masterwork: '#1a9306',
+    Rare: '#fcd00b',
+    Exotic: '#ffa405',
+    Ascended: '#fb3e8d',
+    Legendary: '#a26ded',
+  }
+  var professionIdMap = {
+    Guardian: 1,
+    Warrior: 2,
+    Engineer: 3,
+    Ranger: 4,
+    Thief: 5,
+    Elementalist: 6,
+    Mesmer: 7,
+    Necromancer: 8,
+    Revenant: 9,
+  }
+
+  // src/components/hooks/useBuildTemplateString.ts
+  function useBuildTemplateString(character, traits, gamemode) {
+    return (0, import_react3.useMemo)(() => {
+      try {
+        const professionId = professionIdMap[character == null ? void 0 : character.profession]
+        const specs = (character == null ? void 0 : character.specializations[gamemode]) || []
+        const build = new Buildtemplate()
+        build.profession = professionId
+        specs.forEach(({ id, traits: traitIds }, i) => {
+          build.specializations[i].id = id
+          build.specializations[i].traits = traitIds.map((tId) => {
+            var _a
+            const order = (_a = traits.get(tId)) == null ? void 0 : _a.order
+            return order > -1 ? order + 1 : 0
+          })
+        })
+        const skills = character == null ? void 0 : character.skills[gamemode]
+        build.skills.terrestrial.heal = (skills == null ? void 0 : skills.heal) || 0
+        build.skills.terrestrial.utilities = (skills == null ? void 0 : skills.utilities) || []
+        build.skills.terrestrial.elite = (skills == null ? void 0 : skills.elite) || 0
+        return build.toString()
+      } catch (e) {
+        console.error(e)
+        return ''
+      }
+    }, [character, gamemode, traits])
+  }
+
+  // src/components/hooks/useCopyToClipboard.ts
+  var React2 = __toModule(require_react())
+  var useCopyToClipboard = (text, options = { resetTimeout: 1e3 }) => {
+    const copyToClipboard = (str) => {
+      var _a, _b, _c, _d
+      const el = document.createElement('textarea')
+      el.value = str
+      el.setAttribute('readonly', '')
+      el.style.position = 'absolute'
+      el.style.left = '-9999px'
+      document.body.appendChild(el)
+      const rangeCount = ((_a = document.getSelection()) == null ? void 0 : _a.rangeCount) || 0
+      const selected = rangeCount > 0 ? ((_b = document.getSelection()) == null ? void 0 : _b.getRangeAt(0)) : false
+      el.select()
+      const success = document.execCommand('copy')
+      document.body.removeChild(el)
+      if (selected) {
+        ;(_c = document.getSelection()) == null ? void 0 : _c.removeAllRanges()
+        ;(_d = document.getSelection()) == null ? void 0 : _d.addRange(selected)
+      }
+      return success
+    }
+    const mounted = React2.useRef(false)
+    const resetTimer = React2.useRef()
+    const [copied, setCopied] = React2.useState(false)
+    React2.useEffect(() => {
+      mounted.current = true
+      return () => {
+        if (resetTimer.current) clearTimeout(resetTimer.current)
+        mounted.current = false
+      }
+    }, [])
+    const copy = React2.useCallback(() => {
+      if (resetTimer.current) clearTimeout(resetTimer.current)
+      setCopied(copyToClipboard(text))
+      resetTimer.current = setTimeout(() => setCopied(false), options.resetTimeout)
+    }, [text, options.resetTimeout])
+    React2.useEffect(
+      () => () => {
+        setCopied(false)
       },
-      character
-        ? /* @__PURE__ */ import_react2.default.createElement(
-            import_react2.default.Fragment,
-            null,
-            /* @__PURE__ */ import_react2.default.createElement(
-              Title,
-              {
-                style: { color: `var(--color-${(_a = character.profession) == null ? void 0 : _a.toLowerCase()})` },
-              },
-              character.name,
-              ' (',
-              eliteSpec ? eliteSpec.name : character.profession,
-              ')'
-            ),
-            /* @__PURE__ */ import_react2.default.createElement(
-              'div',
-              {
-                style: { display: 'flex', flexDirection: 'row', gap: 15, justifyContent: 'center' },
-              },
-              gamemode === 'pvp'
-                ? null
-                : /* @__PURE__ */ import_react2.default.createElement(
-                    'div',
-                    {
-                      style: { display: 'flex', flexDirection: 'column', gap: 5, alignItems: 'center' },
-                    },
-                    /* @__PURE__ */ import_react2.default.createElement(Item, {
-                      equipment,
-                      equipmentById,
-                      slot: 'Helm',
-                    }),
-                    /* @__PURE__ */ import_react2.default.createElement(Item, {
-                      equipment,
-                      equipmentById,
-                      slot: 'Shoulders',
-                    }),
-                    /* @__PURE__ */ import_react2.default.createElement(Item, {
-                      equipment,
-                      equipmentById,
-                      slot: 'Coat',
-                    }),
-                    /* @__PURE__ */ import_react2.default.createElement(Item, {
-                      equipment,
-                      equipmentById,
-                      slot: 'Gloves',
-                    }),
-                    /* @__PURE__ */ import_react2.default.createElement(Item, {
-                      equipment,
-                      equipmentById,
-                      slot: 'Leggings',
-                    }),
-                    /* @__PURE__ */ import_react2.default.createElement(Item, {
-                      equipment,
-                      equipmentById,
-                      slot: 'Boots',
-                    })
-                  ),
-              /* @__PURE__ */ import_react2.default.createElement(
-                'div',
-                {
-                  style: {
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: gamemode === 'pvp' ? 5 : 45,
-                    alignItems: 'center',
-                  },
-                },
-                gamemode === 'pvp'
-                  ? null
-                  : /* @__PURE__ */ import_react2.default.createElement(
-                      'div',
-                      {
-                        style: { display: 'flex', flexDirection: 'column', gap: 5, alignItems: 'center' },
-                      },
-                      /* @__PURE__ */ import_react2.default.createElement(
-                        'div',
-                        {
-                          style: { display: 'flex', flexDirection: 'row', gap: 5 },
-                        },
-                        /* @__PURE__ */ import_react2.default.createElement(Item, {
-                          equipment,
-                          equipmentById,
-                          slot: 'Backpack',
-                        }),
-                        /* @__PURE__ */ import_react2.default.createElement(Item, {
-                          equipment,
-                          equipmentById,
-                          slot: 'Accessory1',
-                        }),
-                        /* @__PURE__ */ import_react2.default.createElement(Item, {
-                          equipment,
-                          equipmentById,
-                          slot: 'Accessory2',
-                        })
-                      ),
-                      /* @__PURE__ */ import_react2.default.createElement(
-                        'div',
-                        {
-                          style: { display: 'flex', flexDirection: 'row', gap: 5 },
-                        },
-                        /* @__PURE__ */ import_react2.default.createElement(Item, {
-                          equipment,
-                          equipmentById,
-                          slot: 'Ring1',
-                        }),
-                        /* @__PURE__ */ import_react2.default.createElement(Item, {
-                          equipment,
-                          equipmentById,
-                          slot: 'Ring2',
-                        }),
-                        /* @__PURE__ */ import_react2.default.createElement(Item, {
-                          equipment,
-                          equipmentById,
-                          slot: 'Amulet',
-                        })
-                      )
-                    ),
-                gamemode === 'pvp'
-                  ? /* @__PURE__ */ import_react2.default.createElement(
-                      'div',
-                      {
-                        style: { display: 'flex', flexDirection: 'row', gap: 5 },
-                      },
-                      /* @__PURE__ */ import_react2.default.createElement(Item, {
-                        equipment,
-                        equipmentById,
-                        slot: 'PvP_Amulet',
-                      }),
-                      /* @__PURE__ */ import_react2.default.createElement(Item, {
-                        equipment,
-                        equipmentById,
-                        slot: 'PvP_Rune',
-                      })
-                    )
-                  : null,
-                /* @__PURE__ */ import_react2.default.createElement(
-                  'div',
-                  {
-                    style: { display: 'flex', flexDirection: 'row', gap: 5 },
-                  },
-                  /* @__PURE__ */ import_react2.default.createElement(Item, {
-                    equipment,
-                    equipmentById,
-                    slot: 'WeaponA1',
-                  }),
-                  /* @__PURE__ */ import_react2.default.createElement(Item, {
-                    equipment,
-                    equipmentById,
-                    slot: 'WeaponA2',
-                  }),
-                  /* @__PURE__ */ import_react2.default.createElement(Item, {
-                    equipment,
-                    equipmentById,
-                    slot: 'WeaponB1',
-                  })
-                )
-              )
-            ),
-            character.skills
-              ? /* @__PURE__ */ import_react2.default.createElement(
-                  import_react2.default.Fragment,
-                  null,
-                  /* @__PURE__ */ import_react2.default.createElement(Title, null, 'Skills'),
-                  /* @__PURE__ */ import_react2.default.createElement(
-                    'div',
-                    {
-                      style: { display: 'flex', flexDirection: 'row', gap: 5, justifyContent: 'center' },
-                    },
-                    /* @__PURE__ */ import_react2.default.createElement(Skill, {
-                      skills,
-                      id: (_b = character.skills[gamemode]) == null ? void 0 : _b.heal,
-                    }),
-                    /* @__PURE__ */ import_react2.default.createElement(Skill, {
-                      skills,
-                      id: (_c = character.skills[gamemode]) == null ? void 0 : _c.utilities[0],
-                    }),
-                    /* @__PURE__ */ import_react2.default.createElement(Skill, {
-                      skills,
-                      id: (_d = character.skills[gamemode]) == null ? void 0 : _d.utilities[1],
-                    }),
-                    /* @__PURE__ */ import_react2.default.createElement(Skill, {
-                      skills,
-                      id: (_e = character.skills[gamemode]) == null ? void 0 : _e.utilities[2],
-                    }),
-                    /* @__PURE__ */ import_react2.default.createElement(Skill, {
-                      skills,
-                      id: (_f = character.skills[gamemode]) == null ? void 0 : _f.elite,
-                    })
-                  )
-                )
-              : null,
-            character.specializations
-              ? /* @__PURE__ */ import_react2.default.createElement(
-                  import_react2.default.Fragment,
-                  null,
-                  /* @__PURE__ */ import_react2.default.createElement(Title, null, 'Traits'),
-                  (_g = character.specializations[gamemode]) == null
-                    ? void 0
-                    : _g.map((spec) => {
-                        var _a2
-                        return /* @__PURE__ */ import_react2.default.createElement(
-                          'div',
-                          {
-                            key: spec.id,
-                          },
-                          /* @__PURE__ */ import_react2.default.createElement(
-                            'div',
-                            {
-                              style: { display: 'flex', flexDirection: 'row', gap: 5, justifyContent: 'center' },
-                            },
-                            /* @__PURE__ */ import_react2.default.createElement(
-                              'div',
-                              {
-                                style: { flex: 1 },
-                              },
-                              (_a2 = specializations.get(spec.id)) == null ? void 0 : _a2.name
-                            ),
-                            /* @__PURE__ */ import_react2.default.createElement(
-                              'div',
-                              {
-                                style: {
-                                  display: 'flex',
-                                  flexDirection: 'row',
-                                  gap: 5,
-                                  justifyContent: 'center',
-                                  flex: 2,
-                                },
-                              },
-                              spec.traits.map((t) =>
-                                /* @__PURE__ */ import_react2.default.createElement(Trait, {
-                                  key: t,
-                                  traits,
-                                  id: t,
-                                })
-                              )
-                            )
-                          )
-                        )
-                      })
-                )
-              : null
-          )
-        : /* @__PURE__ */ import_react2.default.createElement(
-            'div',
-            {
-              style: { display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' },
-            },
-            config.broadcaster.apiKey ? 'Loading' : 'Not configured'
-          )
+      [text]
     )
+    return [copied, copy]
   }
-  function tidyDescriptions(d) {
-    const tidied = (d || '')
-      .replace(/<c(.+?)>/g, (_match, content) => {
-        return `<span class='description-${content.replace(/^=@/, '').trim()}'>`
-      })
-      .replace(/<\/c>/g, '</span>')
-      .replace(/<c.+?>(.+?)<\/c>/g, (_, content) => content)
-      .replace(/\\n/g, '<br>')
-    return tidied
-  }
+  var useCopyToClipboard_default = useCopyToClipboard
+
+  // src/components/primitives/Title.tsx
+  var React3 = __toModule(require_react())
   var Title = ({ children, style }) => {
-    return /* @__PURE__ */ import_react2.default.createElement(
+    return /* @__PURE__ */ React3.createElement(
       'h2',
       {
         style: __spreadValues(
@@ -26535,9 +26471,17 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
       children
     )
   }
+  var Title_default = Title
+
+  // src/components/primitives/TooltipContent.tsx
+  var import_react5 = __toModule(require_react())
+
+  // src/components/primitives/Tip.tsx
+  var import_react4 = __toModule(require_react())
+  var import_react_tippy = __toModule(require_react_tippy())
   var Tip = ({ html, children }) => {
-    const { ctx } = (0, import_react2.useContext)(TwitchContext)
-    return /* @__PURE__ */ import_react2.default.createElement(
+    const { ctx } = (0, import_react4.useContext)(TwitchContext)
+    return /* @__PURE__ */ import_react4.default.createElement(
       import_react_tippy.Tooltip,
       {
         position: 'top',
@@ -26553,227 +26497,9 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
       children
     )
   }
-  function Item({ equipment, equipmentById, slot }) {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j
-    const item = equipment.get(slot)
-    if (!item) return null
-    const upgrades = (item.upgrades || []).map((i) => equipmentById.get(i))
-    const infusions = (item.infusions || []).map((i) => equipmentById.get(i))
-    const TipHtml = /* @__PURE__ */ import_react2.default.createElement(
-      'div',
-      null,
-      /* @__PURE__ */ import_react2.default.createElement(
-        'div',
-        {
-          style: {
-            fontWeight: 'bold',
-            fontSize: '0.9rem',
-            marginBottom: '0.2em',
-            color: rarityColourMap[(_a = item.item) == null ? void 0 : _a.rarity] || rarityColourMap.Basic,
-            textShadow: ['Legendary', 'Basic', void 0].includes((_b = item.item) == null ? void 0 : _b.rarity)
-              ? '0px 0px 10px #ffffff'
-              : void 0,
-          },
-        },
-        (_c = item.item) == null ? void 0 : _c.name
-      ),
-      /* @__PURE__ */ import_react2.default.createElement(
-        'div',
-        {
-          style: { fontSize: '0.8rem' },
-        },
-        Object.entries(((_d = item.stats) == null ? void 0 : _d.attributes) || {}).map(([k, v]) =>
-          /* @__PURE__ */ import_react2.default.createElement(
-            'div',
-            {
-              key: k,
-            },
-            '+ ',
-            v,
-            ' ',
-            modifierMap[k] || k
-          )
-        ),
-        Object.entries(((_e = item.item) == null ? void 0 : _e.attributes) || {}).map(([k, v]) =>
-          /* @__PURE__ */ import_react2.default.createElement(
-            'div',
-            {
-              key: k,
-            },
-            '+ ',
-            v,
-            ' ',
-            modifierMap[k] || k
-          )
-        ),
-        (
-          ((_h = (_g = (_f = item.item) == null ? void 0 : _f.details) == null ? void 0 : _g.infix_upgrade) == null
-            ? void 0
-            : _h.attributes) || []
-        ).map((i) =>
-          /* @__PURE__ */ import_react2.default.createElement(
-            'div',
-            {
-              key: i.attribute,
-            },
-            '+ ',
-            i.modifier,
-            ' ',
-            modifierMap[i.attribute] || i.attribute
-          )
-        ),
-        (((_j = (_i = item.item) == null ? void 0 : _i.details) == null ? void 0 : _j.bonuses) || []).map((i, j) =>
-          /* @__PURE__ */ import_react2.default.createElement(
-            'div',
-            {
-              key: j,
-            },
-            i
-          )
-        )
-      ),
-      /* @__PURE__ */ import_react2.default.createElement(
-        'div',
-        {
-          style: { display: 'flex', flexDirection: 'column', gap: 5 },
-        },
-        upgrades.map((u) => {
-          var _a2, _b2, _c2, _d2, _e2
-          return /* @__PURE__ */ import_react2.default.createElement(
-            'div',
-            {
-              key: u.id,
-              style: { color: rarityColourMap[u.rarity] },
-            },
-            /* @__PURE__ */ import_react2.default.createElement('p', null, u.name),
-            /* @__PURE__ */ import_react2.default.createElement('p', {
-              style: { fontSize: '0.8rem' },
-              dangerouslySetInnerHTML: {
-                __html: tidyDescriptions(
-                  (_c2 = (_b2 = (_a2 = u.details) == null ? void 0 : _a2.infix_upgrade) == null ? void 0 : _b2.buff) ==
-                    null
-                    ? void 0
-                    : _c2.description
-                ),
-              },
-            }),
-            /* @__PURE__ */ import_react2.default.createElement('p', {
-              style: { fontSize: '0.7rem' },
-              dangerouslySetInnerHTML: {
-                __html: (_e2 = (_d2 = u.details) == null ? void 0 : _d2.bonuses) == null ? void 0 : _e2.join('<br>'),
-              },
-            })
-          )
-        })
-      ),
-      /* @__PURE__ */ import_react2.default.createElement(
-        'div',
-        {
-          style: { display: 'flex', flexDirection: 'column', gap: 5 },
-        },
-        infusions.map((u) => {
-          var _a2, _b2, _c2, _d2, _e2
-          return /* @__PURE__ */ import_react2.default.createElement(
-            'div',
-            {
-              key: u.id,
-              style: { color: rarityColourMap[u.rarity] },
-            },
-            /* @__PURE__ */ import_react2.default.createElement('p', null, u.name),
-            /* @__PURE__ */ import_react2.default.createElement('p', {
-              style: { fontSize: '0.8rem' },
-              dangerouslySetInnerHTML: {
-                __html: tidyDescriptions(
-                  (_c2 = (_b2 = (_a2 = u.details) == null ? void 0 : _a2.infix_upgrade) == null ? void 0 : _b2.buff) ==
-                    null
-                    ? void 0
-                    : _c2.description
-                ),
-              },
-            }),
-            /* @__PURE__ */ import_react2.default.createElement('p', {
-              style: { fontSize: '0.7rem' },
-              dangerouslySetInnerHTML: {
-                __html: (_e2 = (_d2 = u.details) == null ? void 0 : _d2.bonuses) == null ? void 0 : _e2.join('<br>'),
-              },
-            })
-          )
-        })
-      )
-    )
-    return /* @__PURE__ */ import_react2.default.createElement(
-      Tip,
-      {
-        html: TipHtml,
-      },
-      /* @__PURE__ */ import_react2.default.createElement('img', {
-        src: item == null ? void 0 : item.item.icon,
-        height: 35,
-        width: 40,
-      })
-    )
-  }
-  function Skill({ skills, id }) {
-    const item = skills.get(id)
-    if (!item) return null
-    const TipHtml = /* @__PURE__ */ import_react2.default.createElement(
-      'div',
-      {
-        style: { display: 'flex', flexDirection: 'column', gap: '0.1rem' },
-      },
-      /* @__PURE__ */ import_react2.default.createElement(
-        'div',
-        {
-          style: { fontWeight: 'bold', color: 'var(--color-tooltip-title)' },
-        },
-        item.name
-      ),
-      /* @__PURE__ */ import_react2.default.createElement('p', {
-        style: { fontSize: '0.8rem' },
-        dangerouslySetInnerHTML: { __html: tidyDescriptions(item.description) },
-      }),
-      /* @__PURE__ */ import_react2.default.createElement(
-        'div',
-        {
-          style: { display: 'flex', flexDirection: 'column', gap: 2 },
-        },
-        item.facts.map((f, i) =>
-          /* @__PURE__ */ import_react2.default.createElement(
-            'div',
-            {
-              key: i,
-              style: { display: 'flex', flexDirection: 'row', gap: 5, alignItems: 'center' },
-            },
-            f.icon
-              ? /* @__PURE__ */ import_react2.default.createElement('img', {
-                  height: 25,
-                  width: 25,
-                  src: f.icon,
-                })
-              : null,
-            /* @__PURE__ */ import_react2.default.createElement(
-              'div',
-              {
-                style: { textAlign: 'left', fontSize: '0.8rem' },
-              },
-              getFactText(f)
-            )
-          )
-        )
-      )
-    )
-    return /* @__PURE__ */ import_react2.default.createElement(
-      Tip,
-      {
-        html: TipHtml,
-      },
-      /* @__PURE__ */ import_react2.default.createElement('img', {
-        src: item == null ? void 0 : item.icon,
-        height: 40,
-        width: 40,
-      })
-    )
-  }
+  var Tip_default = Tip
+
+  // src/util/tooltips.ts
   function getFactText(t) {
     if (t.percent) {
       return `${t.text}: ${t.percent}%`
@@ -26787,15 +26513,270 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
       return t.description || t.text
     }
   }
-  function Trait({ traits, id }) {
-    const item = traits.get(id)
+  function tidyDescriptions(d) {
+    const tidied = (d || '')
+      .replace(/<c(.+?)>/g, (_match, content) => {
+        return `<span class='description-${content.replace(/^=@/, '').trim()}'>`
+      })
+      .replace(/<\/c>/g, '</span>')
+      .replace(/<c.+?>(.+?)<\/c>/g, (_, content) => content)
+      .replace(/\\n/g, '<br>')
+    return tidied
+  }
+
+  // src/components/primitives/TooltipContent.tsx
+  function Item({ equipment, equipmentById, slot }) {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k
+    const item = equipment.get(slot)
     if (!item) return null
-    const TipHtml = /* @__PURE__ */ import_react2.default.createElement(
+    const icon = ((_a = item.skin) == null ? void 0 : _a.icon) || ((_b = item.item) == null ? void 0 : _b.icon)
+    const upgrades = (item.upgrades || []).map((i) => equipmentById.get(i))
+    const infusions = (item.infusions || []).map((i) => equipmentById.get(i))
+    const TipHtml = /* @__PURE__ */ import_react5.default.createElement(
+      'div',
+      null,
+      /* @__PURE__ */ import_react5.default.createElement(
+        'div',
+        {
+          style: {
+            fontWeight: 'bold',
+            fontSize: '0.9rem',
+            color: rarityColourMap[(_c = item.item) == null ? void 0 : _c.rarity] || rarityColourMap.Basic,
+          },
+        },
+        (_d = item.item) == null ? void 0 : _d.name
+      ),
+      item.skin
+        ? /* @__PURE__ */ import_react5.default.createElement(
+            'div',
+            {
+              style: {
+                fontSize: '0.8rem',
+                marginBottom: '0.2em',
+              },
+            },
+            'Skin: ',
+            item.skin.name
+          )
+        : null,
+      /* @__PURE__ */ import_react5.default.createElement(
+        'div',
+        {
+          style: { fontSize: '0.8rem' },
+        },
+        Object.entries(((_e = item.stats) == null ? void 0 : _e.attributes) || {}).map(([k, v]) =>
+          /* @__PURE__ */ import_react5.default.createElement(
+            'div',
+            {
+              key: k,
+            },
+            '+ ',
+            v,
+            ' ',
+            modifierMap[k] || k
+          )
+        ),
+        Object.entries(((_f = item.item) == null ? void 0 : _f.attributes) || {}).map(([k, v]) =>
+          /* @__PURE__ */ import_react5.default.createElement(
+            'div',
+            {
+              key: k,
+            },
+            '+ ',
+            v,
+            ' ',
+            modifierMap[k] || k
+          )
+        ),
+        (
+          ((_i = (_h = (_g = item.item) == null ? void 0 : _g.details) == null ? void 0 : _h.infix_upgrade) == null
+            ? void 0
+            : _i.attributes) || []
+        ).map((i) =>
+          /* @__PURE__ */ import_react5.default.createElement(
+            'div',
+            {
+              key: i.attribute,
+            },
+            '+ ',
+            i.modifier,
+            ' ',
+            modifierMap[i.attribute] || i.attribute
+          )
+        ),
+        (((_k = (_j = item.item) == null ? void 0 : _j.details) == null ? void 0 : _k.bonuses) || []).map((i, j) =>
+          /* @__PURE__ */ import_react5.default.createElement(
+            'div',
+            {
+              key: j,
+            },
+            i
+          )
+        )
+      ),
+      /* @__PURE__ */ import_react5.default.createElement(
+        'div',
+        {
+          style: { display: 'flex', flexDirection: 'column', gap: 5 },
+        },
+        upgrades.map((u) => {
+          var _a2, _b2, _c2, _d2, _e2
+          return /* @__PURE__ */ import_react5.default.createElement(
+            'div',
+            {
+              key: u.id,
+              style: { color: rarityColourMap[u.rarity] },
+            },
+            /* @__PURE__ */ import_react5.default.createElement(
+              'p',
+              {
+                style: { fontSize: '0.9rem' },
+              },
+              u.name
+            ),
+            /* @__PURE__ */ import_react5.default.createElement('p', {
+              style: { fontSize: '0.8rem' },
+              dangerouslySetInnerHTML: {
+                __html: tidyDescriptions(
+                  (_c2 = (_b2 = (_a2 = u.details) == null ? void 0 : _a2.infix_upgrade) == null ? void 0 : _b2.buff) ==
+                    null
+                    ? void 0
+                    : _c2.description
+                ),
+              },
+            }),
+            /* @__PURE__ */ import_react5.default.createElement('p', {
+              style: { fontSize: '0.7rem' },
+              dangerouslySetInnerHTML: {
+                __html: (_e2 = (_d2 = u.details) == null ? void 0 : _d2.bonuses) == null ? void 0 : _e2.join('<br>'),
+              },
+            })
+          )
+        })
+      ),
+      /* @__PURE__ */ import_react5.default.createElement(
+        'div',
+        {
+          style: { display: 'flex', flexDirection: 'column', gap: 5 },
+        },
+        infusions.map((u) => {
+          var _a2, _b2, _c2, _d2, _e2
+          return /* @__PURE__ */ import_react5.default.createElement(
+            'div',
+            {
+              key: u.id,
+              style: { color: rarityColourMap[u.rarity] },
+            },
+            /* @__PURE__ */ import_react5.default.createElement(
+              'p',
+              {
+                style: { fontSize: '0.9rem' },
+              },
+              u.name
+            ),
+            /* @__PURE__ */ import_react5.default.createElement('p', {
+              style: { fontSize: '0.8rem' },
+              dangerouslySetInnerHTML: {
+                __html: tidyDescriptions(
+                  (_c2 = (_b2 = (_a2 = u.details) == null ? void 0 : _a2.infix_upgrade) == null ? void 0 : _b2.buff) ==
+                    null
+                    ? void 0
+                    : _c2.description
+                ),
+              },
+            }),
+            /* @__PURE__ */ import_react5.default.createElement('p', {
+              style: { fontSize: '0.7rem' },
+              dangerouslySetInnerHTML: {
+                __html: (_e2 = (_d2 = u.details) == null ? void 0 : _d2.bonuses) == null ? void 0 : _e2.join('<br>'),
+              },
+            })
+          )
+        })
+      )
+    )
+    return /* @__PURE__ */ import_react5.default.createElement(
+      Tip_default,
+      {
+        html: TipHtml,
+      },
+      /* @__PURE__ */ import_react5.default.createElement('img', {
+        src: icon,
+        height: 35,
+        width: 40,
+      })
+    )
+  }
+  function Skill({ skills, id }) {
+    const item = skills.get(id)
+    if (!item) return null
+    const TipHtml = /* @__PURE__ */ import_react5.default.createElement(
       'div',
       {
         style: { display: 'flex', flexDirection: 'column', gap: '0.1rem' },
       },
-      /* @__PURE__ */ import_react2.default.createElement(
+      /* @__PURE__ */ import_react5.default.createElement(
+        'div',
+        {
+          style: { fontWeight: 'bold', color: 'var(--color-tooltip-title)' },
+        },
+        item.name
+      ),
+      /* @__PURE__ */ import_react5.default.createElement('p', {
+        style: { fontSize: '0.8rem' },
+        dangerouslySetInnerHTML: { __html: tidyDescriptions(item.description) },
+      }),
+      /* @__PURE__ */ import_react5.default.createElement(
+        'div',
+        {
+          style: { display: 'flex', flexDirection: 'column', gap: 2 },
+        },
+        item.facts.map((f, i) =>
+          /* @__PURE__ */ import_react5.default.createElement(
+            'div',
+            {
+              key: i,
+              style: { display: 'flex', flexDirection: 'row', gap: 5, alignItems: 'center' },
+            },
+            f.icon
+              ? /* @__PURE__ */ import_react5.default.createElement('img', {
+                  height: 25,
+                  width: 25,
+                  src: f.icon,
+                })
+              : null,
+            /* @__PURE__ */ import_react5.default.createElement(
+              'div',
+              {
+                style: { textAlign: 'left', fontSize: '0.8rem' },
+              },
+              getFactText(f)
+            )
+          )
+        )
+      )
+    )
+    return /* @__PURE__ */ import_react5.default.createElement(
+      Tip_default,
+      {
+        html: TipHtml,
+      },
+      /* @__PURE__ */ import_react5.default.createElement('img', {
+        src: item == null ? void 0 : item.icon,
+        height: 40,
+        width: 40,
+      })
+    )
+  }
+  function Trait({ traits, id }) {
+    const item = traits.get(id)
+    if (!item) return null
+    const TipHtml = /* @__PURE__ */ import_react5.default.createElement(
+      'div',
+      {
+        style: { display: 'flex', flexDirection: 'column', gap: '0.1rem' },
+      },
+      /* @__PURE__ */ import_react5.default.createElement(
         'div',
         {
           style: { fontWeight: 'bold', color: 'var(--color-tooltip-title)' },
@@ -26803,30 +26784,30 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
         item.name
       ),
       item.description
-        ? /* @__PURE__ */ import_react2.default.createElement('p', {
+        ? /* @__PURE__ */ import_react5.default.createElement('p', {
             style: { fontSize: '0.9rem' },
             dangerouslySetInnerHTML: { __html: tidyDescriptions(item.description) },
           })
-        : /* @__PURE__ */ import_react2.default.createElement(
+        : /* @__PURE__ */ import_react5.default.createElement(
             'div',
             {
               style: { display: 'flex', flexDirection: 'column', gap: 2 },
             },
             item.facts.map((f, i) =>
-              /* @__PURE__ */ import_react2.default.createElement(
+              /* @__PURE__ */ import_react5.default.createElement(
                 'div',
                 {
                   key: i,
                   style: { display: 'flex', flexDirection: 'row', gap: 5, alignItems: 'center' },
                 },
                 f.icon
-                  ? /* @__PURE__ */ import_react2.default.createElement('img', {
+                  ? /* @__PURE__ */ import_react5.default.createElement('img', {
                       height: 25,
                       width: 25,
                       src: f.icon,
                     })
                   : null,
-                /* @__PURE__ */ import_react2.default.createElement(
+                /* @__PURE__ */ import_react5.default.createElement(
                   'div',
                   {
                     style: { textAlign: 'left', fontSize: '0.8rem' },
@@ -26837,12 +26818,12 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
             )
           )
     )
-    return /* @__PURE__ */ import_react2.default.createElement(
-      Tip,
+    return /* @__PURE__ */ import_react5.default.createElement(
+      Tip_default,
       {
         html: TipHtml,
       },
-      /* @__PURE__ */ import_react2.default.createElement('img', {
+      /* @__PURE__ */ import_react5.default.createElement('img', {
         src: item == null ? void 0 : item.icon,
         height: 30,
         width: 30,
@@ -26850,13 +26831,313 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
     )
   }
 
+  // src/pages/panel.tsx
+  function Index() {
+    var _a, _b, _c, _d, _e, _f, _g
+    const { config } = (0, import_react6.useContext)(TwitchContext)
+    const { character, eliteSpec, equipment, gamemode, equipmentById, skills, specializations, traits } = useBuildData()
+    const buildTemplateString = useBuildTemplateString(character, traits, gamemode)
+    const [copied, copy] = useCopyToClipboard_default(buildTemplateString)
+    return /* @__PURE__ */ import_react6.default.createElement(
+      'div',
+      {
+        style: { padding: 5, marginTop: -6, overflow: 'hidden', display: 'flex', flexDirection: 'column' },
+      },
+      character
+        ? /* @__PURE__ */ import_react6.default.createElement(
+            import_react6.default.Fragment,
+            null,
+            /* @__PURE__ */ import_react6.default.createElement(
+              Title_default,
+              {
+                style: { color: `var(--color-${(_a = character.profession) == null ? void 0 : _a.toLowerCase()})` },
+              },
+              character.name,
+              ' (',
+              eliteSpec ? eliteSpec.name : character.profession,
+              ')'
+            ),
+            /* @__PURE__ */ import_react6.default.createElement(
+              'div',
+              {
+                style: { display: 'flex', flexDirection: 'row', gap: 15, justifyContent: 'center' },
+              },
+              gamemode === 'pvp'
+                ? null
+                : /* @__PURE__ */ import_react6.default.createElement(
+                    'div',
+                    {
+                      style: { display: 'flex', flexDirection: 'column', gap: 5, alignItems: 'center' },
+                    },
+                    /* @__PURE__ */ import_react6.default.createElement(Item, {
+                      equipment,
+                      equipmentById,
+                      slot: 'Helm',
+                    }),
+                    /* @__PURE__ */ import_react6.default.createElement(Item, {
+                      equipment,
+                      equipmentById,
+                      slot: 'Shoulders',
+                    }),
+                    /* @__PURE__ */ import_react6.default.createElement(Item, {
+                      equipment,
+                      equipmentById,
+                      slot: 'Coat',
+                    }),
+                    /* @__PURE__ */ import_react6.default.createElement(Item, {
+                      equipment,
+                      equipmentById,
+                      slot: 'Gloves',
+                    }),
+                    /* @__PURE__ */ import_react6.default.createElement(Item, {
+                      equipment,
+                      equipmentById,
+                      slot: 'Leggings',
+                    }),
+                    /* @__PURE__ */ import_react6.default.createElement(Item, {
+                      equipment,
+                      equipmentById,
+                      slot: 'Boots',
+                    })
+                  ),
+              /* @__PURE__ */ import_react6.default.createElement(
+                'div',
+                {
+                  style: {
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: gamemode === 'pvp' ? 5 : 45,
+                    alignItems: 'center',
+                  },
+                },
+                gamemode === 'pvp'
+                  ? null
+                  : /* @__PURE__ */ import_react6.default.createElement(
+                      'div',
+                      {
+                        style: { display: 'flex', flexDirection: 'column', gap: 5, alignItems: 'center' },
+                      },
+                      /* @__PURE__ */ import_react6.default.createElement(
+                        'div',
+                        {
+                          style: { display: 'flex', flexDirection: 'row', gap: 5 },
+                        },
+                        /* @__PURE__ */ import_react6.default.createElement(Item, {
+                          equipment,
+                          equipmentById,
+                          slot: 'Backpack',
+                        }),
+                        /* @__PURE__ */ import_react6.default.createElement(Item, {
+                          equipment,
+                          equipmentById,
+                          slot: 'Accessory1',
+                        }),
+                        /* @__PURE__ */ import_react6.default.createElement(Item, {
+                          equipment,
+                          equipmentById,
+                          slot: 'Accessory2',
+                        })
+                      ),
+                      /* @__PURE__ */ import_react6.default.createElement(
+                        'div',
+                        {
+                          style: { display: 'flex', flexDirection: 'row', gap: 5 },
+                        },
+                        /* @__PURE__ */ import_react6.default.createElement(Item, {
+                          equipment,
+                          equipmentById,
+                          slot: 'Amulet',
+                        }),
+                        /* @__PURE__ */ import_react6.default.createElement(Item, {
+                          equipment,
+                          equipmentById,
+                          slot: 'Ring1',
+                        }),
+                        /* @__PURE__ */ import_react6.default.createElement(Item, {
+                          equipment,
+                          equipmentById,
+                          slot: 'Ring2',
+                        })
+                      )
+                    ),
+                gamemode === 'pvp'
+                  ? /* @__PURE__ */ import_react6.default.createElement(
+                      'div',
+                      {
+                        style: { display: 'flex', flexDirection: 'row', gap: 5 },
+                      },
+                      /* @__PURE__ */ import_react6.default.createElement(Item, {
+                        equipment,
+                        equipmentById,
+                        slot: 'PvP_Amulet',
+                      }),
+                      /* @__PURE__ */ import_react6.default.createElement(Item, {
+                        equipment,
+                        equipmentById,
+                        slot: 'PvP_Rune',
+                      })
+                    )
+                  : null,
+                /* @__PURE__ */ import_react6.default.createElement(
+                  'div',
+                  {
+                    style: { display: 'flex', flexDirection: 'column', gap: 5 },
+                  },
+                  /* @__PURE__ */ import_react6.default.createElement(
+                    'div',
+                    {
+                      style: { display: 'flex', flexDirection: 'row', gap: 5 },
+                    },
+                    /* @__PURE__ */ import_react6.default.createElement(Item, {
+                      equipment,
+                      equipmentById,
+                      slot: 'WeaponA1',
+                    }),
+                    /* @__PURE__ */ import_react6.default.createElement(Item, {
+                      equipment,
+                      equipmentById,
+                      slot: 'WeaponA2',
+                    })
+                  ),
+                  /* @__PURE__ */ import_react6.default.createElement(
+                    'div',
+                    {
+                      style: { display: 'flex', flexDirection: 'row', gap: 5 },
+                    },
+                    /* @__PURE__ */ import_react6.default.createElement(Item, {
+                      equipment,
+                      equipmentById,
+                      slot: 'WeaponB1',
+                    }),
+                    /* @__PURE__ */ import_react6.default.createElement(Item, {
+                      equipment,
+                      equipmentById,
+                      slot: 'WeaponB2',
+                    })
+                  )
+                )
+              )
+            ),
+            character.skills
+              ? /* @__PURE__ */ import_react6.default.createElement(
+                  import_react6.default.Fragment,
+                  null,
+                  /* @__PURE__ */ import_react6.default.createElement(Title_default, null, 'Skills'),
+                  /* @__PURE__ */ import_react6.default.createElement(
+                    'div',
+                    {
+                      style: { display: 'flex', flexDirection: 'row', gap: 5, justifyContent: 'center' },
+                    },
+                    /* @__PURE__ */ import_react6.default.createElement(Skill, {
+                      skills,
+                      id: (_b = character.skills[gamemode]) == null ? void 0 : _b.heal,
+                    }),
+                    /* @__PURE__ */ import_react6.default.createElement(Skill, {
+                      skills,
+                      id: (_c = character.skills[gamemode]) == null ? void 0 : _c.utilities[0],
+                    }),
+                    /* @__PURE__ */ import_react6.default.createElement(Skill, {
+                      skills,
+                      id: (_d = character.skills[gamemode]) == null ? void 0 : _d.utilities[1],
+                    }),
+                    /* @__PURE__ */ import_react6.default.createElement(Skill, {
+                      skills,
+                      id: (_e = character.skills[gamemode]) == null ? void 0 : _e.utilities[2],
+                    }),
+                    /* @__PURE__ */ import_react6.default.createElement(Skill, {
+                      skills,
+                      id: (_f = character.skills[gamemode]) == null ? void 0 : _f.elite,
+                    })
+                  )
+                )
+              : null,
+            character.specializations
+              ? /* @__PURE__ */ import_react6.default.createElement(
+                  import_react6.default.Fragment,
+                  null,
+                  /* @__PURE__ */ import_react6.default.createElement(Title_default, null, 'Traits'),
+                  (_g = character.specializations[gamemode]) == null
+                    ? void 0
+                    : _g.map((spec) => {
+                        var _a2
+                        return /* @__PURE__ */ import_react6.default.createElement(
+                          'div',
+                          {
+                            key: spec.id,
+                          },
+                          /* @__PURE__ */ import_react6.default.createElement(
+                            'div',
+                            {
+                              style: { display: 'flex', flexDirection: 'row', gap: 5, justifyContent: 'center' },
+                            },
+                            /* @__PURE__ */ import_react6.default.createElement(
+                              'div',
+                              {
+                                style: { flex: 1 },
+                              },
+                              (_a2 = specializations.get(spec.id)) == null ? void 0 : _a2.name
+                            ),
+                            /* @__PURE__ */ import_react6.default.createElement(
+                              'div',
+                              {
+                                style: {
+                                  display: 'flex',
+                                  flexDirection: 'row',
+                                  gap: 5,
+                                  justifyContent: 'center',
+                                  flex: 2,
+                                },
+                              },
+                              spec.traits.map((t) =>
+                                /* @__PURE__ */ import_react6.default.createElement(Trait, {
+                                  key: t,
+                                  traits,
+                                  id: t,
+                                })
+                              )
+                            )
+                          )
+                        )
+                      })
+                )
+              : null,
+            /* @__PURE__ */ import_react6.default.createElement(
+              'button',
+              {
+                style: {
+                  textAlign: 'right',
+                  fontSize: '0.7rem',
+                  position: 'absolute',
+                  bottom: 4,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  opacity: 0.8,
+                  cursor: 'copy',
+                  padding: '1px 2px',
+                  lineHeight: '0.7rem',
+                },
+                onClick: copy,
+              },
+              copied ? 'Copied!' : 'Copy Build Template'
+            )
+          )
+        : /* @__PURE__ */ import_react6.default.createElement(
+            'div',
+            {
+              style: { display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' },
+            },
+            config.broadcaster.apiKey ? 'Loading' : 'Not configured'
+          )
+    )
+  }
+
   // src/mounts/panel.tsx
   console.info('[mount] Panel')
   import_react_dom.default.render(
-    /* @__PURE__ */ import_react3.default.createElement(
+    /* @__PURE__ */ import_react7.default.createElement(
       Twitch_default,
       null,
-      /* @__PURE__ */ import_react3.default.createElement(Index, null)
+      /* @__PURE__ */ import_react7.default.createElement(Index, null)
     ),
     document.querySelector('#app')
   )
