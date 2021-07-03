@@ -19,7 +19,8 @@ Go to the extension version `Capabilities` tab, scroll to the bottom, and tick `
 
 ### Walkthrough Guide
 
-```Change log:
+```
+Change log:
 - Changes
 
 Walkthrough Guide:

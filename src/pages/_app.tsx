@@ -1,10 +1,26 @@
 import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
+import * as Sentry from '@sentry/react'
+import { Integrations } from '@sentry/tracing'
 import useFathom from '../components/hooks/useFathom'
 import SEO from '../../next-seo.config'
 import EmojiFavicon from '../components/primitives/EmojiFavicon'
 import TwitchContext from '../components/context/Twitch'
+import ErrorBoundary from '../components/primitives/ErrorBoundary'
+import { VERSION } from '../util/constants'
 import 'react-tippy/dist/tippy.css'
+
+try {
+  Sentry.init({
+    dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+    integrations: [new Integrations.BrowserTracing()],
+    tracesSampleRate: 1.0,
+    release: VERSION,
+    environment: 'local',
+  })
+} catch (e) {
+  console.error('[sentry]', e)
+}
 
 function App({ Component, pageProps }) {
   useFathom()
@@ -161,11 +177,13 @@ function App({ Component, pageProps }) {
         }
       `}</style>
       <DefaultSeo {...SEO} />
-      <Component {...pageProps} />
+      <ErrorBoundary>
+        <Component {...pageProps} />
+      </ErrorBoundary>
       <EmojiFavicon emoji="🤖" />
       <script src="https://extension-files.twitch.tv/helper/v1/twitch-ext.min.js"></script>
     </TwitchContext>
   )
 }
 
-export default App
+export default Sentry.withProfiler(App)

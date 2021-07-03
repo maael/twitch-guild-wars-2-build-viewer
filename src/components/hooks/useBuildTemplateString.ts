@@ -31,7 +31,9 @@ export default function useBuildTemplateString(character: any, traits: Map<numbe
 
       return build.toString()
     } catch (e) {
-      console.error(e)
+      if (e.message !== 'btoa is not defined') {
+        console.error(e)
+      }
       return ''
     }
   }, [character, gamemode, traits])

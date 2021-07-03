@@ -4,6 +4,8 @@ import useLocalstorage from '../components/hooks/useLocalstorage'
 
 export default function Index() {
   const { twitch, config } = useContext(TwitchContext)
+  const [saved, setSaved] = useState(false)
+  const [error, setError] = useState('')
   const [apiKey, setApiKey] = useState(() => config.broadcaster.apiKey || '')
   const [character, setCharacter] = useState(() => config.broadcaster.character || '')
   const [gamemode, setGamemode] = useState(() => config.broadcaster.gamemode || 'pve')
@@ -23,13 +25,26 @@ export default function Index() {
   }, [gamemode, config.broadcaster.gamemode])
   const getData = useCallback(
     async (apiKey) => {
-      if (!apiKey) return
-      const res = await fetch(
-        `https://api.guildwars2.com/v2/characters?access_token=${encodeURIComponent(apiKey)}&ids=all`
-      )
-      if (res.ok) {
-        const data = await res.json()
-        setCharactersByKey((c) => ({ ...c, [apiKey]: data }))
+      try {
+        if (!apiKey) {
+          throw new Error('No API Key')
+        }
+        try {
+          setError('')
+          const res = await fetch(
+            `https://api.guildwars2.com/v2/characters?access_token=${encodeURIComponent(apiKey)}&ids=all`
+          )
+          if (res.ok) {
+            const data = await res.json()
+            setCharactersByKey((c) => ({ ...c, [apiKey]: data }))
+          } else {
+            throw new Error('There was a problem getting characters')
+          }
+        } catch {
+          throw new Error('There was a problem getting characters')
+        }
+      } catch (e) {
+        setError(e.message)
       }
     },
     [setCharactersByKey]
@@ -39,6 +54,7 @@ export default function Index() {
   }, [apiKey, getData])
   const save = useCallback(
     (e) => {
+      setSaved(false)
       e.preventDefault()
       const newConfig = {
         ...config.broadcaster,
@@ -47,8 +63,9 @@ export default function Index() {
         gamemode: (gamemode || 'pve').trim().toLowerCase(),
       }
       twitch.configuration.set('broadcaster', '1.0', JSON.stringify(newConfig))
+      setSaved(true)
     },
-    [apiKey, character, gamemode, config.broadcaster, twitch, characters]
+    [apiKey, character, gamemode, config.broadcaster, twitch, characters, setSaved]
   )
   const formRef = useRef<HTMLFormElement>(null)
   return (
@@ -65,6 +82,8 @@ export default function Index() {
             <a
               href="https://account.arena.net/applications"
               style={{ color: 'lightblue', textDecoration: 'underline' }}
+              target="_blank"
+              rel="noreferer noorigin noreferrer"
             >
               here
             </a>
@@ -98,8 +117,12 @@ export default function Index() {
           <button
             type="button"
             onClick={() => {
+              setError('')
               const key = (formRef.current?.elements as any).apiKey.value
-              if (!key) return
+              if (!key) {
+                setError('Requires an API key')
+                return
+              }
               getData(key)
             }}
           >
@@ -108,11 +131,45 @@ export default function Index() {
           <button
             type="reset"
             onClick={() => {
+              setSaved(false)
               twitch.configuration.set('broadcaster', '1.0', JSON.stringify({}))
+              setSaved(true)
             }}
           >
             Clear
           </button>
+        </div>
+        <div
+          style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', gap: 5 }}
+        >
+          {saved ? (
+            <div
+              style={{
+                backgroundColor: '#34D399',
+                border: '1px solid #065F46',
+                color: '#065F46',
+                display: 'inline-block',
+                padding: '2px 5px',
+                borderRadius: '0.3rem',
+              }}
+            >
+              Saved
+            </div>
+          ) : null}
+          {error ? (
+            <div
+              style={{
+                backgroundColor: '#F87171',
+                border: '1px solid #991B1B',
+                color: '#991B1B',
+                display: 'inline-block',
+                padding: '2px 5px',
+                borderRadius: '0.3rem',
+              }}
+            >
+              Error: {error}
+            </div>
+          ) : null}
         </div>
       </form>
     </div>
