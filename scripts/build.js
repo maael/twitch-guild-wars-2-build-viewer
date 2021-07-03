@@ -14,8 +14,6 @@ const options = {
   outdir: path.join(__dirname, '..', 'output'),
   bundle: true,
   define,
-  minify: true,
-  sourcemap: true,
   logLevel: 'info',
   target: 'es2017',
 }
