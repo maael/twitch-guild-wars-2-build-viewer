@@ -29,9 +29,12 @@ const TwitchContextWrapper: React.FC = ({ children }) => {
   const [config, setConfig] = useState({ broadcaster: {} })
   const [twitch, setTwitch] = useState()
   useEffect(() => {
-    const twitch = (window as any).Twitch.ext
-    if (!twitch) return
-    setTwitch((window as any).Twitch.ext)
+    const twitch = (window as any).Twitch?.ext
+    if (!twitch) {
+      console.warn('Twitch not loaded')
+      return
+    }
+    setTwitch((window as any).Twitch?.ext)
     console.info(twitch, twitch.configuration)
     setConfig({ broadcaster: JSON.parse(twitch.configuration.broadcaster?.content || '{}') })
     twitch.configuration.onChanged((e) => {
