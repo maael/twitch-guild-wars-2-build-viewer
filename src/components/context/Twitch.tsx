@@ -29,25 +29,25 @@ const TwitchContextWrapper: React.FC = ({ children }) => {
   const [config, setConfig] = useState({ broadcaster: {} })
   const [twitch, setTwitch] = useState()
   useEffect(() => {
-    const twitch = (window as any).Twitch?.ext
-    if (!twitch) {
+    const twitchExt = (window as any).Twitch?.ext
+    if (!twitchExt) {
       console.warn('Twitch not loaded')
       return
     }
-    setTwitch((window as any).Twitch?.ext)
-    console.info(twitch, twitch.configuration)
-    setConfig({ broadcaster: JSON.parse(twitch.configuration.broadcaster?.content || '{}') })
-    twitch.configuration.onChanged((e) => {
+    setTwitch(twitchExt)
+    console.info(twitchExt, twitchExt.configuration)
+    setConfig({ broadcaster: JSON.parse(twitchExt.configuration.broadcaster?.content || '{}') })
+    twitchExt.configuration.onChanged((e) => {
       console.info('conf', e)
-      setConfig({ broadcaster: JSON.parse(twitch.configuration.broadcaster?.content || '{}') })
+      setConfig({ broadcaster: JSON.parse(twitchExt.configuration.broadcaster?.content || '{}') })
     })
-    twitch.onAuthorized((e: TwitchAuth) => {
+    twitchExt.onAuthorized((e: TwitchAuth) => {
       setAuth(e)
-      if (!twitch.configuration.broadcaster) {
-        twitch.configuration.set('broadcaster', '1.0', '{}')
+      if (!twitchExt.configuration.broadcaster) {
+        twitchExt.configuration.set('broadcaster', '1.0', '{}')
       }
     })
-    twitch.onContext((e: TwitchContext) => {
+    twitchExt.onContext((e: TwitchContext) => {
       document.body.classList.toggle('dark', e.theme === 'dark')
       setCtx(e)
     })
