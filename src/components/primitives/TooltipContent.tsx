@@ -99,7 +99,7 @@ export function Skill({ skills, id }: { skills?: any; id?: number }) {
       <div style={{ fontWeight: 'bold', color: 'var(--color-tooltip-title)' }}>{item.name}</div>
       <p style={{ fontSize: '0.8rem' }} dangerouslySetInnerHTML={{ __html: tidyDescriptions(item.description) }} />
       <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        {item.facts.map((f, i) => (
+        {(item.facts || []).map((f, i) => (
           <div key={i} style={{ display: 'flex', flexDirection: 'row', gap: 5, alignItems: 'center' }}>
             {f.icon ? <img height={25} width={25} src={f.icon} /> : null}
             <div style={{ textAlign: 'left', fontSize: '0.8rem' }}>{getFactText(f)}</div>
@@ -125,7 +125,7 @@ export function Trait({ traits, id }: { traits?: any; id?: number }) {
         <p style={{ fontSize: '0.9rem' }} dangerouslySetInnerHTML={{ __html: tidyDescriptions(item.description) }} />
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          {item.facts.map((f, i) => (
+          {(item.facts || []).map((f, i) => (
             <div key={i} style={{ display: 'flex', flexDirection: 'row', gap: 5, alignItems: 'center' }}>
               {f.icon ? <img height={25} width={25} src={f.icon} /> : null}
               <div style={{ textAlign: 'left', fontSize: '0.8rem' }}>{getFactText(f)}</div>

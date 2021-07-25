@@ -34619,7 +34619,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
         {
           style: { display: 'flex', flexDirection: 'column', gap: 2 },
         },
-        item.facts.map((f, i) =>
+        (item.facts || []).map((f, i) =>
           /* @__PURE__ */ import_react5.default.createElement(
             'div',
             {
@@ -34681,7 +34681,7 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
             {
               style: { display: 'flex', flexDirection: 'column', gap: 2 },
             },
-            item.facts.map((f, i) =>
+            (item.facts || []).map((f, i) =>
               /* @__PURE__ */ import_react5.default.createElement(
                 'div',
                 {
