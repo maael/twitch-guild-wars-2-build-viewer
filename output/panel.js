@@ -34028,28 +34028,31 @@ For more info, visit https://reactjs.org/link/mock-scheduler`)
     const [config, setConfig] = (0, import_react.useState)({ broadcaster: {} })
     const [twitch, setTwitch] = (0, import_react.useState)()
     ;(0, import_react.useEffect)(() => {
-      var _a
-      const twitch2 = window.Twitch.ext
-      if (!twitch2) return
-      setTwitch(window.Twitch.ext)
-      console.info(twitch2, twitch2.configuration)
+      var _a, _b
+      const twitchExt = (_a = window.Twitch) == null ? void 0 : _a.ext
+      if (!twitchExt) {
+        console.warn('Twitch not loaded')
+        return
+      }
+      setTwitch(twitchExt)
+      console.info(twitchExt, twitchExt.configuration)
       setConfig({
-        broadcaster: JSON.parse(((_a = twitch2.configuration.broadcaster) == null ? void 0 : _a.content) || '{}'),
+        broadcaster: JSON.parse(((_b = twitchExt.configuration.broadcaster) == null ? void 0 : _b.content) || '{}'),
       })
-      twitch2.configuration.onChanged((e) => {
+      twitchExt.configuration.onChanged((e) => {
         var _a2
         console.info('conf', e)
         setConfig({
-          broadcaster: JSON.parse(((_a2 = twitch2.configuration.broadcaster) == null ? void 0 : _a2.content) || '{}'),
+          broadcaster: JSON.parse(((_a2 = twitchExt.configuration.broadcaster) == null ? void 0 : _a2.content) || '{}'),
         })
       })
-      twitch2.onAuthorized((e) => {
+      twitchExt.onAuthorized((e) => {
         setAuth(e)
-        if (!twitch2.configuration.broadcaster) {
-          twitch2.configuration.set('broadcaster', '1.0', '{}')
+        if (!twitchExt.configuration.broadcaster) {
+          twitchExt.configuration.set('broadcaster', '1.0', '{}')
         }
       })
-      twitch2.onContext((e) => {
+      twitchExt.onContext((e) => {
         document.body.classList.toggle('dark', e.theme === 'dark')
         setCtx(e)
       })

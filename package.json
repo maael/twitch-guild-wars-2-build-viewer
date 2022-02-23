@@ -11,7 +11,8 @@
     "prettier": "prettier --ignore-path .gitignore --write",
     "lint": "eslint --ext .ts,.tsx -c .eslintrc --ignore-path .gitignore",
     "export": "next build && rm -r out extension.zip && next export && (cd out && zip -r ../extension.zip ./*)",
-    "export-js": "dotenv-extended node scripts/build.js && rm -rf extension.zip && (cd output && zip -r ../extension.zip ./*)"
+    "export-js-output": "dotenv-extended node scripts/build.js",
+    "export-js": "yarn export-js-output && rm -rf extension.zip && (cd output && zip -r ../extension.zip ./*)"
   },
   "husky": {
     "hooks": {
