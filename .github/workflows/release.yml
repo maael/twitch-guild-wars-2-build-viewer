@@ -19,6 +19,9 @@ jobs:
       - name: Install dependencies
         run: yarn
       - name: Bundle
+        env:
+          NEXT_PUBLIC_SENTRY_DSN: ${{ secrets.NEXT_PUBLIC_SENTRY_DSN }}
+          NEXT_PUBLIC_FATHOM_ID: ${{ secrets.NEXT_PUBLIC_FATHOM_ID }}
         run: yarn export-js-output
       - name: Archive Release
         uses: thedoctor0/zip-release@master
