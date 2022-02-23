@@ -116,3 +116,6 @@ dist
 .pnp.*
 
 extension.zip
+
+output/config.js
+output/panel.js
